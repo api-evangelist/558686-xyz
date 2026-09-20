@@ -1,0 +1,116 @@
+generated: '2026-09-19'
+method: searched
+source: >-
+  Registry metadata read unauthenticated on 2026-09-19/20: registry.npmjs.org (search "gpt55",
+  "558686"; direct lookups gpt55-x402-gateway, gpt55, @gpt55/client, x402-gpt55 -> 404),
+  pypi.org/pypi/{gpt55, gpt55-x402-gateway, sub2api}/json, and the third-party libraries the
+  provider's docs tell buyers to install (@x402/fetch, @x402/evm, viem, openai);
+  api.github.com/repos/wangletiand/gpt55-x402-gateway (+ contents, releases, package.json);
+  https://gpt55.558686.xyz/x402/first-payment-client.mjs and .json; the buyer guide, README and
+  Sub2API docs.
+checked: '2026-09-19'
+summary:
+  first_party_package_count: 2
+  official_client_sdk_count: 1
+  third_party_package_count: 4
+  note: >-
+    The provider publishes NOTHING to a package registry. Its one distributable client is a
+    single-file Node script, first-payment-client.mjs, served from its own host
+    (https://gpt55.558686.xyz/x402/first-payment-client.mjs, 111,875 B, text/javascript) and
+    mirrored in the public repository root and examples/x402-first-payment-client. It is a real
+    first-party client for the API - it fetches the 402 quote, validates amount/network/asset/
+    payTo against local policy, and (only when PAY_REAL_X402=1) signs and retries with the buyer's
+    key kept in the buyer's process - so SDKs is emitted on that basis, with the caveat that it is
+    a script to download, not a library to install. The repository package gpt55-x402-gateway
+    (1.0.0, MIT, "private": true) is the local MCP wrapper + that client and is not on npm. For
+    everything else the docs point buyers at third-party libraries: the official x402 client
+    packages (@x402/fetch, @x402/evm) with viem for Base wallets, and the OpenAI SDKs (base_url
+    override) for Sub2API. The PyPI package `sub2api` (0.2.0, Eight Labs, "Python client for the
+    user-facing API of Sub2API instances") targets the open-source Sub2API software generically,
+    not this deployment, and is not first-party; the npm results for "gpt55" (pi-gpt55-complete,
+    @devinilabs/reelstack) are unrelated.
+  currency_note: >-
+    Neither first-party artifact carries a version string a consumer can read: the script
+    embeds none (it identifies its contract only by the companion JSON's schemaVersion 2026-06-21
+    and x402ProtocolVersion v2) and the repository has no releases or tags, so `version: null`
+    below is "checked, nothing to record". The repository's last push is 2026-08-24 (created
+    2026-07-31); the hosted script is regenerated with the site. The third-party libraries the
+    docs name were all published within the week before this pass.
+packages:
+  - language: javascript
+    registry: self-hosted
+    name: first-payment-client.mjs
+    url: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+    companion_contract: https://gpt55.558686.xyz/x402/first-payment-client.json
+    page: https://gpt55.558686.xyz/x402/first-payment-client
+    install: 'curl -O https://gpt55.558686.xyz/x402/first-payment-client.mjs (or git clone https://github.com/wangletiand/gpt55-x402-gateway && npm install)'
+    run: 'ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs   # quote-only (default)'
+    run_paid: 'PAY_REAL_X402=1 ROUTE_ID=translate-canary MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs'
+    official: true
+    kind: [client, x402-buyer-client, cli-script]
+    version: null
+    version_note: 'no version constant in the file; companion JSON schemaVersion 2026-06-21, x402ProtocolVersion v2; distributed unpinned from the host'
+    published: null
+    published_note: 'regenerated with the site (llms.txt/agent card link to it); repository copy last pushed 2026-08-24'
+    requires: 'Node >= 20; optional peer packages @x402/core, @x402/evm, @x402/fetch (^2.16.0), viem (^2.53.1) per package.json optionalDependencies'
+    behaviour_verbatim: 'The client is quote-only by default. It verifies the live amount, Base network, USDC asset, merchant address, and same-request retry contract before an operator explicitly opts into payment.'
+    facilitator_order_in_code: [xpay, primer, kobaru, mogami, payai, dexter, fluxa]
+    retry_policy_in_code: 'transient statuses {408, 429, 500, 502, 503, 504}; X402_FETCH_RETRIES default 4'
+    targets: https://gpt55.558686.xyz/v1/*
+    license: MIT (repository)
+  - language: javascript
+    registry: none
+    name: gpt55-x402-gateway
+    url: https://github.com/wangletiand/gpt55-x402-gateway
+    install: 'git clone https://github.com/wangletiand/gpt55-x402-gateway && npm install && npm start'
+    official: true
+    kind: [mcp-local-wrapper, buyer-client, examples]
+    version: 1.0.0
+    version_source: package.json (private true; not published to npm - registry.npmjs.org/gpt55-x402-gateway -> 404)
+    published: null
+    published_note: 'no npm release; no GitHub releases or tags; repository created 2026-07-31, last push 2026-08-24'
+    description_verbatim: 'Read-only MCP directory wrapper and quote-first x402 buyer client for GPT55.'
+    license: MIT
+    repository_tree: ['.github/workflows', 'Dockerfile', 'LICENSE', 'README.md', 'SECURITY.md', 'docs/', 'examples/x402-first-payment-client', 'first-payment-client.mjs', 'package.json', 'scripts/', 'server.json', 'server.mjs', 'smoke.mjs', 'tests/']
+  - language: javascript
+    registry: npm
+    name: '@x402/fetch'
+    url: https://www.npmjs.com/package/@x402/fetch
+    install: npm install @x402/fetch @x402/evm viem
+    official: false
+    kind: [third-party, x402-client]
+    version: 2.26.0
+    published: '2026-09-15'
+    named_in: https://gpt55.558686.xyz/buyer-guide ("Copy-paste x402 JavaScript quickstart")
+  - language: javascript
+    registry: npm
+    name: '@x402/evm'
+    url: https://www.npmjs.com/package/@x402/evm
+    official: false
+    kind: [third-party, x402-client]
+    version: 2.26.0
+    published: '2026-09-15'
+    named_in: https://gpt55.558686.xyz/buyer-guide
+  - language: javascript
+    registry: npm
+    name: viem
+    url: https://www.npmjs.com/package/viem
+    official: false
+    kind: [third-party, evm-wallet]
+    version: 2.56.8
+    published: '2026-09-18'
+    named_in: https://gpt55.558686.xyz/buyer-guide
+  - language: javascript
+    registry: npm
+    name: openai
+    url: https://www.npmjs.com/package/openai
+    official: false
+    kind: [third-party, openai-sdk]
+    version: 7.20.0
+    published: '2026-09-19'
+    named_in: 'https://sub2api.558686.xyz/pricing and /docs/getting-started.html (baseURL https://sub2api.558686.xyz/v1); the Python openai package is shown the same way'
+    note: 'Sub2API is consumed through the official OpenAI SDKs with a base_url override; the provider ships no SDK of its own.'
+unrelated_namesakes:
+  - {registry: pypi, name: sub2api, version: 0.2.0, author: Eight Labs, summary: 'Python client for the user-facing API of Sub2API instances', note: 'client for the open-source Sub2API software in general; not published by this operator'}
+  - {registry: npm, name: pi-gpt55-complete, note: 'unrelated (YPQuinn); matched the "gpt55" search only'}
+registries_searched: [npm, PyPI, 'Maven Central / NuGet / RubyGems / Packagist / crates.io / pkg.go.dev (no plausible name to query - nothing in the docs names a package on any of them)']

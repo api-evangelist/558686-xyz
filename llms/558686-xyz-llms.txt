@@ -1,0 +1,51 @@
+# GPT55 Model Gateway
+
+GPT55 is an OpenAI-compatible x402 Base USDC gateway. GPT-5.6 Luna Standard is the default upstream gpt-5.6-luna path at the historically converting $0.00293 public entry quote. Buyers choose prepaid Luna call packs or per-request x402 calls. GPT-5.6 Soul and Terra remain available. Model routes support gpt-5.6-sol, gpt-5.6-luna, gpt-5.6-terra, gpt-5.6, gpt-5.5, gpt-5.3-codex, gpt-5.4.
+
+x402 guide: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+
+Primary Standard offer:
+- Model: GPT-5.6 Luna Standard one-request result
+- POST https://gpt55.558686.xyz/v1/chat/completions/standard
+- Price: $0.00293 (2930 atomic)
+- Network/asset: eip155:8453 / Base USDC
+- payTo: 0x1f0130669ca6fd02e025a984cc038f139df19a2f
+- Browser: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+- Agent: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+
+Payment routing:
+- Facilitator routing: provider-pool
+- Active facilitators: https://facilitator.xpay.sh
+
+Machine assets:
+- Service hub: https://gpt55.558686.xyz/x402/service
+- Service hub JSON: https://gpt55.558686.xyz/x402/service.json
+- Compatibility index: https://gpt55.558686.xyz/x402/compatibility.json
+- Project index: https://gpt55.558686.xyz/projects/
+- Project 558686 page: https://gpt55.558686.xyz/projects/558686/
+- Actual tool catalog: https://gpt55.558686.xyz/tools.json
+- APIs catalog: https://gpt55.558686.xyz/apis.json
+- AI catalog: https://gpt55.558686.xyz/.well-known/ai-catalog.json
+- MCP server card: https://gpt55.558686.xyz/.well-known/mcp/server-card.json
+- MCP first-purchase guide: https://gpt55.558686.xyz/x402/mcp-first-purchase-kit
+- x402 discovery: https://gpt55.558686.xyz/.well-known/x402
+- OpenAPI: https://gpt55.558686.xyz/openapi.json
+- pricing.json: https://gpt55.558686.xyz/pricing.json
+- server.json: https://gpt55.558686.xyz/server.json
+- Split-host lifecycle: https://gpt55.558686.xyz/projects/split.json
+
+Featured GPT55 routes:
+- POST https://gpt55.558686.xyz/v1/chat/completions/standard: GPT-5.6 Luna Standard chat completion ($0.00293)
+- POST https://gpt55.558686.xyz/v1/chat/completions/gpt-5.6-sol: GPT-5.6 Soul chat completion ($0.099995)
+- POST https://gpt55.558686.xyz/v1/chat/completions/gpt-5.6-luna: GPT-5.6 Luna chat completion ($0.019999)
+- POST https://gpt55.558686.xyz/v1/chat/completions/gpt-5.6-terra: GPT-5.6 Terra chat completion ($0.049998)
+- POST https://gpt55.558686.xyz/v1/chat/completions/gpt-5.6: GPT-5.6 Soul chat completion alias ($0.099995)
+- POST https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5: gpt-5.5 ($0.019999)
+- POST https://gpt55.558686.xyz/v1/chat/completions/gpt-5.3-codex: gpt-5.3-codex ($0.007472)
+- GET https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-sol-100: gpt 5.6 sol 100 (prepaid call pack live quote)
+- GET https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100: gpt 5.6 luna 100 (prepaid call pack live quote)
+- GET https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-terra-100: gpt 5.6 terra 100 (prepaid call pack live quote)
+- POST https://gpt55.558686.xyz/v1/x402-ping: x402 ping (live x402 quote)
+
+Retired split-host policy:
+- Historical split hosts are retired and consolidated. Use only the canonical GPT55 service hub for purchases and fresh quotes.

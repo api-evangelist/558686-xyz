@@ -1,0 +1,38 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for GPT-5.5 Utility Tools for API.market
+  version: 1.0.0
+extends: openapi/558686-xyz-api-market-utility-tools-openapi.json
+x-generated: '2026-09-19'
+x-method: generated
+x-source: openapi/558686-xyz-api-market-utility-tools-openapi.json
+x-note: Overlay of API Evangelist enhancements; the original spec is never mutated. Actions target the spec verbatim
+  as served by the provider on 2026-09-19.
+actions:
+- target: $.info
+  update:
+    x-apievangelist:
+      catalog: https://apis.io/558686-xyz
+      provider: gpt55-token-gateway
+      maintainer: Kin Lane <kin@apievangelist.com>
+      artifacts:
+      - apis.yml
+      - a2a/558686-xyz-a2a.yml
+      - mcp/558686-xyz-mcp.yml
+      - mcp/558686-xyz-tool-crosswalk.yml
+      - conventions/558686-xyz-conventions.yml
+      - errors/558686-xyz-problem-types.yml
+      - rate-limits/558686-xyz-rate-limits.yml
+      - plans/558686-xyz-plans-pricing.yml
+      - lifecycle/558686-xyz-lifecycle.yml
+      - conformance/558686-xyz-conformance.yml
+      - authentication/558686-xyz-authentication.yml
+      - well-known/558686-xyz-well-known.yml
+      - skills/_index.yml
+- target: $.info
+  update:
+    x-apievangelist-observed:
+      anonymous: true
+      note: GET /api-market/v1/tools/timestamp?value=1700000000 and /api-market/v1/tools/text-stats?text=... answered
+        200 with no payment or key on the provider host (2026-09-20); responses carry an x402Lead block pointing
+        at the paid chat tiers.

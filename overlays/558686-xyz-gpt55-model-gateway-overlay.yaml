@@ -1,0 +1,101 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for GPT55 Model Gateway API
+  version: 1.0.0
+extends: openapi/558686-xyz-gpt55-model-gateway-openapi.json
+x-generated: '2026-09-19'
+x-method: generated
+x-source: openapi/558686-xyz-gpt55-model-gateway-openapi.json
+x-note: Overlay of API Evangelist enhancements; the original spec is never mutated. Actions target the spec verbatim
+  as served by the provider on 2026-09-19.
+actions:
+- target: $.info
+  update:
+    x-apievangelist:
+      catalog: https://apis.io/558686-xyz
+      provider: gpt55-token-gateway
+      maintainer: Kin Lane <kin@apievangelist.com>
+      artifacts:
+      - apis.yml
+      - a2a/558686-xyz-a2a.yml
+      - mcp/558686-xyz-mcp.yml
+      - mcp/558686-xyz-tool-crosswalk.yml
+      - conventions/558686-xyz-conventions.yml
+      - errors/558686-xyz-problem-types.yml
+      - rate-limits/558686-xyz-rate-limits.yml
+      - plans/558686-xyz-plans-pricing.yml
+      - lifecycle/558686-xyz-lifecycle.yml
+      - conformance/558686-xyz-conformance.yml
+      - authentication/558686-xyz-authentication.yml
+      - well-known/558686-xyz-well-known.yml
+      - skills/_index.yml
+- target: $.components
+  update:
+    securitySchemes:
+      x402Payment:
+        type: apiKey
+        in: header
+        name: X-PAYMENT
+        description: x402 v2 exact payment. Call without the header to receive HTTP 402 with a PAYMENT-REQUIRED
+          header (base64 JSON) and a JSON body whose accepts[] carries scheme exact, network eip155:8453, asset
+          USDC 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, payTo 0x1f0130669ca6fd02e025a984cc038f139df19a2f, amount
+          (atomic) and maxTimeoutSeconds 300; retry the SAME request with X-PAYMENT. Observed live 2026-09-20; documented
+          at https://gpt55.558686.xyz/buyer-guide. A private Bearer token is an operator-only bypass (see authentication/558686-xyz-authentication.yml).
+- target: $.info
+  update:
+    x-apievangelist-observed:
+      rate_limit_headers:
+      - 'ratelimit-limit: 120'
+      - 'ratelimit-policy: 120;w=60'
+      - ratelimit-remaining
+      - ratelimit-reset
+      exposed_headers:
+      - PAYMENT-REQUIRED
+      - X-PAYMENT-REQUIRED
+      - PAYMENT-RESPONSE
+      - X-PAYMENT-RESPONSE
+      - x-x402-receipt-id
+      - x-x402-receipt-url
+      - x-x402-payment-response-omitted
+      - x-x402-payment-response-recovery
+      - Retry-After
+      error_envelope: '{"error":{"message":string,"type":string}} on 400/404; x402 v2 body on 402'
+      see:
+      - rate-limits/558686-xyz-rate-limits.yml
+      - errors/558686-xyz-problem-types.yml
+      - conventions/558686-xyz-conventions.yml
+- target: $.tags
+  update:
+  - name: gpt55-model-gateway
+    description: Paid GPT model routes, prepaid call packs and model-backed text tools (x402 exact USDC on Base).
+  - name: gpt55-retained-nonmodel
+    description: 'Deterministic tools retained on the main host after the 2026-07 split: timestamp, query-parse,
+      EVM wallet balance, x402 MCP integration kit, x402 Bazaar search, wallet payment activation.'
+  - name: gpt55-retained-high-intent
+    description: Wallet signing safety pack (GET quote / POST buy).
+- target: $.paths.*[?(@.responses['402'])].responses['402']
+  update:
+    description: 'x402 payment required. Body: {x402Version: 2, error: "Payment required", resource {url, description,
+      mimeType, serviceName, tags, category}, accepts [{scheme, network, amount, asset, payTo, maxTimeoutSeconds,
+      extra}], extensions.bazaar {info {input, output}, schema}}. Header PAYMENT-REQUIRED carries the same envelope
+      base64-encoded.'
+    headers:
+      PAYMENT-REQUIRED:
+        schema:
+          type: string
+        description: base64 JSON x402 v2 payment requirements
+      ratelimit-limit:
+        schema:
+          type: integer
+      ratelimit-remaining:
+        schema:
+          type: integer
+      ratelimit-reset:
+        schema:
+          type: integer
+- target: $.paths['/v1/models'].get
+  update:
+    x-apievangelist-observed:
+      anonymous: true
+      status: 200
+      note: Answers without payment; seven models with pricing and x402 endpoint metadata per model.

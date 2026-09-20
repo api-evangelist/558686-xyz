@@ -1,0 +1,83 @@
+generated: '2026-09-19'
+method: searched
+source: >-
+  Derived baseline from openapi/558686-xyz-sub2api-openapi.json (the only spec with a
+  securityScheme) by derive-authentication.py, then upgraded from the provider docs:
+  https://gpt55.558686.xyz/buyer-guide ("No account, subscription, or public API key is required
+  for public paid calls"; "Integration flow"), /llms-full.txt ("A private Bearer token is also
+  accepted for owner/admin testing"), /mcp/config (authentication block), /.well-known/x402
+  (payment, settlement, privateKeySentToService), SECURITY.md ("The service never needs a buyer's
+  private key"), the live 402 and 401 responses observed 2026-09-20, and the Sub2API docs
+  https://sub2api.558686.xyz/docs/getting-started.html and /docs/register-guide.html.
+docs:
+  - https://gpt55.558686.xyz/buyer-guide
+  - https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - https://sub2api.558686.xyz/docs/getting-started.html
+checked: '2026-09-19'
+summary:
+  types: [x402-payment, http-bearer, api-key-header]
+  note: >-
+    Two different models on two hosts. GPT55 has NO identity credential for the public: every
+    paid route is gated by an x402 payment presented in the X-PAYMENT header after a 402 quote,
+    and the discovery/metadata surface (GET /v1/models, MCP initialize/tools/list/resources/list,
+    every JSON manifest, the /api-market utilities) is fully anonymous. A private Bearer token
+    exists but is documented as an operator-only bypass, not a public option. Sub2API is a
+    conventional API-key relay: Authorization: Bearer <key> (also x-api-key or a query key),
+    with keys created in a console whose self-service registration is currently closed.
+  no_oauth: 'No OAuth 2.0, OIDC, scopes, RFC 8414 or RFC 9728 metadata anywhere; scopes/ is therefore not emitted.'
+schemes:
+- name: x402Payment
+  api: GPT55 Model Gateway API (gpt55.558686.xyz)
+  type: x402
+  version: '2'
+  in: header
+  header: X-PAYMENT
+  declared_in_spec: false
+  declared_in_spec_note: 'The GPT55 OpenAPI declares no securitySchemes; the 402 response on 36 of 37 operations and x-x402-price are the only in-contract signals. overlays/558686-xyz-gpt55-model-gateway-overlay.yaml adds an apiKey-in-header scheme named x402Payment as the closest OpenAPI expression.'
+  flow_verbatim:
+    - 'Send the intended HTTP request without a payment header.'
+    - 'Read the HTTP 402 response and its accepts array.'
+    - 'Select the exact accept requirement and generate the x402 payment header with your Base USDC wallet.'
+    - 'Retry the same request with the payment header.'
+    - 'Read the payment response header and JSON body. Successful paid model calls return OpenAI-compatible JSON.'
+  requirement_observed: {scheme: exact, network: 'eip155:8453', asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913 (USDC)', payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f', maxTimeoutSeconds: 300, facilitator: 'provider-pool (xpay active)'}
+  response_headers: [PAYMENT-REQUIRED, X-PAYMENT-REQUIRED, PAYMENT-RESPONSE, X-PAYMENT-RESPONSE, x-x402-receipt-id, x-x402-receipt-url]
+  account_required: false
+  api_key_required: false
+  kyc_required: false
+  private_key_sent_to_service: false
+  client_libraries_named: ['@x402/fetch + @x402/evm + viem (buyer guide quickstart)', 'first-payment-client.mjs (provider script, quote-only by default; PAY_REAL_X402=1 + EVM_PRIVATE_KEY in the buyer process to pay)']
+  applies_to: all 36 paid operations; GET /v1/models is anonymous
+- name: operatorBearer
+  api: GPT55 Model Gateway API (gpt55.558686.xyz)
+  type: http
+  scheme: bearer
+  declared_in_spec: false
+  public: false
+  verbatim: 'A private Bearer token is also accepted for owner/admin testing.'
+  verbatim_2: 'Private Bearer keys are only an operator bypass; public buyers should use the x402 quote and payment flow.'
+  note: 'Recorded because the provider documents it; there is no way for a member of the public to obtain one. An unpaid request with an invalid X-PAYMENT header returned the ordinary 402 quote, not a 401.'
+- name: none
+  api: 'GPT55 discovery surface + GPT-5.5 Utility Tools for API.market (gpt55.558686.xyz/api-market)'
+  type: none
+  declared_in_spec: 'api-market OpenAPI declares no securitySchemes; its description says commercial access is configured in API.market'
+  observed: 'GET /api-market/v1/tools/timestamp and /text-stats answered 200 with no credential and no payment (2026-09-20); GET /v1/models, MCP initialize/tools/list/resources/list and every manifest likewise anonymous.'
+- name: bearerAuth
+  api: Sub2API OpenAI-compatible API (sub2api.558686.xyz, api.558686.xyz)
+  type: http
+  scheme: bearer
+  bearerFormat: API key
+  declared_in_spec: true
+  sources: [openapi/558686-xyz-sub2api-openapi.json]
+  alternate_carriers: ['x-api-key header', 'query key (named in the 401 message, truncated in the observed body)']
+  errors: {missing: '401 {"code":"API_KEY_REQUIRED","message":"API key is required in Authorization header (Bearer scheme), x-api-key header, or ..."}', invalid: '401 {"code":"INVALID_API_KEY","message":"Invalid API key"}'}
+  key_issuance: 'Console https://sub2api.558686.xyz/keys after email registration + verification; docs: "创建成功后立即保存完整 Key，它通常只会完整显示一次" (the full key is normally shown only once). Registration is CLOSED per /verify-models (registration_enabled=false, google_oauth_enabled=false); "contact the administrator for a test key".'
+  base_url_for_clients: https://sub2api.558686.xyz/v1
+  applies_to: all three operations (GET /v1/models, POST /v1/chat/completions, POST /v1/responses)
+mcp:
+  endpoint: https://gpt55.558686.xyz/mcp
+  auth: none for initialize / tools/list / resources/list; tool results are HTTP routes that require the x402 payment above
+  declared: '/mcp/config authentication {type: x402-payment-header, apiKeyRequired: false, accountRequired: false, kycRequired: false, quoteFirst: true}'
+a2a:
+  endpoint: https://gpt55.558686.xyz/a2a
+  auth: 'agent card authentication: [{schemes: [x402]}]; payment.accepts[] carries the requirement'

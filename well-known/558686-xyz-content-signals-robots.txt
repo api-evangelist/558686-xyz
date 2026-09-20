@@ -1,0 +1,45 @@
+# Search indexing is allowed; AI training is not granted.
+Content-Signal: search=yes,ai-train=no,use=reference
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: *
+Allow: /
+Allow: /x402/service
+Allow: /x402/guides/
+Allow: /x402/compatibility.json
+Allow: /.well-known/x402
+Allow: /openapi.json
+Allow: /pricing.json
+Allow: /server.json
+Allow: /buyer-guide.json
+Allow: /directory-listing.json
+Allow: /llms.txt
+Allow: /projects/
+Allow: /tools.json
+Allow: /apis.json
+Allow: /directory-submission.json
+Allow: /.well-known/ai-catalog.json
+Allow: /.well-known/mcp/server-card.json
+Allow: /projects/split.json
+Allow: /privacy
+Sitemap: https://gpt55.558686.xyz/sitemap.xml

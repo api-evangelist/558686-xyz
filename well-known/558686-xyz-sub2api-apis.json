@@ -1,0 +1,36 @@
+{
+  "name": "Sub2API OpenAI-compatible API Gateway",
+  "description": "Low-cost OpenAI-compatible API relay for GPT, Claude, Gemini and coding-agent workflows.",
+  "url": "https://sub2api.558686.xyz",
+  "created": "2026-06-28",
+  "modified": "2026-07-02",
+  "specificationVersion": "0.16",
+  "apis": [
+    {
+      "name": "Sub2API Core API",
+      "baseURL": "https://sub2api.558686.xyz",
+      "properties": [
+        {
+          "type": "OpenAPI",
+          "url": "https://sub2api.558686.xyz/openapi.json"
+        },
+        {
+          "type": "Documentation",
+          "url": "https://sub2api.558686.xyz/docs"
+        },
+        {
+          "type": "RegistrationGuide",
+          "url": "https://sub2api.558686.xyz/docs/register-guide.html"
+        },
+        {
+          "type": "Pricing",
+          "url": "https://sub2api.558686.xyz/pricing"
+        },
+        {
+          "type": "Models",
+          "url": "https://sub2api.558686.xyz/models"
+        }
+      ]
+    }
+  ]
+}

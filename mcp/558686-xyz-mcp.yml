@@ -1,0 +1,140 @@
+generated: '2026-09-19'
+method: searched
+status: published
+checked: '2026-09-19'
+source: >-
+  https://gpt55.558686.xyz/llms.txt and llms-full.txt ("MCP Streamable HTTP endpoint:
+  https://gpt55.558686.xyz/mcp", "MCP SSE discovery endpoint: https://gpt55.558686.xyz/mcp/sse"),
+  https://gpt55.558686.xyz/.well-known/mcp/server-card.json, https://gpt55.558686.xyz/server.json,
+  https://gpt55.558686.xyz/.well-known/mcp.json, https://gpt55.558686.xyz/mcp/config,
+  https://gpt55.558686.xyz/llms-install.md, the agent card links, and the GitHub repository
+  wangletiand/gpt55-x402-gateway (README "Local MCP Wrapper"). Live anonymous JSON-RPC probes
+  of the endpoint on 2026-09-20 UTC: initialize, tools/list and resources/list all HTTP 200.
+summary: >-
+  GPT55 ships a hosted, remote, Streamable HTTP MCP server at https://gpt55.558686.xyz/mcp that
+  answers initialize (protocolVersion 2025-06-18), tools/list (218 tools with JSON Schema
+  inputSchema and annotations) and resources/list (14 JSON resources) with no credential. It is,
+  by its own instructions, a discovery facade over the x402-paid HTTP API: "Tool calls return the
+  direct HTTP endpoint, x402 payment requirements, and example payload. Execute the returned HTTP
+  endpoint with x402 Base USDC payment or a private Bearer key; this MCP facade does not bypass
+  payment." So an agent can enumerate and understand every tool anonymously, and every useful
+  result still costs a per-request USDC payment made outside MCP. The public repository ships a
+  local Node wrapper (`npm start` -> node server.mjs) that exposes "one local read-only directory
+  tool" and is not published to a registry; it is not a second, equivalent server. No entry
+  exists in the official MCP registry (registry.modelcontextprotocol.io) and llms-install.md says
+  "No external marketplace submission has been made", although the manifest is written in the
+  registry's server.json schema.
+pointer_basis: >-
+  Wired as type MCPServer on the strength of a live, anonymous, protocol-conformant tools/list -
+  the surface an agent reaches now. The facade behaviour (tool call -> payment instructions, not
+  the result) is recorded here and in the crosswalk so the pointer is not read as "218 callable
+  tools for free".
+deployment:
+  mode: remote
+  endpoint: https://gpt55.558686.xyz/mcp
+  transport: streamable-http
+  fallback_transport: {type: sse, url: 'https://gpt55.558686.xyz/mcp/sse', note: 'GET returns a text/event-stream whose first events are "endpoint" (data https://gpt55.558686.xyz/mcp/config) and "server-info" - a discovery stream, not exercised as an MCP session transport'}
+  install: null
+  package: null
+  auth: none
+  auth_basis: >-
+    initialize/tools/list/resources/list answered anonymously; /mcp/config declares
+    authentication {type: x402-payment-header, apiKeyRequired: false, accountRequired: false,
+    kycRequired: false, quoteFirst: true, note: "Private Bearer keys are only an operator bypass;
+    public buyers should use the x402 quote and payment flow"}; no OAuth metadata on any host.
+    Payment (x402 exact USDC on Base) is required for the HTTP routes the tools point at, not for
+    the MCP methods themselves.
+  verified: probed
+  reachable: true
+  probe:
+    date: '2026-09-20'
+    initialize: {status: 200, protocolVersion: '2025-06-18', serverInfo: {name: gpt55-x402-gateway, title: 'GPT-5.5 x402 Agent Payment Control Plane', version: '2026.06.21'}, capabilities: {tools: {listChanged: false}, resources: {subscribe: false, listChanged: false}}, file: 558686-xyz-mcp-initialize.json}
+    tools_list: {status: 200, bytes: 285728, tool_count: 218, file: 558686-xyz-mcp-tools-list.json}
+    resources_list: {status: 200, resource_count: 14, file: 558686-xyz-mcp-resources-list.json}
+    prompts_list: not-run
+    tools_call: not-run (every tool resolves to a paid HTTP route; this pass does not pay)
+    cors: 'OPTIONS /mcp -> 204, access-control-allow-origin *, allow-methods GET,HEAD,PUT,PATCH,POST,DELETE, expose-headers PAYMENT-REQUIRED, X-PAYMENT-REQUIRED, PAYMENT-RESPONSE, X-PAYMENT-RESPONSE, x-x402-receipt-id, x-x402-receipt-url, Retry-After'
+    rate_limit_headers: 'ratelimit-limit 120, ratelimit-policy 120;w=60, ratelimit-remaining, ratelimit-reset on the same host'
+server:
+  name: gpt55-x402-gateway
+  registry_name: xyz.558686.gpt55/token-gateway
+  display_name: GPT55 x402 Gateway MCP Server
+  transport: http
+  url: https://gpt55.558686.xyz/mcp
+  version: '2026.06.21'
+  manifest_version: '2026.07.01-split'
+  instructions_verbatim: >-
+    This remote MCP endpoint exposes paid GPT-5.5 and utility HTTP tools. Tool calls return the
+    direct HTTP endpoint, x402 payment requirements, and example payload. Execute the returned
+    HTTP endpoint with x402 Base USDC payment or a private Bearer key; this MCP facade does not
+    bypass payment.
+  manifests:
+    server_json: {url: 'https://gpt55.558686.xyz/server.json', file: 558686-xyz-server.json, schema: 'https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json (declared on /.well-known/mcp.json and GET /mcp)', name: gpt55-model-gateway, version: '2026.07.01-split', repository: 'https://github.com/wangletiand/gpt55-x402-gateway', websiteUrl: 'https://gpt55.558686.xyz'}
+    well_known_mcp_json: {url: 'https://gpt55.558686.xyz/.well-known/mcp.json', file: ../well-known/558686-xyz-mcp.json}
+    server_card: {url: 'https://gpt55.558686.xyz/.well-known/mcp/server-card.json', file: ../well-known/558686-xyz-mcp-server-card.json, spec: SEP-1649, transports: [streamable-http, sse]}
+    config: {url: 'https://gpt55.558686.xyz/mcp/config', mcpServers: {gpt55_x402: {url: 'https://gpt55.558686.xyz/mcp'}}}
+    install_guide: {url: 'https://gpt55.558686.xyz/llms-install.md', status_verbatim: 'draft install guide. No external marketplace submission has been made.'}
+    install_hub: 'https://gpt55.558686.xyz/projects/558686/install (Claude Desktop, Cursor, Windsurf, VS Code, OpenAI Apps SDK pages)'
+  registry:
+    official: 'not found - registry.modelcontextprotocol.io has no entry for gpt55 / 558686 (searched 2026-09-19); server.json is written in the registry schema'
+    others_claimed: []
+  local_wrapper:
+    repository: https://github.com/wangletiand/gpt55-x402-gateway
+    run: 'npm install && npm start (node server.mjs)'
+    package_name: gpt55-x402-gateway
+    package_version: 1.0.0
+    npm_published: 'false (package.json "private": true)'
+    scope_verbatim: 'The wrapper exposes one local read-only directory tool. It does not proxy MCP tool calls, custody funds, store wallet keys, or execute payments.'
+payment:
+  protocol: x402 v2
+  network: eip155:8453 (Base)
+  asset: USDC 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+  pay_to: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+  quote_first: true
+  private_key_sent_to_service: false (stated in /mcp/config, server.json _meta and SECURITY.md)
+  facilitator: 'provider-pool; the only active facilitator on 2026-09-18 per /x402/status is https://facilitator.xpay.sh (dexter, fluxa, mogami, primer, payai, kobaru, cdp all frozen/disabled)'
+tool_count: 218
+tools_note: >-
+  The full list with inputSchema and annotations is saved verbatim in 558686-xyz-mcp-tools-list.json;
+  the crosswalk in 558686-xyz-tool-crosswalk.yml binds each to its OpenAPI operationId where one
+  exists. Families: 7 chat_* model routes, 41 gpt55_translate/summarize/rewrite/answer/
+  code_review/extract_json tier variants, 108 gpt55_x402_* buyer/seller/wallet packs and premium
+  playbooks, ~40 deterministic utility tools (hash, base64, jwt, regex, uuid, ...), 3 sub2api
+  billing helpers, balance top-up + metered chat. 176 tools are annotated readOnlyHint true /
+  idempotentHint true / destructiveHint false; the 42 model-backed chat/text tools are
+  idempotentHint false. Every tool is openWorldHint true. No tool carries outputSchema.
+tools:
+  - {name: gpt55_x402_ping, title: x402 payment ping, category: payment-canary, price: '$0.002', rest: null, note: 'GET/POST /v1/x402-ping - on the host, not in the OpenAPI'}
+  - {name: chat_standard, title: GPT-5.6 Luna Chat Completion, category: chat, price: '$0.00293', rest: v1ChatCompletionsStandard}
+  - {name: chat_gpt_5_6_soul, category: chat, price: '$0.099995', rest: v1ChatCompletionsGpt56Sol}
+  - {name: chat_gpt_5_6_luna, category: chat, price: '$0.019999', rest: v1ChatCompletionsGpt56Luna}
+  - {name: chat_gpt_5_6_terra, category: chat, price: '$0.049998', rest: v1ChatCompletionsGpt56Terra}
+  - {name: chat_gpt_5_5, category: chat, price: '$0.019999', rest: v1ChatCompletionsGpt55}
+  - {name: chat_gpt_5_3_codex, category: chat, price: '$0.007472', rest: v1ChatCompletionsGpt53Codex}
+  - {name: chat_gpt_5_4, category: chat, price: '$0.010109', rest: null, note: '/v1/chat/completions/gpt-5.4 is served and priced but absent from the OpenAPI'}
+  - {name: gpt55_balance_topup, category: prepaid-balance, rest: null}
+  - {name: gpt55_balance_metered_chat_completion, category: chat, rest: v1ChatCompletionsMetered}
+  - {name: gpt55_translate, category: text-tool, price: '$0.00293', rest: v1ToolsTranslate}
+  - {name: gpt55_summarize, category: text-tool, rest: v1ToolsSummarize}
+  - {name: gpt55_rewrite, category: text-tool, rest: v1ToolsRewrite}
+  - {name: gpt55_answer, category: text-tool, rest: v1ToolsAnswer}
+  - {name: gpt55_code_review, category: text-tool, rest: v1ToolsCodeReview}
+  - {name: gpt55_extract_json, category: text-tool, rest: v1ToolsExtractJson}
+  - {name: gpt55_evm_wallet_balance, category: wallet, price: '$0.001', rest: v1ToolsEvmWalletBalancePost}
+  - {name: gpt55_wallet_signing_safety_pack, category: wallet-security, price: '$0.018', rest: walletSigningSafetyPackPaidPost}
+  - {name: gpt55_x402_mcp_integration_kit, category: x402-buyer-tool, price: '$0.006', rest: v1ToolsX402McpIntegrationKit}
+  - {name: gpt55_x402_bazaar_search, category: x402-market, rest: v1ToolsX402BazaarSearch}
+  - {name: gpt55_timestamp, category: utility, price: '$0.002', rest: v1ToolsTimestamp}
+  - {name: gpt55_query_parse, category: utility, rest: v1ToolsQueryParse}
+  - {name: '... 196 more', note: 'see 558686-xyz-mcp-tools-list.json (verbatim) and the crosswalk'}
+resources:
+  count: 14
+  file: 558686-xyz-mcp-resources-list.json
+  uris: ['https://gpt55.558686.xyz/.well-known/x402', 'https://gpt55.558686.xyz/x402/live-prices.json', 'https://gpt55.558686.xyz/.well-known/x402-live-prices.json', 'https://gpt55.558686.xyz/pricing.json', 'https://gpt55.558686.xyz/buyer-guide.json', 'https://gpt55.558686.xyz/x402/first-payment-client.json', 'https://gpt55.558686.xyz/use-cases.json', 'https://gpt55.558686.xyz/integrations.json', 'https://gpt55.558686.xyz/x402/seller-tools.json', 'https://gpt55.558686.xyz/x402/market-report.json', 'https://gpt55.558686.xyz/api-market/listing.json', 'https://gpt55.558686.xyz/.well-known/agent-card.json', 'https://gpt55.558686.xyz/.well-known/agents402.json', 'https://gpt55.558686.xyz/openapi.json']
+x-evidence:
+  fetched: '2026-09-20'
+  url: https://gpt55.558686.xyz/mcp
+  method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"} with Accept: application/json, text/event-stream'
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  bytes: 285728

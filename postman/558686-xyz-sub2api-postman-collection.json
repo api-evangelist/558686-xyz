@@ -1,0 +1,73 @@
+{
+  "info": {
+    "name": "Sub2API OpenAI-compatible Core",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://sub2api.558686.xyz"
+    },
+    {
+      "key": "api_key",
+      "value": "REPLACE_WITH_SUB2API_KEY"
+    }
+  ],
+  "item": [
+    {
+      "name": "List models",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{api_key}}"
+          }
+        ],
+        "url": "{{base_url}}/v1/models"
+      }
+    },
+    {
+      "name": "Chat completions",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/v1/chat/completions",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"model\": \"gpt-5.5\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Return one sentence.\"\n    }\n  ],\n  \"max_tokens\": 40\n}"
+        }
+      }
+    },
+    {
+      "name": "Responses API",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/v1/responses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"model\": \"gpt-5.5\",\n  \"input\": \"Return one sentence.\"\n}"
+        }
+      }
+    }
+  ]
+}

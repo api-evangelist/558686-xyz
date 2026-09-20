@@ -1,0 +1,85 @@
+generated: '2026-09-19'
+method: derived
+format: openai-style-error-object
+source: >-
+  Derived from the three provider OpenAPIs (which declare only 200 and, on GPT55's paid routes,
+  402 responses with a one-line description each - no schema) and enriched from error responses
+  OBSERVED live on 2026-09-20 with harmless unauthenticated / unpaid requests: malformed JSON to
+  POST /v1/chat/completions/standard, an unpaid POST to /v1/tools/translate, GET on unknown paths,
+  DELETE /v1/models, POST /v1/responses on gpt55, GET /v1/models with and without an invalid
+  Bearer on sub2api, and POST to /mcp and /graphql on sub2api. No provider error reference page
+  exists on either host (/docs on gpt55 is 404; the Sub2API docs say only that "401 usually means
+  the key is missing, wrong, deleted or lacks permission").
+envelopes:
+  gpt55_api:
+    media_type: application/json
+    shape: '{ "error": { "message": string, "type": string } }'
+    types_observed: [invalid_request_error, not_found]
+    note: 'OpenAI-style envelope; no code, param or request id field. No x-request-id header on gpt55 responses.'
+  gpt55_payment_required:
+    media_type: application/json
+    shape: '{ "x402Version": 2, "error": "Payment required", "resource": {url, description, mimeType, serviceName, tags, iconUrl, category}, "accepts": [{scheme, network, amount, asset, payTo, maxTimeoutSeconds, extra}], "extensions": {"bazaar": {info {input, output}, schema}} }'
+    header: 'PAYMENT-REQUIRED: <base64 of the same JSON>'
+    note: 'A 402 is the normal quote step, not a failure: the same request is retried with X-PAYMENT. It is returned for every paid route regardless of body validity when no payment header is present (an empty {} body and an invalid X-PAYMENT header both produced the plain 402 quote).'
+  sub2api_api:
+    media_type: application/json
+    shape: '{ "code": string, "message": string }'
+    codes_observed: [API_KEY_REQUIRED, INVALID_API_KEY]
+    headers: 'x-request-id and x-client-request-id (UUIDs) on every response'
+  sub2api_router_404:
+    media_type: text/plain
+    shape: '404 page not found'
+    note: 'Go net/http default for unknown /v1/* paths (e.g. /v1/openapi.json, /api/v1/models).'
+  sub2api_static_docs_server:
+    media_type: text/html
+    shape: 'HTML "Error response" page with "Error code: 501" and "Message: Unsupported method (''POST'')"'
+    note: 'Returned for POST to /mcp, /mcp/, /sse and /graphql on sub2api.558686.xyz - the static docs host does not accept POST; these paths are not services.'
+problems:
+  - status: 400
+    title: Bad Request
+    envelope: gpt55_api
+    error_type: invalid_request_error
+    observed: 'POST /v1/chat/completions/standard with body "{bad json" -> {"error":{"message":"Invalid JSON request body","type":"invalid_request_error"}}'
+    remediation: Send a JSON object body with content-type application/json.
+  - status: 401
+    title: Unauthorized
+    envelope: sub2api_api
+    codes:
+      - {code: API_KEY_REQUIRED, message_verbatim: 'API key is required in Authorization header (Bearer scheme), x-api-key header, or ...', observed: 'GET https://sub2api.558686.xyz/v1/models and https://api.558686.xyz/v1/models with no credential'}
+      - {code: INVALID_API_KEY, message_verbatim: 'Invalid API key', observed: 'GET https://sub2api.558686.xyz/v1/models with Authorization: Bearer invalid-test'}
+    remediation: 'Create a key in the Sub2API console (https://sub2api.558686.xyz/keys) and send Authorization: Bearer <key>; the docs say a 401 also means a deleted key or one without permission for the requested model group.'
+    in_spec: 'sub2api OpenAPI declares 401 "Missing or invalid API key" on all three operations'
+  - status: 402
+    title: Payment Required (x402 quote)
+    envelope: gpt55_payment_required
+    observed: 'Every paid GPT55 route without X-PAYMENT, e.g. POST /v1/chat/completions/standard -> accepts[0] {scheme exact, network eip155:8453, amount "2930", payTo 0x1f01...9a2f, maxTimeoutSeconds 300}; GET /v1/tools/timestamp -> "Pay up to $0.002"; GET /v1/x402-ping -> $0.002.'
+    remediation: 'Verify amount, network, asset and payTo against /x402/live-prices.json and your spend cap, sign the exact USDC payment with a buyer-owned wallet, and retry the SAME request with the X-PAYMENT header. Never send a private key to the service.'
+    in_spec: '36 of 37 GPT55 operations declare 402 "x402 payment required"'
+  - status: 404
+    title: Not Found
+    envelope: gpt55_api
+    error_type: not_found
+    observed: 'GET /docs, /status, /changelog, /terms, /a2a (GET), /v1/openapi.json, POST /v1/responses, DELETE /v1/models -> {"error":{"message":"Not found","type":"not_found"}}. The host answers 404 (not 405) for unsupported methods on known paths.'
+    remediation: Use the paths and methods in openapi/558686-xyz-gpt55-model-gateway-openapi.json or the MCP tool list; /v1/responses exists only on Sub2API.
+  - status: 410
+    title: Gone (retired split host)
+    envelope: json-retirement-notice
+    shape: '{ ok false, retired true, retiredProject, route, canonicalUrl, paymentRequiredHere false, reason }'
+    observed: 'https://x402-key.558686.xyz/v1/paid/api-codex-key-pack-1 -> 410 {retiredProject x402-key-url-tools, canonicalUrl https://gpt55.558686.xyz/v1/paid/api-codex-key-pack-1}; every path on x402-utils/-wallet/-seller/-key.558686.xyz.'
+    remediation: 'Follow canonicalUrl to gpt55.558686.xyz and fetch a fresh 402 quote there; the provider says "Do not pay a retired split-host URL". See lifecycle/.'
+  - status: 429
+    title: Too Many Requests
+    observed: false
+    note: 'Not observed and not documented. The host emits ratelimit-limit/-policy/-remaining/-reset on every response (120 per 60 s) and exposes Retry-After via CORS, so a 429 with Retry-After is the expected exhaustion signal, but this pass did not exhaust the window to confirm the status or body.'
+  - status: 501
+    title: Not Implemented (static docs server)
+    envelope: sub2api_static_docs_server
+    observed: 'POST https://sub2api.558686.xyz/mcp, /mcp/, /sse, /graphql'
+    remediation: 'These paths are not services on the Sub2API host; the only MCP and A2A endpoints are on gpt55.558686.xyz.'
+  - status: 5xx
+    title: Upstream / server errors
+    observed: false
+    note: 'None declared in any spec and none observed. The 402 bodies say returned output "depends on upstream availability"; no documented failure code for an upstream model outage. /x402/status reports facilitator health, not API error rates.'
+rfc9457: false
+mcp_errors:
+  note: 'The MCP endpoint answered JSON-RPC 2.0 error -32601 (Method not found) for an unknown method on /a2a; MCP tools/call errors were not exercised (every tool resolves to a paid HTTP route).'

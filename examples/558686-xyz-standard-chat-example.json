@@ -1,0 +1,153 @@
+{
+  "generated": "2026-09-19",
+  "method": "derived",
+  "source": "https://gpt55.558686.xyz/v1/chat/completions/standard - the provider's own HTTP 402 quote body, extensions.bazaar.info (probed unpaid 2026-09-20). The request and response examples are the provider's, copied verbatim; the 402 quote around them is what an unpaid caller actually receives.",
+  "operationId": "v1ChatCompletionsStandard",
+  "note": "GPT-5.6 Luna Standard chat: $0.00293 (2930 atomic USDC) per request; the accepts[0].amount is the live quote and is authoritative immediately before payment.",
+  "quote_request": {
+    "method": "POST",
+    "url": "https://gpt55.558686.xyz/v1/chat/completions/standard",
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": {
+      "model": "gpt-5.6-luna",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Summarize x402 in one sentence."
+        }
+      ],
+      "max_tokens": 256,
+      "stream": false
+    }
+  },
+  "quote_response": {
+    "status": 402,
+    "headers": {
+      "PAYMENT-REQUIRED": "<base64 of the JSON body>",
+      "ratelimit-limit": "120",
+      "ratelimit-policy": "120;w=60"
+    },
+    "body": {
+      "x402Version": 2,
+      "error": "Payment required",
+      "resource": {
+        "url": "https://gpt55.558686.xyz/v1/chat/completions/standard",
+        "description": "GPT-5.6 Luna Standard chat for mainstream short answers, routing decisions, extraction helpers, and buyer trials. The legacy mini path remains available as a compatibility alias. Model tier: GPT-5.6 Luna Standard; upstream model: gpt-5.6-luna. Pay $0.00293 per request with x402 exact USDC on Base or Solana when advertised. Public paid calls are limited to 24000 input characters. Model theoretical max output is 128000 tokens; actual returned output depends on upstream availability, request...",
+        "mimeType": "application/json",
+        "serviceName": "gpt55-token-gateway",
+        "tags": [
+          "gpt-5.6-luna",
+          "standard",
+          "model-tier",
+          "openai-compatible",
+          "x402-chat"
+        ],
+        "iconUrl": "https://gpt55.558686.xyz/favicon.ico",
+        "category": "ai-text-tools"
+      },
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "2930",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0x1f0130669ca6fd02e025a984cc038f139df19a2f",
+          "maxTimeoutSeconds": 300,
+          "extra": {
+            "name": "USD Coin",
+            "version": "2",
+            "x402Provider": "xpay"
+          }
+        }
+      ]
+    }
+  },
+  "paid_request": {
+    "method": "POST",
+    "url": "https://gpt55.558686.xyz/v1/chat/completions/standard",
+    "headers": {
+      "content-type": "application/json",
+      "X-PAYMENT": "<x402 exact payment payload signed by the buyer wallet for accepts[0]>"
+    },
+    "body": {
+      "model": "gpt-5.6-luna",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Summarize x402 in one sentence."
+        }
+      ],
+      "max_tokens": 256,
+      "stream": false
+    },
+    "note": "Same request as the quote; only the X-PAYMENT header is added (sameRequestRetryRequired: true)."
+  },
+  "paid_response_example": {
+    "status": 200,
+    "headers": {
+      "PAYMENT-RESPONSE": "<settlement receipt>",
+      "x-x402-receipt-id": "<receipt id>",
+      "x-x402-receipt-url": "<receipt url>"
+    },
+    "body": {
+      "id": "chatcmpl_example",
+      "object": "chat.completion",
+      "model": "gpt-5.6-luna",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "A concise answer from GPT-5.6 Luna."
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 32,
+        "completion_tokens": 12,
+        "total_tokens": 44
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string"
+      },
+      "example": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "object": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "choices": {
+            "type": "array"
+          },
+          "usage": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "model",
+          "choices"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "required": [
+      "type"
+    ]
+  }
+}

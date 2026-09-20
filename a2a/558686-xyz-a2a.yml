@@ -1,0 +1,128 @@
+generated: '2026-09-19'
+method: probed
+source: https://gpt55.558686.xyz/.well-known/agent-card.json
+checked: '2026-09-19'
+discovery:
+  path: /.well-known/agent-card.json
+  canonical: true
+  host: gpt55.558686.xyz
+  note: >-
+    Served from the API host gpt55.558686.xyz (Cloudflare-fronted, HTTP 200, application/json,
+    15,233 bytes). The legacy /.well-known/agent.json path returns the identical document. The
+    registrable domain 558686.xyz 301s every path to sub2api.558686.xyz, and sub2api.558686.xyz
+    and api.558686.xyz answer 200 text/html (a 62,944-byte SPA shell) for every /.well-known/*
+    path including a random negative control, so neither serves a card. The four retired split
+    hosts (x402-utils, x402-wallet, x402-seller, x402-key.558686.xyz) answer 410 on both paths.
+    The a2aregistry.org record this repo was harvested from names this exact URL.
+conformance:
+  spec: A2A 1.0.0
+  grade: conformant
+  grade_basis: >-
+    All three hard checks pass: capabilities is an OBJECT ({streaming: false, tools: true, paid:
+    true}), protocolVersion is present ("1.0"), and skills is an ARRAY of five entries each
+    carrying id, name, description, tags, examples, inputModes and outputModes. The optional
+    fields that separate conformant from near-conformant are all present: preferredTransport
+    ("JSONRPC"), defaultInputModes ([application/json]) and defaultOutputModes
+    ([application/json]). The card also carries provider, documentationUrl and version. The
+    grade is about the document's shape; see deviations for the non-spec vocabulary it uses
+    around that shape and for the retired host one of its blocks points at.
+  protocol_version: '1.0'
+  preferred_transport: JSONRPC
+  deviations:
+    - id: supportedInterfaces-not-additionalInterfaces
+      severity: soft
+      detail: >-
+        Secondary transports are declared under supportedInterfaces
+        ([{url: https://gpt55.558686.xyz/a2a, protocolBinding: JSONRPC, protocolVersion: "1.0"}]);
+        A2A names this field additionalInterfaces and its members AgentInterface {url, transport}.
+        An A2A client reading the spec field sees no additional interfaces, which is harmless
+        here because the one interface listed is the same as url/preferredTransport.
+    - id: capabilities-non-spec-keys
+      severity: soft
+      detail: >-
+        capabilities is an object, but its keys are streaming (spec), tools and paid (not in the
+        spec); pushNotifications and stateTransitionHistory are absent (they default to false)
+        and no extensions[] is declared. "paid" is the card's way of saying every skill costs
+        USDC, which A2A has no field for.
+    - id: authentication-legacy-shape
+      severity: soft
+      detail: >-
+        Credentials are declared as authentication: [{schemes: ["x402"]}] - the pre-0.2 shape -
+        instead of securitySchemes + security. x402 is not an OpenAPI security scheme type, so
+        there is no conformant way to express it; the card also carries payment.accepts[] with
+        the x402 v2 requirement (scheme exact, network eip155:8453, asset USDC contract
+        0x8335...2913, payTo 0x1f01...9a2f) which is what a paying client actually needs.
+    - id: non-spec-top-level-keys
+      severity: informational
+      detail: >-
+        origin, display_name, payout_address, keyPackDeliveryTrial, links, payments, intents,
+        payment, x402, endpoints and rateLimit ({rpm: 120}) are not A2A fields. They read as a
+        merged x402 / agents402 service descriptor; a strict A2A parser ignores them.
+    - id: keyPackDeliveryTrial-points-at-retired-host
+      severity: hard-in-practice
+      detail: >-
+        keyPackDeliveryTrial.paidUrl is https://x402-key.558686.xyz/v1/paid/api-codex-key-pack-1
+        and its quoteUrl / paymentActivation / firstPaymentClient are on the same host. That host
+        answers HTTP 410 {retired: true, retiredProject: x402-key-url-tools, canonicalUrl:
+        https://gpt55.558686.xyz/v1/paid/api-codex-key-pack-1, paymentRequiredHere: false}
+        (probed 2026-09-20). The provider's own split.json says paid routes are not available on
+        the historical host; the card has not been updated to match.
+    - id: skills-tag-list-copied-across-skills
+      severity: informational
+      detail: >-
+        gpt55-chat-completions carries 58 tags; the other four skills each carry the same first
+        16 of them (ai, llm, gpt-5.5, chat, ... translate, translation) regardless of what the
+        skill does, so tags do not discriminate between skills.
+    - id: endpoint-answers-jsonrpc
+      severity: positive
+      detail: >-
+        POST https://gpt55.558686.xyz/a2a with {"jsonrpc":"2.0","id":1,"method":"agent/getAuthenticatedExtendedCard"}
+        returned HTTP 200 {"jsonrpc":"2.0","id":1,"error":{"code":-32601,"message":"Method not
+        found: agent/getAuthenticatedExtendedCard"}} - a live JSON-RPC 2.0 endpoint. GET on the
+        same path is 404. message/send was NOT exercised: every skill is priced, and this pass
+        does not pay. a2aregistry.org's own record shows is_healthy true, uptime ~97.9%,
+        conformance true and a task_conformance METHOD check that did not pass.
+card:
+  name: GPT55 Model Gateway
+  description: >-
+    GPT-5.6 Luna Standard chat is $0.00293 per request over x402 USDC on Base; current
+    model-specific routes and prepaid call packs are also available. (Card description
+    continues with an x402.direct market-price benchmark and a pricing note.)
+  url: https://gpt55.558686.xyz/a2a
+  version: 1.0.0
+  protocol_version: '1.0'
+  preferred_transport: JSONRPC
+  documentation_url: https://gpt55.558686.xyz/llms.txt
+  provider: {organization: gpt55-token-gateway, url: 'https://gpt55.558686.xyz'}
+  default_input_modes: [application/json]
+  default_output_modes: [application/json]
+  capabilities: {streaming: false, tools: true, paid: true}
+  authentication: [{schemes: [x402]}]
+  security_schemes: none-declared (legacy authentication array instead)
+  rate_limit: {rpm: 120}
+  payout_address: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+  skills: 5
+  file: 558686-xyz-agent-card.json
+  sha256: bf617e24557de0b4c33cfdfd36b5f2dda5a631dc8ea47f7142c77827c11d7d0a
+skills:
+  - {id: gpt55-chat-completions, name: GPT-5.6 Luna Standard Chat Completions, price: '$0.00293 USDC', endpoint: 'POST https://gpt55.558686.xyz/v1/chat/completions/standard', rest_operation: v1ChatCompletionsStandard, examples: 3, tags: 58}
+  - {id: gpt55-translate, name: Translate, price: '$0.00293 USDC', endpoint: 'POST https://gpt55.558686.xyz/v1/tools/translate', rest_operation: v1ToolsTranslate, examples: 2, tags: 16}
+  - {id: gpt55-x402-buyer-shortlist, name: x402 Buyer Shortlist, price: '$0.005 USDC', endpoint: 'POST https://gpt55.558686.xyz/v1/tools/x402-buyer-shortlist', rest_operation: null, rest_note: 'route exists on the host and in the MCP tool list; not in the 37-operation OpenAPI', examples: 2, tags: 16}
+  - {id: gpt55-wallet-signing-safety-pack, name: Wallet Signing Safety Pack, price: '$0.018 USDC', endpoint: 'POST https://gpt55.558686.xyz/v1/paid/wallet-signing-safety-pack', rest_operation: walletSigningSafetyPackPaidPost, examples: 2, tags: 16}
+  - {id: gpt55-x402-mcp-integration-kit, name: x402 MCP Integration Kit, price: '$0.006 USDC', endpoint: 'POST https://gpt55.558686.xyz/v1/tools/x402-mcp-integration-kit', rest_operation: v1ToolsX402McpIntegrationKit, examples: 2, tags: 16}
+endpoint_liveness:
+  url: https://gpt55.558686.xyz/a2a
+  dns: [104.21.86.68, 172.67.216.91]
+  post_jsonrpc: 'HTTP 200, JSON-RPC error -32601 for an unknown method (2026-09-20T01:33Z)'
+  get: 'HTTP 404 {"error":{"message":"Not found","type":"not_found"}}'
+  message_send: not-exercised (paid skills; this pass does not pay)
+registry_listings:
+  - {registry: a2aregistry.org, agent_id: 5acf7371-c956-40d3-ae37-ea7e0f7d42bb, api: 'https://a2aregistry.org/api/agents?search=558686', note: 'the source of this harvest - 1 agent, GPT55 Model Gateway, author gpt55-token-gateway, provider url https://gpt55.558686.xyz/, wellKnownURI = the URL above, protocolVersion 1.0, is_healthy true, uptime_percentage 97.87, conformance true, task_conformance {category METHOD, passed false} (fetched 2026-09-19). The registry serves a NORMALISED copy of the card: capabilities rewritten to the spec keys {streaming false, pushNotifications false, stateTransitionHistory false, extensions null}, securitySchemes {} and security [], the x402 authentication/payment blocks and the non-spec keys dropped - so a reader of the registry sees a cleaner card than the provider serves.'}
+x-evidence:
+  fetched: '2026-09-19'
+  url: https://gpt55.558686.xyz/.well-known/agent-card.json
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  bytes: 15233
+  server: cloudflare
+  legacy_path: {url: 'https://gpt55.558686.xyz/.well-known/agent.json', http_status: 200, note: 'identical body'}

@@ -1,0 +1,1209 @@
+generated: '2026-09-19'
+method: derived
+source: Derived by aligning the live MCP tools/list (558686-xyz-mcp-tools-list.json, 218 tools, probed 2026-09-20)
+  with the provider OpenAPI openapi/558686-xyz-gpt55-model-gateway-openapi.json (37 operations) by operationId,
+  path and tool name. Confidence per row. The A2A agent card skills are the same five routes and are noted in a2a/.
+purpose: 'Make each MCP tool a first-class discovery unit bound to the machine-readable HTTP contract it fronts.
+  GPT55 is a case where the MCP surface is a strict SUPERSET of the OpenAPI: 218 tools versus 37 operations, because
+  the OpenAPI was reduced after the 2026-07 split ("Reduced GPT55 public surface after x402 project split") while
+  the MCP server still lists every route the host serves. The MCP tool inputSchema is therefore the ONLY machine-readable
+  parameter contract for roughly 180 routes; the OpenAPI declares requestBody {type: object, additionalProperties:
+  true} even for the operations it does cover.'
+surfaces:
+  rest_openapi: openapi/558686-xyz-gpt55-model-gateway-openapi.json (37 operations, no components.schemas, no securitySchemes;
+    every paid op documents 200 + 402)
+  rest_openapi_secondary: openapi/558686-xyz-api-market-utility-tools-openapi.json (44 free utility operations under
+    /api-market; overlaps the utility tool family below)
+  graphql: none
+  mcp: https://gpt55.558686.xyz/mcp (Streamable HTTP; initialize/tools/list/resources/list open, no auth; tools/call
+    returns payment instructions, not results - see mcp/558686-xyz-mcp.yml)
+  a2a: 'https://gpt55.558686.xyz/a2a (JSON-RPC; five paid skills, each also an MCP tool: chat_standard, gpt55_translate,
+    gpt55_x402_buyer_shortlist, gpt55_wallet_signing_safety_pack, gpt55_x402_mcp_integration_kit)'
+coverage:
+  mcp_tools_named: 218
+  mcp_tools_bound_to_rest: 34
+  mcp_only: 184
+  rest_operations_total: 37
+  rest_operations_with_tool: 28
+  rest_only: 9
+  mcp_only_by_category:
+    x402-tools: 102
+    prepaid-balance: 1
+    chat: 1
+    web-tools: 13
+    utility: 38
+    wallet-security: 4
+    text-tools: 25
+  note: 51 of the mcp_only utility/web tools have a FREE counterpart in the /api-market OpenAPI (same tool names,
+    different base path, no x402 gate).
+crosswalk:
+- tool: gpt55_balance_metered_chat_completion
+  category: prepaid-balance
+  rest:
+  - v1ChatCompletionsMetered
+  binding: rest
+  confidence: medium
+  note: metered route exists in the spec; the tool adds account_id/request_id inputs the spec does not describe
+- tool: chat_standard
+  category: chat
+  rest:
+  - v1ChatCompletionsStandard
+  binding: rest
+  confidence: high
+  price: $0.00293
+- tool: chat_gpt_5_6_soul
+  category: chat
+  rest:
+  - v1ChatCompletionsGpt56Sol
+  binding: rest
+  confidence: high
+  price: $0.099995
+- tool: chat_gpt_5_6_luna
+  category: chat
+  rest:
+  - v1ChatCompletionsGpt56Luna
+  binding: rest
+  confidence: high
+  price: $0.019999
+- tool: chat_gpt_5_6_terra
+  category: chat
+  rest:
+  - v1ChatCompletionsGpt56Terra
+  binding: rest
+  confidence: high
+  price: $0.049998
+- tool: chat_gpt_5_5
+  category: chat
+  rest:
+  - v1ChatCompletionsGpt55
+  binding: rest
+  confidence: high
+  price: $0.019999
+- tool: chat_gpt_5_3_codex
+  category: chat
+  rest:
+  - v1ChatCompletionsGpt53Codex
+  binding: rest
+  confidence: high
+  price: $0.007472
+- tool: gpt55_x402_wallet_payment_activation_agent
+  category: x402-tools
+  rest:
+  - v1PaidWalletPaymentActivationAgent
+  binding: rest
+  confidence: high
+  price: $2.90
+- tool: gpt55_x402_wallet_payment_activation_agent_get
+  category: x402-tools
+  rest:
+  - v1PaidWalletPaymentActivationAgent
+  binding: rest
+  confidence: high
+  price: $2.90
+- tool: gpt55_summarize
+  category: text-tools
+  rest:
+  - v1ToolsSummarize
+  binding: rest
+  confidence: high
+  price: $0.00293
+- tool: gpt55_translate
+  category: text-tools
+  rest:
+  - v1ToolsTranslate
+  binding: rest
+  confidence: high
+  price: $0.00293
+- tool: gpt55_translate_get
+  category: text-tools
+  rest:
+  - v1ToolsTranslate
+  binding: rest
+  confidence: medium
+  price: $0.00293
+  note: GET variant of a route the OpenAPI declares as POST only
+- tool: gpt55_rewrite
+  category: text-tools
+  rest:
+  - v1ToolsRewrite
+  binding: rest
+  confidence: high
+  price: $0.00293
+- tool: gpt55_answer
+  category: text-tools
+  rest:
+  - v1ToolsAnswer
+  binding: rest
+  confidence: high
+  price: $0.00293
+- tool: gpt55_code_review
+  category: text-tools
+  rest:
+  - v1ToolsCodeReview
+  binding: rest
+  confidence: high
+  price: $0.00293
+- tool: gpt55_extract_json
+  category: text-tools
+  rest:
+  - v1ToolsExtractJson
+  binding: rest
+  confidence: high
+  price: $0.00293
+- tool: gpt55_evm_wallet_balance
+  category: wallet-security
+  rest:
+  - v1ToolsEvmWalletBalancePost
+  binding: rest
+  confidence: high
+  price: $0.001
+- tool: gpt55_evm_wallet_balance_get
+  category: wallet-security
+  rest:
+  - v1ToolsEvmWalletBalanceGet
+  binding: rest
+  confidence: high
+  price: $0.001
+- tool: gpt55_sub2api_official_metered_invoice
+  category: sub2api-billing
+  rest:
+  - v1ToolsSub2apiOfficialMeteredInvoice
+  binding: rest
+  confidence: high
+  price: $0.066667
+- tool: gpt55_sub2api_balance_ledger_simulator
+  category: sub2api-billing
+  rest:
+  - v1ToolsSub2apiBalanceLedgerSimulator
+  binding: rest
+  confidence: high
+  price: $0.10
+- tool: gpt55_gpt55_plus_half_price_subscription
+  category: sub2api-billing
+  rest:
+  - v1ToolsGpt55PlusHalfPriceSubscription
+  binding: rest
+  confidence: high
+  price: $10.00
+- tool: gpt55_x402_bazaar_search
+  category: x402-tools
+  rest:
+  - v1ToolsX402BazaarSearch
+  binding: rest
+  confidence: high
+  price: $0.004
+- tool: gpt55_x402_bazaar_search_get
+  category: x402-tools
+  rest:
+  - v1ToolsX402BazaarSearch
+  binding: rest
+  confidence: medium
+  price: $0.004
+  note: GET variant; OpenAPI declares POST only
+- tool: gpt55_timestamp
+  category: utility
+  rest:
+  - v1ToolsTimestamp
+  binding: rest
+  confidence: medium
+  price: $0.002
+  note: the OpenAPI declares only GET /v1/tools/timestamp; the POST tool binds to the same route by name
+- tool: gpt55_timestamp_get
+  category: utility
+  rest:
+  - v1ToolsTimestamp
+  binding: rest
+  confidence: high
+  price: $0.002
+- tool: gpt55_query_parse
+  category: utility
+  rest:
+  - v1ToolsQueryParse
+  binding: rest
+  confidence: medium
+  price: $0.002
+  note: the OpenAPI declares only GET /v1/tools/query-parse; the POST tool binds to the same route by name
+- tool: gpt55_query_parse_get
+  category: utility
+  rest:
+  - v1ToolsQueryParse
+  binding: rest
+  confidence: high
+  price: $0.002
+- tool: gpt55_wallet_signing_safety_pack
+  category: wallet-security
+  rest:
+  - walletSigningSafetyPackPaidPost
+  binding: rest
+  confidence: high
+  price: $0.018
+- tool: gpt55_wallet_signing_safety_pack_get
+  category: wallet-security
+  rest:
+  - walletSigningSafetyPackPaidGet
+  binding: rest
+  confidence: high
+  price: $0.018
+- tool: gpt55_x402_mcp_integration_kit
+  category: x402-tools
+  rest:
+  - v1ToolsX402McpIntegrationKit
+  binding: rest
+  confidence: high
+  price: $0.006
+- tool: gpt55_x402_mcp_integration_kit_get
+  category: x402-tools
+  rest:
+  - v1ToolsX402McpIntegrationKit
+  binding: rest
+  confidence: medium
+  price: $0.006
+  note: GET variant; OpenAPI declares POST only
+- tool: gpt55_translate_standard
+  category: text-tools
+  rest:
+  - v1ToolsTranslateStandard
+  binding: rest
+  confidence: high
+  price: $0.00293
+- tool: gpt55_translate_plus
+  category: text-tools
+  rest:
+  - v1ToolsTranslatePlus
+  binding: rest
+  confidence: high
+  price: $0.145
+- tool: gpt55_translate_professional
+  category: text-tools
+  rest:
+  - v1ToolsTranslateProfessional
+  binding: rest
+  confidence: high
+  price: $0.145
+mcp_only:
+- tool: gpt55_x402_ping
+  category: x402-tools
+  reason: /v1/x402-ping (GET and POST, $0.002) is the documented settlement canary but is not declared in the OpenAPI
+  price: $0.002
+- tool: gpt55_balance_topup
+  category: prepaid-balance
+  reason: prepaid-balance top-up route has no OpenAPI operation
+  price: $0.005
+- tool: chat_gpt_5_4
+  category: chat
+  reason: /v1/chat/completions/gpt-5.4 is served and priced ($0.010109) but absent from the OpenAPI; reachable through
+    v1ChatCompletions with model=gpt-5.4
+  price: $0.010109
+- tool: gpt55_x402_buyer_payment_execution_runbook
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $4.90
+- tool: gpt55_x402_agent_wallet_incident_response_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $3.90
+- tool: gpt55_x402_procurement_vendor_risk_dossier
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $5.90
+- tool: gpt55_x402_mcp_production_launch_audit
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $4.90
+- tool: gpt55_x402_wallet_receipt_accounting_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $3.90
+- tool: gpt55_x402_agent_spend_simulator
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $4.90
+- tool: gpt55_x402_seller_price_ladder_optimizer
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $4.90
+- tool: gpt55_x402_directory_trust_evidence_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $3.90
+- tool: gpt55_x402_agent_payment_authorization_ato_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $6.90
+- tool: gpt55_x402_mcp_entitlement_receipt_gateway
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $7.90
+- tool: gpt55_x402_autonomous_procurement_policy_engine
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $8.90
+- tool: gpt55_x402_bazaar_listing_revenue_repair
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $6.90
+- tool: gpt55_x402_wallet_drain_prevention_firewall
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $7.90
+- tool: gpt55_x402_ai_crawler_license_enforcement_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $6.90
+- tool: gpt55_x402_payment_slo_monitoring_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $5.90
+- tool: gpt55_x402_agentic_api_red_team_brief
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $9.90
+- tool: gpt55_x402_agent_treasury_rebalancing_policy
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $12.90
+- tool: gpt55_x402_paid_api_contract_test_suite
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $11.90
+- tool: gpt55_x402_mcp_tool_revenue_share_ledger
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $10.90
+- tool: gpt55_x402_agent_wallet_key_rotation_drill
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $8.90
+- tool: gpt55_x402_enterprise_buyer_onboarding_dossier
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $12.90
+- tool: gpt55_x402_model_arbitrage_router_policy
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $9.90
+- tool: gpt55_x402_settlement_dispute_evidence_lockbox
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $8.90
+- tool: gpt55_x402_agent_market_data_procurement_firewall
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $13.90
+- tool: gpt55_x402_buyer_payment_client_implementation_sprint
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $14.90
+- tool: gpt55_x402_flowise_payment_node_blueprint
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $16.90
+- tool: gpt55_x402_mcp_enterprise_rollout_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $18.90
+- tool: gpt55_x402_payment_tax_invoice_reconciliation_kit
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $17.90
+- tool: gpt55_x402_soc2_payment_control_evidence_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $19.90
+- tool: gpt55_x402_private_gateway_deployment_plan
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $24.90
+- tool: gpt55_x402_agent_procurement_rfp_response_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $21.90
+- tool: gpt55_x402_conversion_forensics_war_room
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $15.90
+- tool: gpt55_x402_agent_credit_line_underwriting_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $29.90
+- tool: gpt55_x402_payment_retry_slo_autopilot
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $26.90
+- tool: gpt55_x402_mcp_tenant_entitlement_isolation_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $31.90
+- tool: gpt55_x402_data_room_receipt_redaction_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $27.90
+- tool: gpt55_x402_usage_quota_billing_reconciliation_agent
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $28.90
+- tool: gpt55_x402_refund_dispute_resolution_playbook
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $25.90
+- tool: gpt55_x402_model_procurement_benchmark_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $32.90
+- tool: gpt55_x402_agent_runbook_compliance_attestation_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $34.90
+- tool: gpt55_x402_agent_data_leak_containment_plan
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $39.90
+- tool: gpt55_x402_agent_approval_workflow_compiler
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $37.90
+- tool: gpt55_x402_model_sla_breach_claims_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $42.90
+- tool: gpt55_x402_mcp_asset_inventory_risk_register
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $35.90
+- tool: gpt55_x402_cross_chain_payment_failover_playbook
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $44.90
+- tool: gpt55_x402_enterprise_security_questionnaire_autofill
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $49.90
+- tool: gpt55_x402_customer_support_refund_triage_agent
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $36.90
+- tool: gpt55_x402_seller_revenue_leakage_forensics_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $45.90
+- tool: gpt55_url_metadata
+  category: web-tools
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_url_metadata_get
+  category: web-tools
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_url_text
+  category: web-tools
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_url_text_get
+  category: web-tools
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_url_links
+  category: web-tools
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_url_links_get
+  category: web-tools
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_github_repository_supply_chain_evidence
+  category: web-tools
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.009
+- tool: gpt55_x402_site_audit
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.002
+- tool: gpt55_x402_site_audit_get
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.002
+- tool: gpt55_x402_quote_inspector
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.002
+- tool: gpt55_x402_quote_inspector_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.002
+- tool: gpt55_x402_batch_quote_inspector
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.002
+- tool: gpt55_x402_batch_quote_inspector_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.002
+- tool: gpt55_x402_discovery_price_compare
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.003
+- tool: gpt55_x402_discovery_price_compare_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.003
+- tool: gpt55_x402_buyer_shortlist
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.005
+- tool: gpt55_x402_buyer_shortlist_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.005
+- tool: gpt55_x402_prepay_trust_check
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.004
+- tool: gpt55_x402_prepay_trust_check_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.004
+- tool: gpt55_x402_buyer_prepay_risk_score
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.006
+- tool: gpt55_x402_buyer_prepay_risk_score_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.006
+- tool: gpt55_x402_payment_failure_doctor
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.006
+- tool: gpt55_x402_payment_failure_doctor_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.006
+- tool: gpt55_x402_wallet_funding_readiness_doctor
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.006
+- tool: gpt55_x402_wallet_funding_readiness_doctor_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.006
+- tool: gpt55_x402_client_compatibility_adapter
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.006
+- tool: gpt55_x402_client_compatibility_adapter_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.006
+- tool: gpt55_x402_receipt_dispute_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.006
+- tool: gpt55_x402_receipt_dispute_pack_get
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.006
+- tool: gpt55_x402_receipt_bound_execution_gate
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.012
+- tool: gpt55_x402_agent_task_receipt_outbox
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.012
+- tool: gpt55_x402_directory_compliance_repair_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.012
+- tool: gpt55_x402_directory_compliance_repair_pack_get
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.012
+- tool: gpt55_x402_agent_payment_policy_compiler
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.012
+- tool: gpt55_x402_agent_payment_approval_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.012
+- tool: gpt55_x402_agent_spend_recurrence_guard
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.012
+- tool: gpt55_x402_paid_mcp_authorization_bridge
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.012
+- tool: gpt55_x402_verify_settle_recovery_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.012
+- tool: gpt55_x402_buyer_client_adapter_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.012
+- tool: gpt55_x402_revenue_recovery_agent
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $4.90
+- tool: gpt55_x402_agent_payment_due_diligence_pack
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.019
+- tool: gpt55_x402_agent_payment_due_diligence_pack_get
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.019
+- tool: gpt55_x402_market_benchmark
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.006
+- tool: gpt55_x402_market_benchmark_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.006
+- tool: gpt55_x402_listing_seo_audit
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.008
+- tool: gpt55_x402_listing_seo_audit_get
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.008
+- tool: gpt55_x402_opportunity_finder
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.009
+- tool: gpt55_x402_opportunity_finder_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.009
+- tool: gpt55_x402_directory_rank_tracker
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.01
+- tool: gpt55_x402_directory_rank_tracker_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.01
+- tool: gpt55_http_status
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_http_status_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_json_validate
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_json_validate_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_text_stats
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_text_stats_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_hash_text
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_hash_text_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_base64_codec
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_base64_codec_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_url_parse
+  category: web-tools
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_url_parse_get
+  category: web-tools
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_jwt_decode
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_jwt_decode_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_slugify
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_slugify_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_case_convert
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_case_convert_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_regex_match
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_regex_match_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_html_strip
+  category: web-tools
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_html_strip_get
+  category: web-tools
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_unique_lines
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_unique_lines_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_sort_lines
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_sort_lines_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_diff_lines
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_diff_lines_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_json_minify
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_json_minify_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_uri_codec
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_uri_codec_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_html_entity_codec
+  category: web-tools
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_html_entity_codec_get
+  category: web-tools
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_email_normalize
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_email_normalize_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_evm_transaction_risk_decoder
+  category: wallet-security
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.01
+- tool: gpt55_evm_transaction_risk_decoder_get
+  category: wallet-security
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.01
+- tool: gpt55_eip712_signature_risk_decoder
+  category: wallet-security
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.01
+- tool: gpt55_eip712_signature_risk_decoder_get
+  category: wallet-security
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.01
+- tool: gpt55_domain_extract
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_domain_extract_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_color_convert
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_color_convert_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_uuid
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_uuid_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_json_keys
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_json_keys_get
+  category: utility
+  reason: deterministic utility route served on the host (and, for most, declared in the separate /api-market OpenAPI
+    as a free route); not in the paid gateway OpenAPI
+  price: $0.002
+- tool: gpt55_x402_agent_core_integration_kit
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.006
+- tool: gpt55_x402_agent_core_integration_kit_get
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.006
+- tool: gpt55_x402_seller_intelligence_bundle
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.029
+- tool: gpt55_x402_seller_intelligence_bundle_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.029
+- tool: gpt55_x402_seller_action_plan
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.019
+- tool: gpt55_x402_seller_action_plan_get
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.019
+- tool: gpt55_x402_base_builder_funding_readiness
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.019
+- tool: gpt55_x402_base_builder_funding_readiness_get
+  category: x402-tools
+  reason: x402 buyer/seller tool route served and priced in live-prices.json; not declared in the OpenAPI
+  price: $0.019
+- tool: gpt55_x402_crawler_monetization_kit
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.019
+- tool: gpt55_x402_crawler_monetization_kit_get
+  category: x402-tools
+  reason: premium x402 pack / playbook route under /v1/paid/ or /v1/tools/ served and priced in live-prices.json;
+    not one of the 37 OpenAPI operations
+  price: $0.019
+- tool: gpt55_summarize_standard
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsSummarize covers the untiered route
+  price: $0.00293
+- tool: gpt55_summarize_plus
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsSummarize covers the untiered route
+  price: $0.17
+- tool: gpt55_summarize_professional
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsSummarize covers the untiered route
+  price: $0.17
+- tool: gpt55_code_review_standard
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsCodeReview covers the untiered route
+  price: $0.00293
+- tool: gpt55_code_review_plus
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsCodeReview covers the untiered route
+  price: $0.211
+- tool: gpt55_code_review_professional
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsCodeReview covers the untiered route
+  price: $0.211
+- tool: gpt55_rewrite_standard
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsRewrite covers the untiered route
+  price: $0.00293
+- tool: gpt55_rewrite_plus
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsRewrite covers the untiered route
+  price: $0.145
+- tool: gpt55_rewrite_professional
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsRewrite covers the untiered route
+  price: $0.145
+- tool: gpt55_answer_standard
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsAnswer covers the untiered route
+  price: $0.00293
+- tool: gpt55_answer_plus
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsAnswer covers the untiered route
+  price: $0.145
+- tool: gpt55_answer_professional
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsAnswer covers the untiered route
+  price: $0.145
+- tool: gpt55_extract_json_standard
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsExtractJson covers the untiered route
+  price: $0.00293
+- tool: gpt55_extract_json_plus
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsExtractJson covers the untiered route
+  price: $0.17
+- tool: gpt55_extract_json_professional
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsExtractJson covers the untiered route
+  price: $0.17
+- tool: gpt55_translate_mini
+  category: text-tools
+  reason: legacy translate tier (mini/pro/batch) not declared in the OpenAPI; v1ToolsTranslate* cover the declared
+    tiers
+  price: $0.00293
+- tool: gpt55_translate_pro
+  category: text-tools
+  reason: legacy translate tier (mini/pro/batch) not declared in the OpenAPI; v1ToolsTranslate* cover the declared
+    tiers
+  price: $0.145
+- tool: gpt55_translate_batch
+  category: text-tools
+  reason: legacy translate tier (mini/pro/batch) not declared in the OpenAPI; v1ToolsTranslate* cover the declared
+    tiers
+  price: $0.017
+- tool: gpt55_summarize_mini
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsSummarize covers the untiered route
+  price: $0.00293
+- tool: gpt55_summarize_pro
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsSummarize covers the untiered route
+  price: $0.17
+- tool: gpt55_code_review_mini
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsCodeReview covers the untiered route
+  price: $0.00293
+- tool: gpt55_code_review_pro
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsCodeReview covers the untiered route
+  price: $0.211
+- tool: gpt55_rewrite_mini
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsRewrite covers the untiered route
+  price: $0.00293
+- tool: gpt55_answer_mini
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsAnswer covers the untiered route
+  price: $0.00293
+- tool: gpt55_extract_json_mini
+  category: text-tools
+  reason: tier variant route (/v1/tools/<tool>/<tier>) is served and priced but not declared in the OpenAPI; base
+    operation v1ToolsExtractJson covers the untiered route
+  price: $0.00293
+rest_only:
+- operationId: v1Models
+  method: GET
+  path: /v1/models
+  note: model listing; answers 200 anonymously; no tool, but resources/list exposes /openapi.json and pricing
+- operationId: v1ChatCompletions
+  method: POST
+  path: /v1/chat/completions
+  note: dynamic-model compatibility route; the chat_* tools bind to the model-specific routes instead
+- operationId: v1ChatCompletionsGpt56
+  method: POST
+  path: /v1/chat/completions/gpt-5.6
+  note: alias of the Soul route; chat_gpt_5_6_soul binds to /gpt-5.6-sol
+- operationId: v1PaidCallPacksGpt56Sol100
+  method: GET
+  path: /v1/paid/call-packs/gpt-5.6-sol-100
+  note: prepaid call-pack quote route; purchasing a pack is not offered as an MCP tool
+- operationId: v1PaidCallPacksGpt56Luna100
+  method: GET
+  path: /v1/paid/call-packs/gpt-5.6-luna-100
+  note: prepaid call-pack quote route; purchasing a pack is not offered as an MCP tool
+- operationId: v1PaidCallPacksGpt56Terra100
+  method: GET
+  path: /v1/paid/call-packs/gpt-5.6-terra-100
+  note: prepaid call-pack quote route; purchasing a pack is not offered as an MCP tool
+- operationId: v1PaidCallPacksGpt55100
+  method: GET
+  path: /v1/paid/call-packs/gpt-5.5-100
+  note: prepaid call-pack quote route; purchasing a pack is not offered as an MCP tool
+- operationId: v1PaidCallPacksGpt53Codex100
+  method: GET
+  path: /v1/paid/call-packs/gpt-5.3-codex-100
+  note: prepaid call-pack quote route; purchasing a pack is not offered as an MCP tool
+- operationId: v1ToolsEvmWalletBalanceHead
+  method: HEAD
+  path: /v1/tools/evm-wallet-balance
+  note: HEAD variant; no MCP tool

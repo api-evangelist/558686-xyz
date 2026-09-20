@@ -1,0 +1,54 @@
+generated: '2026-09-19'
+method: probed
+source: >-
+  Response headers observed on GET https://gpt55.558686.xyz/v1/models (200) and on unpaid POST
+  https://gpt55.558686.xyz/v1/chat/completions/standard (402) on 2026-09-20 UTC; the agent card's
+  rateLimit block; /llms-full.txt "Limits For Public Paid Calls"; the 402 quote's
+  maxTimeoutSeconds; the Sub2API pricing page and docs (no limits published) and its 401 headers.
+corroboration:
+  - https://gpt55.558686.xyz/.well-known/agent-card.json      # rateLimit: {rpm: 120}
+  - https://gpt55.558686.xyz/llms-full.txt                     # payload caps
+  - https://gpt55.558686.xyz/buyer-guide                       # exact price caps per route
+checked: '2026-09-19'
+summary: >-
+  GPT55 signals its rate limit at runtime with the IETF RateLimit header fields on every
+  response, paid or not: ratelimit-limit 120, ratelimit-policy "120;w=60" (120 requests per
+  60-second window), ratelimit-remaining and ratelimit-reset (seconds). The agent card states the
+  same figure as rpm 120. The scope is not documented (observed as a shared counter across paths
+  from one client IP: remaining fell from 41 to 40 between a POST 402 and a GET 200 seconds
+  apart). Exhaustion was not induced, so the status code and body on exceeding the window are
+  unconfirmed; Retry-After is listed in access-control-expose-headers, which is the provider
+  saying it may return one. The other published ceilings are payload and payment bounds, not
+  rates: 24,000 input characters on Standard chat, 128,000 theoretical max output tokens, a
+  300-second maxTimeoutSeconds on each x402 quote, and a per-route exact price that acts as the
+  spend cap per call. Sub2API publishes no rate limits; its responses carry x-request-id but no
+  RateLimit-* headers on the 401 observed.
+limit_count: 1
+limits:
+  - scope: per-client (scope not documented; observed as one shared window across paths from one IP)
+    surface: all https://gpt55.558686.xyz responses (API, 402 quotes, MCP endpoint)
+    window: 60 seconds
+    limit: 120
+    burst: not-documented
+    source: observed headers + agent card rateLimit.rpm 120
+    headers:
+      - {name: ratelimit-limit, example: '120'}
+      - {name: ratelimit-policy, example: '120;w=60'}
+      - {name: ratelimit-remaining, example: '40'}
+      - {name: ratelimit-reset, example: '11', unit: seconds}
+    exhaustion_status: not-observed (expected 429; Retry-After exposed via access-control-expose-headers)
+payload_bounds:
+  - {surface: 'POST /v1/chat/completions/standard (and /v1/chat/completions default)', bound: 'max 24000 input characters', verbatim: 'Public GPT-5.6 Luna Standard calls are limited to 24000 input characters.', source: https://gpt55.558686.xyz/.well-known/ai-plugin.json}
+  - {surface: 'all chat routes', bound: 'max_tokens 1..128000 (MCP inputSchema); "Model theoretical max output is 128000 tokens; actual returned output depends on upstream availability, request parameters, and account policy."', source: https://gpt55.558686.xyz/llms-full.txt}
+  - {surface: 'every paid route', bound: 'accepts[].maxTimeoutSeconds 300 - the quoted payment must be presented within 300 s', source: 'live 402 body'}
+  - {surface: 'premium /v1/paid/* packs', bound: 'maxPromptChars 2048 (per live-prices.json endpoint metadata)', source: https://gpt55.558686.xyz/x402/live-prices.json}
+response_headers_observed:
+  - 'ratelimit-limit: 120'
+  - 'ratelimit-policy: 120;w=60'
+  - 'ratelimit-remaining: 41 -> 40'
+  - 'ratelimit-reset: 11'
+  - 'access-control-expose-headers: PAYMENT-REQUIRED,X-PAYMENT-REQUIRED,PAYMENT-RESPONSE,X-PAYMENT-RESPONSE,x-x402-receipt-id,x-x402-receipt-url,x-x402-payment-response-omitted,x-x402-payment-response-recovery,Retry-After'
+status_on_exhaustion: unknown
+sub2api:
+  limit_count: 0
+  note: 'No rate limits published on https://sub2api.558686.xyz/pricing, /docs/ or in the OpenAPI; billing is per-token platform quota with per-group multipliers. Observed 401 responses carry x-request-id / x-client-request-id and no RateLimit-* or Retry-After header.'

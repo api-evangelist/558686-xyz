@@ -1,0 +1,163 @@
+generated: '2026-09-19'
+method: searched
+source: >-
+  The three provider OpenAPIs under openapi/ (live 2026-09-19), a2a/558686-xyz-agent-card.json,
+  well-known/ (live probes with negative controls), mcp/558686-xyz-mcp-initialize.json and
+  -tools-list.json (live JSON-RPC), https://gpt55.558686.xyz/buyer-guide, /llms.txt,
+  /llms-full.txt, /robots.txt, /x402/status, /projects/split.json, the response headers observed
+  on GET /v1/models and on unpaid POSTs (402), https://sub2api.558686.xyz/apis.json, /openapi.json,
+  /docs/, and the repository wangletiand/gpt55-x402-gateway (README, SECURITY.md, package.json).
+checked: '2026-09-19'
+summary: >-
+  GPT55 conforms, observably, to the agent-facing stack it advertises: x402 v2 (a live 402 with
+  PAYMENT-REQUIRED header and accepts[] on every paid route), MCP 2025-06-18 over Streamable HTTP
+  (initialize + tools/list + resources/list anonymous), the MCP registry server.json schema and
+  the SEP-1649 server card, an A2A 1.0 agent card graded conformant at the canonical path, JSON-RPC
+  2.0 on /a2a, the OpenAI chat-completions request/response shape (its market's de facto domain
+  standard, declared in the contract paths and enumerated model/messages/max_tokens/stream inputs),
+  IETF RateLimit header fields, llms.txt, an OpenAI plugin manifest, an agents402 0.1 manifest,
+  Content-Signals in robots.txt, HSTS and CORS. It conforms to none of the classic HTTP security
+  and error conventions: no OAuth 2.0 / OIDC / RFC 8414 / RFC 9728 metadata (payment is the gate,
+  there is no identity layer), no RFC 9116 security.txt (the disclosure policy is a SECURITY.md on
+  GitHub), no RFC 9457 problem details (errors are {error {message, type}}), no RFC 9727 API
+  catalog, no RFC 8594 Sunset/Deprecation headers on the retired hosts (they answer 410 Gone with a
+  JSON notice), no AsyncAPI or GraphQL. Sub2API's surface conforms to OpenAPI 3.1, APIs.json 0.16,
+  llms.txt and the OpenAI-compatible shape, with Bearer/x-api-key auth and a {code, message} error
+  envelope. No compliance program or certification is published anywhere, so no Compliance pointer.
+standards:
+- id: openapi-3.1
+  name: OpenAPI 3.1.0
+  conforms: true
+  evidence: 'Three provider-served documents: https://gpt55.558686.xyz/openapi.json (37 operations, servers[] gpt55.558686.xyz, every op has operationId+summary, 200+402 responses, no securitySchemes, no components.schemas), https://gpt55.558686.xyz/api-market/openapi.json (44 operations, servers[] .../api-market) and https://sub2api.558686.xyz/openapi.json (3 operations, bearerAuth http scheme, no operationIds). All parse; saved under openapi/.'
+- id: x402
+  name: x402 HTTP payment protocol
+  version: '2'
+  conforms: true
+  verification: observed
+  evidence: 'POST https://gpt55.558686.xyz/v1/chat/completions/standard without payment -> HTTP 402, header PAYMENT-REQUIRED (base64 JSON), body {x402Version 2, error "Payment required", resource{...}, accepts[{scheme exact, network eip155:8453, amount "2930", asset 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, payTo 0x1f0130669ca6fd02e025a984cc038f139df19a2f, maxTimeoutSeconds 300, extra{name "USD Coin", version "2", x402Provider xpay}}], extensions.bazaar{...}} (2026-09-20). access-control-expose-headers lists PAYMENT-REQUIRED, X-PAYMENT-REQUIRED, PAYMENT-RESPONSE, X-PAYMENT-RESPONSE, x-x402-receipt-id, x-x402-receipt-url. Discovery document at /.well-known/x402 (x402Version 2). Only the exact scheme; upto is disabled. Facilitator https://facilitator.xpay.sh (the only active one in the provider''s pool per /x402/status).'
+  domain_standard_signature: true
+  domain_standard_note: 'The agent-payments market standard, declared IN the contract: x-x402-price on 36 of 37 operations, x-x402-compatibility at the document root, and a 402 response on every paid operation.'
+- id: openai-chat-completions-compatibility
+  name: OpenAI-compatible chat completions API shape (de facto)
+  conforms: true
+  evidence: 'GPT55 OpenAPI paths /v1/models and /v1/chat/completions[/<model>] (operationIds v1Models, v1ChatCompletions, v1ChatCompletionsStandard, ...); the MCP chat_* tools enumerate the OpenAI request fields model / messages[{role, content}] / max_tokens / stream; the provider''s example response is an OpenAI chat.completion object with choices[] and usage{}. Sub2API OpenAPI: GET /v1/models, POST /v1/chat/completions, POST /v1/responses with Bearer auth and base URL https://sub2api.558686.xyz/v1 for the official OpenAI SDKs. Neither is an OpenAI product; GPT55''s README says so explicitly.'
+  domain_standard_signature: true
+  domain_standard_note: 'The AI-gateway market''s interoperability shape; declared in both contracts'' paths, not only in prose.'
+- id: mcp
+  name: Model Context Protocol
+  version: '2025-06-18'
+  conforms: true
+  verification: observed
+  evidence: 'POST https://gpt55.558686.xyz/mcp initialize -> protocolVersion "2025-06-18", serverInfo {gpt55-x402-gateway, 2026.06.21}, capabilities {tools {listChanged false}, resources {subscribe false, listChanged false}}; tools/list -> 218 tools with inputSchema + annotations; resources/list -> 14 resources. Saved under mcp/.'
+- id: mcp-server-json
+  name: MCP registry server.json schema
+  version: '2025-12-11'
+  conforms: true
+  evidence: 'https://gpt55.558686.xyz/.well-known/mcp.json and GET /mcp declare $schema https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json; /server.json carries name, title, description, version 2026.07.01-split, websiteUrl, repository and _meta["io.modelcontextprotocol.registry/publisher-provided"]. Not submitted to the official registry (no entry found; llms-install.md says no marketplace submission has been made).'
+- id: mcp-server-card
+  name: MCP server card (SEP-1649)
+  conforms: true
+  evidence: 'https://gpt55.558686.xyz/.well-known/mcp/server-card.json - 200, server {name xyz.558686.gpt55/token-gateway, url https://gpt55.558686.xyz/mcp, transport [streamable-http, sse]}, install{}, payment {protocol x402}, tools[], resources{}. Saved under well-known/.'
+- id: a2a-agent-card
+  name: A2A Agent Card
+  version: '1.0'
+  conforms: true
+  grade: conformant
+  evidence: 'https://gpt55.558686.xyz/.well-known/agent-card.json - 200 application/json 15,233 B; protocolVersion "1.0", capabilities object, skills[] of 5, preferredTransport JSONRPC, defaultInputModes/defaultOutputModes present. Deviations (supportedInterfaces, legacy authentication array, non-spec keys, one block pointing at a retired host) are graded in a2a/558686-xyz-a2a.yml.'
+- id: json-rpc-2.0
+  name: JSON-RPC 2.0
+  conforms: true
+  evidence: 'POST https://gpt55.558686.xyz/a2a with an unknown method -> {"jsonrpc":"2.0","id":1,"error":{"code":-32601,"message":"Method not found: ..."}}; the MCP endpoint answers the same envelope for initialize/tools/list.'
+- id: llms-txt
+  name: llms.txt
+  conforms: true
+  evidence: 'https://gpt55.558686.xyz/llms.txt (3,240 B: H1, summary paragraph, link lists) and https://sub2api.558686.xyz/llms.txt (1,169 B). Both saved under llms/. llms-full.txt served on both hosts (gitignored locally).'
+- id: robots-content-signals
+  name: Content Signals (robots.txt Content-Signal)
+  conforms: true
+  evidence: 'https://gpt55.558686.xyz/robots.txt: "Content-Signal: search=yes,ai-train=no,use=reference"; per-agent Allow for OAI-SearchBot, ChatGPT-User, PerplexityBot, Claude-SearchBot and Disallow for GPTBot, ClaudeBot, Google-Extended; Sitemap directive. Saved as well-known/558686-xyz-content-signals-robots.txt and wired as ContentSignal. sub2api.558686.xyz/robots.txt has no Content-Signal.'
+- id: ietf-ratelimit-headers
+  name: RateLimit header fields (draft-ietf-httpapi-ratelimit-headers)
+  conforms: true
+  verification: observed
+  evidence: 'GET https://gpt55.558686.xyz/v1/models -> ratelimit-limit: 120, ratelimit-policy: 120;w=60, ratelimit-remaining: 40, ratelimit-reset: 11 (2026-09-20); the same headers on 402 responses. Retry-After is in access-control-expose-headers. See rate-limits/.'
+- id: openai-plugin-manifest
+  name: OpenAI plugin manifest (ai-plugin.json)
+  conforms: true
+  evidence: 'https://gpt55.558686.xyz/.well-known/ai-plugin.json - schema_version v1, name_for_model gpt55_x402_gateway, auth {type none}, api {type openapi, url https://gpt55.558686.xyz/openapi.json}. A legacy ChatGPT-plugins format the provider still publishes; saved under well-known/.'
+- id: agents402
+  name: agents402 manifest
+  version: '0.1'
+  conforms: true
+  evidence: 'https://gpt55.558686.xyz/.well-known/agents402.json - version 0.1, service {provider gpt55-token-gateway, protocols [x402]}, actionSelection, actions[], discovery{}. A community x402-agent manifest format; saved under well-known/.'
+- id: apis-json
+  name: APIs.json
+  version: '0.16'
+  conforms: true
+  evidence: 'https://sub2api.558686.xyz/apis.json - 200, name, description, url, created 2026-06-28, modified 2026-07-02, specificationVersion 0.16, one API with baseURL and OpenAPI / Documentation / RegistrationGuide / Pricing / Models properties. https://gpt55.558686.xyz/apis.json is APIs.json-SHAPED (apis[] + links{}) but has no name/url/specificationVersion and uses baseUrl/openapi keys, so it does not conform.'
+- id: hsts
+  name: HTTP Strict Transport Security
+  conforms: true
+  verification: observed
+  evidence: 'strict-transport-security: max-age=31536000; includeSubDomains on gpt55.558686.xyz responses. Not observed on sub2api.558686.xyz API responses. See security/558686-xyz-domain-security.yml for the probe.'
+- id: cors
+  name: CORS
+  conforms: true
+  verification: observed
+  evidence: 'access-control-allow-origin: * on gpt55.558686.xyz API responses; OPTIONS /mcp -> 204 with allow-methods GET,HEAD,PUT,PATCH,POST,DELETE and the x402 headers exposed.'
+- id: rfc9727-api-catalog
+  name: RFC 9727 API Catalog
+  conforms: false
+  evidence: '/.well-known/api-catalog and /.well-known/api-catalog.json -> 404 on gpt55.558686.xyz; SPA shell (catch-all 200) on sub2api.558686.xyz and api.558686.xyz.'
+- id: rfc9116-security-txt
+  name: RFC 9116 security.txt
+  conforms: false
+  evidence: '/.well-known/security.txt -> 404 on gpt55.558686.xyz, catch-all shell on the Sub2API hosts, 410 on the retired hosts. The disclosure policy lives in the GitHub repository SECURITY.md (email ops@400860.xyz); see security/558686-xyz-vulnerability-disclosure.yml.'
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: 'No RFC 8414 / RFC 9728 / OIDC discovery document on any host; no oauth2 securityScheme in any of the three OpenAPIs. GPT55 has no identity layer at all (payment is the gate); Sub2API uses a static Bearer API key.'
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: '/.well-known/openid-configuration 404 on gpt55.558686.xyz; shell on the Sub2API hosts. Sub2API''s console offers Google OAuth SIGN-IN for humans (currently disabled per /verify-models), which is not an API-facing OIDC surface.'
+- id: rfc9457-problem-details
+  name: RFC 9457 Problem Details
+  conforms: false
+  evidence: 'GPT55 400/404 bodies are {"error":{"message":"...","type":"invalid_request_error"|"not_found"}} (OpenAI-style), 402 bodies are x402 v2 envelopes; Sub2API 401 bodies are {"code":"API_KEY_REQUIRED","message":"..."}; no application/problem+json anywhere. See errors/.'
+- id: rfc8594-sunset
+  name: RFC 8594 Sunset header
+  conforms: false
+  evidence: 'The four retired split hosts answer HTTP 410 Gone with a JSON retirement notice (retired true, canonicalUrl, paymentRequiredHere false) and /.well-known/x402 on them 308s to the canonical host; no Sunset or Deprecation header was observed on those responses (2026-09-20). The retirement policy is machine-published in /projects/split.json (legacyNoticeDays 30 from 2026-07-01) instead. See lifecycle/.'
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: 'No event, webhook or streaming contract. The agent card declares streaming false; the chat tools accept a stream boolean (SSE completions) but no channel/event surface is described; /mcp/sse is a discovery stream.'
+- id: graphql
+  name: GraphQL
+  conforms: false
+  evidence: '/graphql -> HTML shell on gpt55/api hosts; POST introspection on sub2api.558686.xyz/graphql -> 501 "Unsupported method" HTML from the static docs server.'
+- id: ucp-acp
+  name: Agentic commerce well-known documents (UCP / ACP)
+  conforms: false
+  evidence: '/.well-known/ucp.json and /.well-known/acp.json -> 404 on gpt55.558686.xyz; shells elsewhere. The provider''s commerce surface is x402 + agents402, not UCP/ACP.'
+- id: aauth
+  name: AAuth (draft-hardt-oauth-aauth-protocol)
+  conforms: false
+  evidence: '/.well-known/aauth-resource.json -> 404 on gpt55.558686.xyz.'
+- id: wsdl-soap
+  name: WSDL / SOAP
+  conforms: false
+  evidence: 'https://gpt55.558686.xyz/?wsdl returns the HTML home page; /v1?wsdl 404; https://sub2api.558686.xyz/?wsdl 302 to the console. No SOAP contract.'
+- id: grpc-protobuf
+  name: gRPC / Protobuf
+  conforms: false
+  evidence: 'No .proto in the public repository tree (16 top-level entries, all JS/JSON/Markdown) and none referenced in any published document.'
+compliance_program:
+  published: false
+  note: >-
+    No SOC 2, ISO 27001, PCI DSS, HIPAA, GDPR or other certification or compliance statement is
+    published on any host, in the repository, or in the privacy policy. The gateway sells
+    "SOC2 payment control evidence pack" and "enterprise security questionnaire autofill" as
+    paid deliverables for OTHER x402 sellers; that is a product, not a posture, and earns no
+    Compliance pointer.

@@ -1,0 +1,294 @@
+generated: '2026-09-19'
+method: probed
+source: live probes of the named /.well-known/ path list on every host the record knows, 2026-09-19/20 UTC
+checked: '2026-09-19'
+summary: >-
+  One host serves real documents: the API/MCP/A2A host gpt55.558686.xyz. It answers a real JSON
+  404 ({"error":{"message":"Not found","type":"not_found"}}) for unknown paths and for the
+  negative control, so its 200s are documents, not a catch-all. Served there: an ai-plugin.json
+  (OpenAI plugin manifest naming /openapi.json), an MCP server.json-shaped manifest at
+  /.well-known/mcp.json (MCP registry schema 2025-12-11), a SEP-1649 MCP server card at
+  /.well-known/mcp/server-card.json, the x402 v2 discovery document at /.well-known/x402, an
+  agents402 0.1 manifest, an ai-catalog.json, and the A2A agent card at both agent-card.json and
+  agent.json (graded in a2a/). It serves NO RFC 9116 security.txt, no OIDC discovery, no RFC 8414
+  / RFC 9728 OAuth metadata, no RFC 9727 api-catalog, no UCP/ACP, no AAuth, and no apis.json at
+  /.well-known/apis.json or /apis.yml; its /apis.json is a 200 JSON document with an apis[] array
+  but no name/specificationVersion, so it is recorded as a non-conformant APIs.json-shaped
+  index. The registrable domain 558686.xyz 301s every path to sub2api.558686.xyz. The two
+  Sub2API console hosts (sub2api.558686.xyz, api.558686.xyz) are SPA catch-alls: 200 text/html
+  62,944 bytes for every /.well-known/* path AND for the negative control, so nothing there
+  counts - except that sub2api.558686.xyz genuinely serves /apis.json (983 B, specificationVersion
+  0.16, one API), /openapi.json and /llms.txt as real documents. The four retired split hosts
+  answer 410 (or 308 to the canonical host) with a JSON retirement notice on every path.
+pointer_basis: >-
+  WellKnown is emitted on the strength of seven served, parsing documents on gpt55.558686.xyz.
+  SecurityTxt is NOT emitted: no security.txt on any host. AIPlugin points at the saved
+  ai-plugin.json. APIsJson points at the conformant sub2api.558686.xyz/apis.json. ContentSignal
+  points at the saved gpt55 robots.txt, which carries a Content-Signal line (not a /.well-known/
+  document, kept here because it is the consent surface). The agent card is registered
+  separately as AgentCard via a2a/558686-xyz-a2a.yml.
+host_set_note: >-
+  Website = https://558686.xyz/ (301 -> sub2api.558686.xyz/home). API hosts from apis.yml
+  baseURL and OpenAPI servers[]: gpt55.558686.xyz (also /api-market), sub2api.558686.xyz.
+  MCP host = gpt55.558686.xyz (the MCP endpoint is on the API host, so the MCP-host probe IS the
+  API-host probe). A2A host = gpt55.558686.xyz. Docs host = gpt55.558686.xyz / sub2api.558686.xyz.
+  Console host api.558686.xyz (same backend as sub2api). Hosts named by fetched discovery
+  documents: the four retired split hosts (x402-utils/-wallet/-seller/-key.558686.xyz) and
+  download.558686.xyz (a "direct probe-safe mirror" named in llms-full.txt and /mcp/config,
+  82.156.46.182, which reset every TLS connection on 2026-09-20). No fetched document names an
+  authorization_servers host, because no OAuth metadata exists. www.558686.xyz does not resolve.
+path_echo_control: passed
+path_echo_control_note: >-
+  GET /.well-known/558686-xyz-negative-control-9c1f2a7e.json -> 404 application/json 52 B on
+  gpt55.558686.xyz (the same body every other miss returns). On sub2api.558686.xyz and
+  api.558686.xyz the same control returned 200 text/html 62,944 B, identical to every other
+  path, so every /.well-known/* 200 on those two hosts is discarded as a catch-all shell.
+hosts:
+  - host: https://gpt55.558686.xyz
+    roles: [api, mcp, a2a, docs]
+    negative_control: {path: /.well-known/558686-xyz-negative-control-9c1f2a7e.json, status: 404, bytes: 52}
+    documents:
+      - path: /.well-known/security.txt              # RFC 9116
+        status: 404
+      - path: /.well-known/openid-configuration      # OIDC discovery
+        status: 404
+      - path: /.well-known/oauth-authorization-server  # RFC 8414
+        status: 404
+      - path: /.well-known/oauth-protected-resource    # RFC 9728
+        status: 404
+      - path: /.well-known/api-catalog               # RFC 9727
+        status: 404
+      - path: /.well-known/api-catalog.json
+        status: 404
+      - path: /.well-known/ai-plugin.json            # OpenAI plugin manifest
+        status: 200
+        file: 558686-xyz-ai-plugin.json
+        content_type: application/json; charset=utf-8
+        bytes: 2097
+        note: 'schema_version v1, name_for_model gpt55_x402_gateway, auth {type: none}, api {type: openapi, url: https://gpt55.558686.xyz/openapi.json}, legal_info_url https://gpt55.558686.xyz/.'
+      - path: /.well-known/ucp.json
+        status: 404
+      - path: /.well-known/acp.json
+        status: 404
+      - path: /.well-known/aauth-resource.json       # AAuth
+        status: 404
+      - path: /.well-known/apis.json
+        status: 404
+      - path: /apis.json
+        status: 200
+        file: 558686-xyz-gpt55-apis.json
+        content_type: application/json; charset=utf-8
+        bytes: 3389
+        note: >-
+          Parses; has an apis[] array (one entry, GPT55 x402 Gateway, baseUrl, openapi, humanURL,
+          tags, primaryOffer) and a links{} map, but no top-level name, description, url or
+          specificationVersion, and uses baseUrl/openapi keys rather than baseURL/properties[].
+          Recorded as an APIs.json-shaped index the provider publishes, not as a conformant one;
+          the conformant index is on sub2api.558686.xyz.
+      - path: /apis.yml
+        status: 404
+      - path: /.well-known/agent-card.json           # A2A 1.0.0 / RFC 8615
+        status: 200
+        file: ../a2a/558686-xyz-agent-card.json
+        content_type: application/json; charset=utf-8
+        bytes: 15233
+        note: Real AgentCard-shaped JSON object (protocolVersion "1.0", five skills). Graded conformant in a2a/558686-xyz-a2a.yml.
+      - path: /.well-known/agent.json                # pre-0.3 legacy path
+        status: 200
+        file: ../a2a/558686-xyz-agent-card.json
+        bytes: 15233
+        note: identical body to agent-card.json
+      - path: /.well-known/mcp.json                  # MCP registry server.json shape
+        status: 200
+        file: 558686-xyz-mcp.json
+        content_type: application/json; charset=utf-8
+        bytes: 160581
+        note: '$schema https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json; the same manifest GET /mcp and /server.json return (name gpt55-model-gateway / xyz.558686.gpt55/token-gateway, remote streamable-http https://gpt55.558686.xyz/mcp).'
+      - path: /.well-known/mcp/server-card.json      # SEP-1649 MCP server card
+        status: 200
+        file: 558686-xyz-mcp-server-card.json
+        content_type: application/json; charset=utf-8
+        bytes: 125211
+        note: 'server {name xyz.558686.gpt55/token-gateway, url https://gpt55.558686.xyz/mcp, transport [streamable-http, sse]}, primaryOffer, install{}, payment {protocol x402}, tools[], resources{}.'
+      - path: /.well-known/x402                      # x402 v2 discovery document
+        status: 200
+        file: 558686-xyz-x402.json
+        content_type: application/json; charset=utf-8
+        bytes: 137652
+        note: 'x402Version 2, service {name gpt55-token-gateway, baseUrl https://gpt55.558686.xyz}, payment {network eip155:8453, asset USDC, payTo 0x1f01...9a2f, facilitator provider-pool}, resources[] with accepts[], settlement{}, purchaseModes{}. Not a named path on the closed list; recorded because the provider''s llms.txt, agent card and MCP resources all name it.'
+      - path: /.well-known/x402-service
+        status: 200
+        note: '112,121 B service descriptor; same content family as /x402/service.json. Not saved (duplicate of the service hub JSON).'
+      - path: /.well-known/agents402.json            # agents402 0.1 manifest
+        status: 200
+        file: 558686-xyz-agents402.json
+        content_type: application/json; charset=utf-8
+        bytes: 51586
+        note: 'version 0.1, service {provider gpt55-token-gateway, protocols [x402]}, actionSelection, actions[], discovery{}.'
+      - path: /.well-known/ai-catalog.json
+        status: 200
+        file: 558686-xyz-ai-catalog.json
+        content_type: application/json; charset=utf-8
+        bytes: 20656
+        note: 'schemaVersion 2026-06-28.ai-catalog.v1; project, primaryOffer, capabilities[], links, payment. Provider-specific shape.'
+      - path: /.well-known/agents.json
+        status: 404
+      - path: /.well-known/humans.txt
+        status: 404
+      - path: /.well-known/change-password
+        status: 404
+    other_served_paths:
+      - {path: /robots.txt, status: 200, bytes: 879, file: 558686-xyz-content-signals-robots.txt, note: 'Carries "Content-Signal: search=yes,ai-train=no,use=reference"; allows OAI-SearchBot, ChatGPT-User, PerplexityBot, Claude-SearchBot; disallows GPTBot, ClaudeBot, Google-Extended; Sitemap directive. Wired as ContentSignal.'}
+      - {path: /llms.txt, status: 200, bytes: 3240, file: ../llms/558686-xyz-llms.txt}
+      - {path: /llms-full.txt, status: 200, bytes: 67533, note: 'saved locally under llms/ but gitignored (*-llms-full.txt), never wired'}
+      - {path: /openapi.json, status: 200, bytes: 86822, file: ../openapi/558686-xyz-gpt55-model-gateway-openapi.json}
+      - {path: /api-market/openapi.json, status: 200, bytes: 102358, file: ../openapi/558686-xyz-api-market-utility-tools-openapi.json}
+      - {path: /server.json, status: 200, bytes: 78776, file: ../mcp/558686-xyz-server.json}
+      - {path: /mcp, status: 200, bytes: 194725, note: 'GET returns the server.json-shaped manifest; POST is the Streamable HTTP MCP endpoint (see mcp/)'}
+      - {path: /mcp/config, status: 200, bytes: 431827, note: 'MCP discovery config: transport streamable-http https://gpt55.558686.xyz/mcp, fallback sse https://gpt55.558686.xyz/mcp/sse, authentication {type x402-payment-header, apiKeyRequired false}'}
+      - {path: /postman/collection.json, status: 200, bytes: 8930, file: ../postman/558686-xyz-gpt55-postman-collection.json}
+      - {path: /pricing.json, status: 200, bytes: 98371, file: ../plans/558686-xyz-pricing.json}
+      - {path: /x402/status, status: 200, bytes: 2995, file: ../lifecycle/558686-xyz-x402-status.json}
+      - {path: /projects/split.json, status: 200, bytes: 6650, file: ../lifecycle/558686-xyz-split-hosts.json}
+      - {path: /privacy, status: 200, bytes: 2453, note: 'real privacy policy page (HTML), wired as PrivacyPolicy'}
+      - {path: /sitemap.xml, status: 200, bytes: 4685}
+      - {path: '/?wsdl', status: 200, note: 'returns the HTML home page - no SOAP contract'}
+  - host: https://sub2api.558686.xyz
+    roles: [api, docs, console]
+    catch_all: true
+    negative_control: {path: /.well-known/558686-xyz-negative-control-9c1f2a7e.json, status: 200, content_type: text/html, bytes: 62944, note: 'same SPA shell as every other unknown path - every /.well-known/* 200 below is discarded'}
+    hit_count: 0
+    documents:
+      - {path: /.well-known/security.txt, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/openid-configuration, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/oauth-authorization-server, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/oauth-protected-resource, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/api-catalog, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/api-catalog.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/ai-plugin.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/ucp.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/acp.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/aauth-resource.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/apis.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/agent-card.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/agent.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/x402, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/mcp.json, status: 200, soft_404: true, bytes: 62944}
+      - path: /apis.json
+        status: 200
+        file: 558686-xyz-sub2api-apis.json
+        content_type: application/json; charset=utf-8
+        bytes: 983
+        note: 'REAL document (983 B, distinct from the shell): name "Sub2API OpenAI-compatible API Gateway", specificationVersion 0.16, created 2026-06-28, modified 2026-07-02, one API with OpenAPI / Documentation / RegistrationGuide / Pricing / Models properties. Wired as APIsJson.'
+      - {path: /apis.yml, status: 200, soft_404: true, bytes: 62944}
+    other_served_paths:
+      - {path: /openapi.json, status: 200, bytes: 1635, file: ../openapi/558686-xyz-sub2api-openapi.json, note: 'real OpenAPI 3.1.0, 3 operations'}
+      - {path: /llms.txt, status: 200, bytes: 1169, file: ../llms/558686-xyz-sub2api-llms.txt}
+      - {path: /robots.txt, status: 200, bytes: 71, note: 'User-agent: * Allow: / plus Sitemap; no Content-Signal'}
+      - {path: /postman/sub2api.postman_collection.json, status: 200, file: ../postman/558686-xyz-sub2api-postman-collection.json}
+      - {path: /v1/models, status: 401, note: '{"code":"API_KEY_REQUIRED",...} - real API route behind the shell'}
+      - {path: '/?wsdl', status: 302, note: 'redirects to the console - no SOAP contract'}
+  - host: https://api.558686.xyz
+    roles: [console, api-alias]
+    catch_all: true
+    negative_control: {path: /.well-known/558686-xyz-negative-control-9c1f2a7e.json, status: 200, content_type: text/html, bytes: 62944, note: 'zh-CN SPA shell for every path; same backend as sub2api.558686.xyz (/v1/models -> 401 API_KEY_REQUIRED)'}
+    hit_count: 0
+    documents:
+      - {path: /.well-known/security.txt, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/openid-configuration, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/oauth-authorization-server, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/oauth-protected-resource, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/api-catalog, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/api-catalog.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/ai-plugin.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/ucp.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/acp.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/aauth-resource.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/apis.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /apis.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /apis.yml, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/agent-card.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/agent.json, status: 200, soft_404: true, bytes: 62944}
+      - {path: /.well-known/x402, status: 200, soft_404: true, bytes: 62944}
+  - host: https://558686.xyz
+    roles: [website]
+    documents:
+      - {path: /.well-known/security.txt, status: 301, redirect: 'https://sub2api.558686.xyz/.well-known/security.txt'}
+      - {path: /.well-known/openid-configuration, status: 301}
+      - {path: /.well-known/oauth-authorization-server, status: 301}
+      - {path: /.well-known/oauth-protected-resource, status: 301}
+      - {path: /.well-known/api-catalog, status: 301}
+      - {path: /.well-known/ai-plugin.json, status: 301}
+      - {path: /.well-known/agent-card.json, status: 301}
+      - {path: /.well-known/agent.json, status: 301}
+      - {path: /apis.json, status: 301}
+    note: 'nginx 301 for every path to the same path on sub2api.558686.xyz; www.558686.xyz has no DNS record'
+  - host: https://x402-key.558686.xyz
+    roles: [retired-split-host]
+    status: retired
+    documents:
+      - {path: /.well-known/security.txt, status: 410}
+      - {path: /.well-known/openid-configuration, status: 410}
+      - {path: /.well-known/oauth-authorization-server, status: 410}
+      - {path: /.well-known/oauth-protected-resource, status: 410}
+      - {path: /.well-known/api-catalog, status: 410}
+      - {path: /.well-known/ai-plugin.json, status: 410}
+      - {path: /.well-known/agent-card.json, status: 410}
+      - {path: /.well-known/agent.json, status: 410}
+      - {path: /.well-known/x402, status: 308, redirect: canonical GPT55 host, note: 'body {retired: true, consolidated: true, retiredProject: x402-key-url-tools}'}
+      - {path: /apis.json, status: 410}
+    note: 'Every 410 body is a JSON retirement notice naming the canonical URL on gpt55.558686.xyz; see lifecycle/.'
+  - host: https://x402-seller.558686.xyz
+    roles: [retired-split-host]
+    status: retired
+    documents:
+      - {path: /.well-known/security.txt, status: 410}
+      - {path: /.well-known/openid-configuration, status: 410}
+      - {path: /.well-known/oauth-authorization-server, status: 410}
+      - {path: /.well-known/oauth-protected-resource, status: 410}
+      - {path: /.well-known/api-catalog, status: 410}
+      - {path: /.well-known/ai-plugin.json, status: 410}
+      - {path: /.well-known/agent-card.json, status: 410}
+      - {path: /.well-known/agent.json, status: 410}
+      - {path: /.well-known/x402, status: 308}
+      - {path: /apis.json, status: 410}
+  - host: https://x402-utils.558686.xyz
+    roles: [retired-split-host]
+    status: retired
+    documents:
+      - {path: /.well-known/security.txt, status: 410}
+      - {path: /.well-known/openid-configuration, status: 410}
+      - {path: /.well-known/oauth-authorization-server, status: 410}
+      - {path: /.well-known/oauth-protected-resource, status: 410}
+      - {path: /.well-known/api-catalog, status: 410}
+      - {path: /.well-known/ai-plugin.json, status: 410}
+      - {path: /.well-known/agent-card.json, status: 410}
+      - {path: /.well-known/agent.json, status: 410}
+      - {path: /.well-known/x402, status: 308}
+      - {path: /apis.json, status: 410}
+  - host: https://x402-wallet.558686.xyz
+    roles: [retired-split-host]
+    status: retired
+    documents:
+      - {path: /.well-known/security.txt, status: 410}
+      - {path: /.well-known/openid-configuration, status: 410}
+      - {path: /.well-known/oauth-authorization-server, status: 410}
+      - {path: /.well-known/oauth-protected-resource, status: 410}
+      - {path: /.well-known/api-catalog, status: 410}
+      - {path: /.well-known/ai-plugin.json, status: 410}
+      - {path: /.well-known/agent-card.json, status: 410}
+      - {path: /.well-known/agent.json, status: 410}
+      - {path: /.well-known/x402, status: 308}
+      - {path: /apis.json, status: 410}
+  - host: https://download.558686.xyz
+    roles: [mirror]
+    status: unreachable
+    documents:
+      - {path: /.well-known/x402, status: 0, note: 'TLS connection reset by peer (curl 35) on every path, 2026-09-20; named as a "direct DNS-only mirror" in llms-full.txt and /mcp/config; A 82.156.46.182'}
+      - {path: /.well-known/agent-card.json, status: 0}
+      - {path: /.well-known/security.txt, status: 0}
+      - {path: /.well-known/oauth-protected-resource, status: 0}
+      - {path: /.well-known/oauth-authorization-server, status: 0}
+      - {path: /.well-known/openid-configuration, status: 0}
+      - {path: /.well-known/api-catalog, status: 0}
+      - {path: /apis.json, status: 0}

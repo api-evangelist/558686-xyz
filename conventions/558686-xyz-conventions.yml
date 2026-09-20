@@ -1,0 +1,134 @@
+generated: '2026-09-19'
+method: searched
+source: >-
+  https://gpt55.558686.xyz/buyer-guide ("Integration flow", "Payment modes"), /llms.txt,
+  /llms-full.txt ("Limits For Public Paid Calls", "Payment"), /.well-known/x402
+  (sameRequestRetryRequired, privateKeySentToService, settlement, firstPurchase.rule),
+  /pricing.json (quoteRule), /mcp/config (authentication block), the GPT55 OpenAPI (quote_only
+  parameter, x-x402-price, x-gpt55-product), the live MCP tools/list annotations, response
+  headers observed on 2026-09-20, the Sub2API docs (https://sub2api.558686.xyz/docs/ and
+  /docs/getting-started.html) and the Sub2API OpenAPI. Derived where marked.
+checked: '2026-09-19'
+summary: >-
+  GPT55 has one cross-cutting convention and everything else follows from it: payment is the
+  request lifecycle. Every paid route is quote-first - the unpaid request IS the dry run, returning
+  a 402 whose accepts[] states amount, network, asset, payTo and a 300-second payment timeout; the
+  buyer signs an exact USDC transfer on Base with its own wallet and retries the byte-identical
+  request with X-PAYMENT; a 200 carries PAYMENT-RESPONSE and x-x402-receipt-id/-url. There is no
+  account, key, OAuth, scope, pagination, versioning header, idempotency key or reversal
+  operation. Sub2API is a conventional Bearer-key OpenAI-compatible relay with a {code, message}
+  error envelope and x-request-id tracing.
+auth:
+  style: >-
+    GPT55: no credential; x402 payment is the gate. Unpaid request -> 402 quote; retry with the
+    X-PAYMENT header (legacy X-PAYMENT-REQUIRED / PAYMENT-REQUIRED both exposed). "A private
+    Bearer token is also accepted for owner/admin testing" (llms-full.txt) and /mcp/config calls
+    it "only an operator bypass; public buyers should use the x402 quote and payment flow". The
+    MCP methods initialize/tools/list/resources/list and GET /v1/models need nothing. The
+    /api-market utility routes answered with nothing at all. Sub2API: Authorization: Bearer <key>
+    (x-api-key header and a query key also accepted per the 401 message); keys are created in the
+    console; registration is currently closed.
+  detail: authentication/558686-xyz-authentication.yml
+idempotency:
+  supported: false
+  coverage: none
+  mechanism: null
+  header: null
+  scope: []
+  note: >-
+    No Idempotency-Key or client request identifier is documented on any HTTP route, and no
+    OpenAPI parameter or MCP inputSchema field carries one on the model/text routes (request_id
+    appears only as an input of the two prepaid-balance MCP tools, gpt55_balance_topup and
+    gpt55_balance_metered_chat_completion, and is not described anywhere). What the provider DOES
+    state is a replay rule for the payment leg: sameRequestRetryRequired: true - the paid retry
+    must be the same request as the quoted one, and receipts (x-x402-receipt-id) bind one
+    settlement to one delivered result; the tools gpt55_x402_receipt_bound_execution_gate and
+    gpt55_x402_agent_task_receipt_outbox sell "reuse policy" and "retry-without-resigning" plans
+    to buyers, which is the provider acknowledging that replay protection is the buyer's job. 176
+    of 218 MCP tools carry idempotentHint true (the deterministic ones); the 42 model-backed chat
+    and text tools are idempotentHint false. So: a double-fired paid chat call is two payments
+    and two results, and nothing in the contract prevents it.
+reversibility:
+  grade: none
+  docs: null
+  note: >-
+    No cancel, refund, void, reverse, undo, rollback or restore operation exists in any of the
+    three contracts or the 218 MCP tools. The x402 settlement is a one-way on-chain USDC transfer;
+    the provider's stated rule is on the delivery side - "Revenue counts only after independent
+    payer attribution, successful settlement, corroborated chain evidence, and HTTP 200 delivery"
+    (home page) - and it publishes no refund policy or window for a paid call that fails after
+    settlement. The routes whose names contain "refund" or "dispute"
+    (/v1/paid/x402-refund-dispute-resolution-playbook, /v1/tools/x402-receipt-dispute-pack,
+    /v1/paid/x402-customer-support-refund-triage-agent) are PAID PRODUCTS that generate refund
+    playbooks for other x402 sellers; they do not reverse anything on this gateway. Prepaid call
+    packs (100 calls for $1.60) are likewise non-refundable by omission - no window is stated.
+    Recorded as none, not documented: an invented window here would cost a buyer real money.
+  write_surfaces:
+    - {operation: 'v1ChatCompletions* (10 chat routes)', consequence: 'one USDC payment + one model call', reversal: none}
+    - {operation: 'v1PaidCallPacks* (5 routes)', consequence: 'one USDC payment for 100 prepaid calls (pack token pk_live_*)', reversal: none, window: not-stated}
+    - {operation: 'v1Tools* / walletSigningSafetyPackPaid* (20 routes)', consequence: 'one USDC payment + one deterministic or model-backed result', reversal: none}
+    - {operation: 'Sub2API POST /v1/chat/completions, /v1/responses', consequence: 'platform-quota debit', reversal: none, note: 'billing records in the console are "the final source of truth"'}
+dry_run:
+  quote_first: true
+  mechanism: >-
+    Sending the intended request WITHOUT a payment header returns the 402 quote and executes
+    nothing; the provider calls this "quote-only" and makes it the default mode of its buyer
+    client (ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs). quoteRule in
+    pricing.json: "Fetch the target GPT55 route without X-PAYMENT immediately before paying; live
+    402 quotes are the source of truth."
+  openapi_parameter: {name: quote_only, in: query, type: boolean, default: true, operations: [v1PaidCallPacksGpt56Sol100, v1PaidCallPacksGpt56Luna100, v1PaidCallPacksGpt56Terra100, v1PaidCallPacksGpt55100, v1PaidCallPacksGpt53Codex100], description_verbatim: 'Optional directory probe hint. An unpaid request still returns the normal x402 payment challenge.'}
+  note: >-
+    This is a real rehearsal affordance - the price, payee and network are revealed before any
+    value moves - but it previews the PAYMENT, not the model output, and the parameter name is
+    quote_only rather than dry_run/simulate/preview/validate_only.
+pagination:
+  style: none
+  note: 'The only list operation is GET /v1/models (7 items, no paging). No cursors or page parameters anywhere.'
+versioning:
+  scheme: path-prefix /v1 on API routes; date-stamped versions on manifests
+  api_path: /v1/...
+  header: none
+  manifest_versions: {openapi_gpt55: '1.0.0', openapi_api_market: '1.0.0', openapi_sub2api: '2026-06-28', server_json: '2026.07.01-split', mcp_serverInfo: '2026.06.21', mcp_config: '2026.06.22', agent_card: '1.0.0', live_prices_schema: '2026-06-12'}
+  breaking_change_policy: 'Not published as a policy; observed practice is host retirement with a 30-day legacy notice, HTTP 410 + JSON notice and 308 to the canonical host (see lifecycle/).'
+error_envelope:
+  gpt55: '{"error": {"message": string, "type": string}} on 400/404; x402 v2 body on 402'
+  sub2api: '{"code": string, "message": string}'
+  rfc9457: false
+  detail: errors/558686-xyz-problem-types.yml
+request_id:
+  gpt55: 'none observed (no x-request-id on 200/402/404 responses); receipts x-x402-receipt-id / x-x402-receipt-url identify a PAID exchange'
+  sub2api: 'x-request-id and x-client-request-id (UUID v4) on every response'
+rate_limit_signaling:
+  headers: ['ratelimit-limit: 120', 'ratelimit-policy: 120;w=60', 'ratelimit-remaining', 'ratelimit-reset']
+  exposed_via_cors: Retry-After
+  exhaustion_status: not-observed (expected 429)
+  detail: rate-limits/558686-xyz-rate-limits.yml
+payload_limits:
+  standard_chat_max_input_chars: 24000
+  max_output_tokens: '128000 (theoretical; "actual returned output depends on upstream availability, request parameters, and account policy")'
+  payment_timeout_seconds: 300
+payment:
+  protocol: x402 v2
+  scheme: 'exact only ("upto: disabled on the public production gateway")'
+  asset: 'USDC 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+  network: 'eip155:8453 (Base); a Solana address is published in /mcp/config as an alternative settlement address but no Solana accepts[] entry was observed'
+  pay_to: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+  facilitator: 'provider-pool; active 2026-09-18: https://facilitator.xpay.sh only'
+  headers: {request: X-PAYMENT, response_402: 'PAYMENT-REQUIRED (base64 JSON; legacy X-PAYMENT-REQUIRED)', response_200: 'PAYMENT-RESPONSE (legacy X-PAYMENT-RESPONSE), x-x402-receipt-id, x-x402-receipt-url, x-x402-payment-response-omitted, x-x402-payment-response-recovery'}
+  buyer_rules_verbatim:
+    - 'Fetch the firstPaidUrl without payment, verify amount/network/asset/payTo against this policy, then only a wallet-capable buyer may create a real x402 payment.'
+    - 'Do not pay a retired split-host URL. Follow the retirement notice to the canonical GPT55 service hub and fetch a fresh live quote there.'
+    - 'The service never asks an agent to paste a private key into the gateway.'
+  private_key_sent_to_service: false
+content_negotiation:
+  request: application/json
+  response: 'application/json (chat completions are OpenAI chat.completion objects; stream: true is accepted on chat tools)'
+cors: 'access-control-allow-origin: * on all gpt55 API responses'
+streaming: 'chat tools accept stream (boolean); the agent card declares streaming false for A2A; no server-sent event surface documented beyond /mcp/sse discovery'
+cross_links:
+  authentication: authentication/558686-xyz-authentication.yml
+  errors: errors/558686-xyz-problem-types.yml
+  rate_limits: rate-limits/558686-xyz-rate-limits.yml
+  lifecycle: lifecycle/558686-xyz-lifecycle.yml
+  plans: plans/558686-xyz-plans-pricing.yml
+  sandbox: sandbox/558686-xyz-sandbox.yml

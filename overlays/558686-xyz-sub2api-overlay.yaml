@@ -1,0 +1,45 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Sub2API OpenAI-compatible API
+  version: 1.0.0
+extends: openapi/558686-xyz-sub2api-openapi.json
+x-generated: '2026-09-19'
+x-method: generated
+x-source: openapi/558686-xyz-sub2api-openapi.json
+x-note: Overlay of API Evangelist enhancements; the original spec is never mutated. Actions target the spec verbatim
+  as served by the provider on 2026-09-19.
+actions:
+- target: $.info
+  update:
+    x-apievangelist:
+      catalog: https://apis.io/558686-xyz
+      provider: gpt55-token-gateway
+      maintainer: Kin Lane <kin@apievangelist.com>
+      artifacts:
+      - apis.yml
+      - a2a/558686-xyz-a2a.yml
+      - mcp/558686-xyz-mcp.yml
+      - mcp/558686-xyz-tool-crosswalk.yml
+      - conventions/558686-xyz-conventions.yml
+      - errors/558686-xyz-problem-types.yml
+      - rate-limits/558686-xyz-rate-limits.yml
+      - plans/558686-xyz-plans-pricing.yml
+      - lifecycle/558686-xyz-lifecycle.yml
+      - conformance/558686-xyz-conformance.yml
+      - authentication/558686-xyz-authentication.yml
+      - well-known/558686-xyz-well-known.yml
+      - skills/_index.yml
+- target: $.components.securitySchemes.bearerAuth
+  update:
+    description: 'API key issued in the Sub2API console (Authorization: Bearer <key>). The live 401 body also names
+      x-api-key and a query key as accepted carriers: "API key is required in Authorization header (Bearer scheme),
+      x-api-key header, or ..." (observed 2026-09-20). Error codes: API_KEY_REQUIRED, INVALID_API_KEY.'
+- target: $.info
+  update:
+    x-apievangelist-observed:
+      docs: https://sub2api.558686.xyz/docs/
+      base_url_in_docs: https://sub2api.558686.xyz/v1
+      registration: closed per https://sub2api.558686.xyz/verify-models (registration_enabled=false, google_oauth_enabled=false,
+        2026-06-28 capture)
+      software: self-hosted Wei-Shaw/sub2api (open source)
+      error_envelope: '{"code": string, "message": string}; x-request-id header on every response'

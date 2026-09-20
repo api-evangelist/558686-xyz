@@ -1,0 +1,24 @@
+generated: '2026-09-19'
+method: generated
+source: >-
+  Packaged Agent Skills generated from the provider OpenAPI
+  openapi/558686-xyz-gpt55-model-gateway-openapi.json and the provider's own buyer guide,
+  x402 discovery document and first-purchase pages. Every step is grounded in an operationId
+  verified verbatim in that spec; cross-cutting rules cite ../conventions/, ../errors/,
+  ../authentication/, ../rate-limits/ and ../sandbox/. SEARCHED FIRST: the provider publishes
+  no AGENTS.md, SKILL.md or skill files (repository tree checked 2026-09-19; docs/superpowers/
+  holds only plans/ and specs/ folders); its llms-install.md and buyer guide are prose, saved
+  under llms/ and referenced here.
+skills:
+  - file: 558686-xyz-quote-first-standard-chat.md
+    name: Quote-first GPT-5.6 Luna Standard chat completion
+    api: openapi/558686-xyz-gpt55-model-gateway-openapi.json
+    operations: [v1Models, v1ChatCompletionsStandard]
+  - file: 558686-xyz-translate-first-payment-canary.md
+    name: Prove a wallet with the translate first-payment canary
+    api: openapi/558686-xyz-gpt55-model-gateway-openapi.json
+    operations: [v1ToolsTranslate]
+  - file: 558686-xyz-buy-luna-call-pack.md
+    name: Buy a 100-call prepaid Luna pack and spend it
+    api: openapi/558686-xyz-gpt55-model-gateway-openapi.json
+    operations: [v1PaidCallPacksGpt56Luna100, v1ChatCompletionsGpt56Luna]

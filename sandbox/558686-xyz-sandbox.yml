@@ -1,0 +1,64 @@
+generated: '2026-09-19'
+method: searched
+source: >-
+  https://gpt55.558686.xyz/buyer-guide ("Payment probe", "Integration flow"),
+  https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api, /.well-known/x402
+  (recommendedFirstPaymentCanary, firstPurchase.rule, quoteOnlyCommand), /pricing.json
+  (quoteRule, walletBalanceOffer.quoteOnlyUrl), the GPT55 OpenAPI quote_only parameter, the
+  repository README ("Quote-Only Check"), SECURITY.md ("The default mode is quote-only"), and
+  https://sub2api.558686.xyz/verify-models ("Model Authenticity Test Guide").
+docs:
+  - https://gpt55.558686.xyz/buyer-guide
+  - https://gpt55.558686.xyz/x402/translate-first-purchase
+  - https://sub2api.558686.xyz/verify-models
+checked: '2026-09-19'
+summary: >-
+  There is no test network, test key or sandbox environment: GPT55 settles only real USDC on Base
+  mainnet and Sub2API only debits real platform quota. What the provider publishes instead is a
+  graduated rehearsal path. (1) Quote-only: any paid route called without X-PAYMENT returns the
+  402 quote and executes nothing - the provider's buyer client runs in this mode by default and
+  the call-pack routes accept quote_only=true. (2) A $0.002 settlement proof, /v1/x402-ping, that
+  makes no upstream model call ("Use /v1/x402-ping first to prove settlement before paid model
+  calls"). (3) A $0.00293 "translate canary" (POST /v1/tools/translate) as the smallest real
+  model-backed payment before buying chat or a pack. (4) Free reads that need nothing: GET
+  /v1/models and the /api-market utility routes. For Sub2API the guide is procedural - obtain an
+  administrator test key while registration is closed, confirm balance, call GET /v1/models, then
+  the smallest chat request - with no published test values.
+modes:
+  - name: quote-only (GPT55)
+    real_money: false
+    how: 'Send the intended request WITHOUT a payment header; read the 402 accepts[]. Nothing executes, nothing settles.'
+    verbatim: 'Quote-only is the default; the page never asks for a private key.'
+    client_command: 'ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs'
+    openapi_parameter: 'quote_only (query, boolean, default true) on the five /v1/paid/call-packs/* GET operations - "An unpaid request still returns the normal x402 payment challenge."'
+    observed: 'POST /v1/chat/completions/standard, POST /v1/tools/translate (empty body), GET /v1/tools/timestamp, GET /v1/x402-ping all returned 402 quotes with no side effect (2026-09-20)'
+  - name: settlement proof (GPT55)
+    real_money: true
+    price_usd: 0.002
+    route: 'GET or POST https://gpt55.558686.xyz/v1/x402-ping'
+    verbatim: 'cheapest no-body settlement proof; no upstream model call; price $0.002.'
+    purpose: 'Verify wallet, facilitator, and settlement support without an upstream model call.'
+  - name: first-payment canary (GPT55)
+    real_money: true
+    price_usd: 0.00293
+    route: 'POST https://gpt55.558686.xyz/v1/tools/translate'
+    example_body: '{"text":"Hello, world.","target_language":"Chinese"}'
+    verbatim: 'Verify a buyer-owned x402 wallet/client with one short translation before paying for a model call or quota pack.'
+    real_payment_command: 'PAY_REAL_X402=1 ROUTE_ID=translate-canary MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs'
+    expected_paid_fields: [text, model, usage, x402NextPurchase, x-x402-receipt-id, x-x402-receipt-url]
+  - name: free reads (GPT55)
+    real_money: false
+    routes: ['GET https://gpt55.558686.xyz/v1/models', 'GET https://gpt55.558686.xyz/api-market/v1/tools/{timestamp, text-stats, hash-text, ...} (44 operations)', 'MCP initialize / tools/list / resources/list on https://gpt55.558686.xyz/mcp']
+  - name: administrator test key (Sub2API)
+    real_money: true (platform quota)
+    how_verbatim: 'Registration is not open yet, so use the administrator test-key flow first.'
+    checklist_verbatim: ['Confirm dashboard login works for the test user.', 'Confirm balance or quota exists before making a paid call.', 'Use the smallest practical request for the first live check.']
+    first_calls: ['curl -i https://sub2api.558686.xyz/v1/models -H "Authorization: Bearer $SUB2API_API_KEY"', 'POST /v1/chat/completions {"model":"gpt-5.5","messages":[{"role":"user","content":"Return only your model id and one short sentence."}],"max_tokens":40}']
+    checkpoints_verbatim: 'HTTP 200; returned model ID matches the requested model or has a clear routing mapping; dashboard usage/balance has matching records; failure messages do not leak upstream credentials.'
+test_credentials: none published (Sub2API keys are issued by the administrator; GPT55 has no keys)
+test_networks: none ("eip155:8453" Base mainnet only; no Base Sepolia or testnet USDC accepts[] anywhere)
+placeholder_values_in_docs:
+  - {value: '0x1111111111111111111111111111111111111111', where: 'pricing.json walletBalanceOffer.quoteOnlyUrl ?address=...&network=base', note: 'a placeholder wallet used to fetch a quote-only 402 for the wallet-balance route'}
+  - {value: 'REPLACE_WITH_SUB2API_KEY', where: 'Sub2API Postman collection api_key variable'}
+  - {value: 'pk_live_***', where: 'call-pack example response token (masked by the provider)'}
+spend_caps: 'The provider client enforces MAX_USDC per run; the buyer guide quickstart rejects any quote whose accepts[].amount exceeds the expected atomic amount (BigInt(exactBase.amount) > 2930n). Recommended: "set a per-call spend cap before retrying any paid request".'

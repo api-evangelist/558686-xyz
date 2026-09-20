@@ -1,0 +1,152 @@
+generated: '2026-09-19'
+method: probed
+source: https://gpt55.558686.xyz/pricing.json
+corroboration:
+  - https://gpt55.558686.xyz/x402/live-prices.json      # 293 priced endpoints incl. 20 prepaid call packs
+  - https://gpt55.558686.xyz/llms-full.txt               # "Payment" section, fixed-price model routes
+  - https://gpt55.558686.xyz/buyer-guide                 # exact caps, key-pack offer, pack sizes 100/500/2000/10000
+  - https://gpt55.558686.xyz/projects/558686/            # Standard / Plus / Professional text-tool tiers
+  - https://gpt55.558686.xyz/v1/models                   # per-model per-token pricing object (anonymous 200)
+  - https://sub2api.558686.xyz/pricing                   # Sub2API platform-quota table, captured 2026-06-28 by the provider
+  - https://sub2api.558686.xyz/llms-full.txt             # Sub2API pricing snapshot (differs from the page on one model)
+  - 'live 402 quotes on /v1/chat/completions/standard, /v1/tools/translate, /v1/tools/timestamp, /v1/x402-ping (2026-09-20)'
+checked: '2026-09-19'
+summary: >-
+  GPT55 publishes machine-readable pricing at /pricing.json and /x402/live-prices.json and says
+  the live 402 quote, not either document, is authoritative at the moment of payment ("Fetch the
+  target GPT55 route without X-PAYMENT immediately before paying; live 402 quotes are the source
+  of truth"). Everything is pay-per-request in exact USDC on Base with no account: GPT-5.6 Luna
+  Standard chat $0.00293, gpt-5.3-codex $0.007472, gpt-5.4 $0.010109, gpt-5.5 and GPT-5.6 Luna
+  $0.019999, GPT-5.6 Terra $0.049998, GPT-5.6 Soul $0.099995, a metered route capped at
+  $0.523889, utility tools $0.001-$0.002, x402 buyer/seller tools $0.004-$0.029, and premium
+  "pack"/"playbook" agents $2.90-$36.90. Repeat buyers get prepaid call packs (100/500/2000/10000
+  calls per model, e.g. Luna 100 for $1.60 = 80% of per-call). Text tools come in Standard
+  (gpt-5.6-luna, $0.00293), Plus and Professional (gpt-5.5, $0.145-$0.211) tiers. Token-metered
+  "upto" pricing is disabled. Sub2API is priced the other way round: prepaid platform quota
+  bought through shop.400860.xyz at 1 USD paid = 10 USD quota, then per-1M-token model prices
+  (gpt-5.5 $2.50 in / $15.00 out quota, i.e. $0.25 / $1.50 paid), with registration currently
+  closed. No free tier exists on either surface; the only free calls are GPT55's /v1/models, the
+  /api-market utilities and every discovery document.
+plan_count: 5
+currency: USDC (GPT55, on-chain, Base eip155:8453) / USD-denominated platform quota (Sub2API)
+quote_rule_verbatim: 'Fetch the target GPT55 route without X-PAYMENT immediately before paying; live 402 quotes are the source of truth.'
+plans:
+  - name: GPT55 pay-per-request (x402 exact)
+    id: per_request_x402
+    billing_period: per request
+    currency: USDC
+    network: eip155:8453
+    key_required: false
+    account_required: false
+    scheme: exact ("upto" token-metered pricing disabled on the public gateway)
+    included_quota: none - each request is one settlement
+    overage: n/a
+    payment_timeout_seconds: 300
+    model_routes:
+      - {route: 'POST /v1/chat/completions/standard', model: gpt-5.6-luna, tier: Standard, price_usd: 0.00293, atomic_usdc: 2930, observed_402: true}
+      - {route: 'POST /v1/chat/completions', model: 'gpt-5.6-luna default (model field optional)', price_usd: 0.00293, note: 'compatibility alias of /standard; other models priced per their route', observed_402: true}
+      - {route: 'POST /v1/chat/completions/gpt-5.3-codex', model: gpt-5.3-codex, price_usd: 0.007472}
+      - {route: 'POST /v1/chat/completions/gpt-5.4', model: gpt-5.4, price_usd: 0.010109, note: 'priced in llms-full/live-prices; not in the OpenAPI'}
+      - {route: 'POST /v1/chat/completions/gpt-5.5', model: gpt-5.5, price_usd: 0.019999}
+      - {route: 'POST /v1/chat/completions/gpt-5.6-luna', model: gpt-5.6-luna, price_usd: 0.019999}
+      - {route: 'POST /v1/chat/completions/gpt-5.6-terra', model: gpt-5.6-terra, price_usd: 0.049998}
+      - {route: 'POST /v1/chat/completions/gpt-5.6-sol (alias /gpt-5.6)', model: gpt-5.6-sol, price_usd: 0.099995}
+      - {route: 'POST /v1/chat/completions/metered', model: gpt-5.6-sol, price_usd_cap: 0.523889, note: 'x402_metered_mode guarantee_deposit_internal_balance_refund; x402_metered_official_discount_multiplier 0.111112 (per /v1/models pricing object)'}
+    tool_routes:
+      - {route: 'GET/POST /v1/tools/evm-wallet-balance', price_usd: 0.001, note: 'cheapest route per live-prices.json'}
+      - {route: 'GET/POST /v1/x402-ping', price_usd: 0.002, note: 'settlement proof, no model call', observed_402: true}
+      - {route: 'GET /v1/tools/timestamp, /v1/tools/query-parse and other deterministic tools', price_usd: 0.002, verbatim: 'Pay up to $0.002 per request', observed_402: true}
+      - {route: 'POST /v1/tools/translate (canary)', price_usd: 0.00293, observed_402: true}
+      - {route: 'POST /v1/tools/x402-prepay-trust-check', price_usd: 0.004}
+      - {route: 'POST /v1/tools/x402-buyer-shortlist', price_usd: 0.005}
+      - {route: 'POST /v1/tools/x402-mcp-integration-kit, /x402-market-benchmark', price_usd: 0.006}
+      - {route: 'POST /v1/tools/x402-listing-seo-audit', price_usd: 0.008}
+      - {route: 'POST /v1/tools/x402-directory-rank-tracker; GET /v1/paid/evm-transaction-risk-decoder, /eip712-signature-risk-decoder', price_usd: 0.01}
+      - {route: 'POST /v1/tools/x402-agent-payment-approval-pack, -spend-recurrence-guard, -paid-mcp-authorization-bridge, -receipt-bound-execution-gate', price_usd: 0.012}
+      - {route: 'POST /v1/paid/wallet-signing-safety-pack', price_usd: 0.018}
+      - {route: 'POST /v1/tools/x402-seller-action-plan; /v1/paid/x402-growth-plan', price_usd: 0.019}
+      - {route: 'POST /v1/tools/x402-seller-intelligence-bundle; /v1/paid/x402-seller-intel', price_usd: 0.029}
+      - {route: 'POST /v1/tools/sub2api-balance-ledger-simulator', price_usd: 0.10}
+    source: https://gpt55.558686.xyz/pricing.json
+  - name: GPT55 prepaid call packs
+    id: prepaid_call_pack
+    billing_period: one payment, consumed per call
+    currency: USDC
+    key_required: false
+    positioning_verbatim: 'Prepaid Call Credits are the repeat-use option: buy once, then spend the remaining calls without redoing payment setup on every request.'
+    delivery: 'paid response returns a pack token (pk_live_*), model, callCount, remainingCalls'
+    packs:
+      - {model: gpt-5.6-luna, calls: 100, price_usd: 1.60, discount_vs_per_call: 0.8, route: 'GET /v1/paid/call-packs/gpt-5.6-luna-100', in_openapi: true}
+      - {model: gpt-5.6-luna, calls: 500, price_usd: 7.00}
+      - {model: gpt-5.6-luna, calls: 2000, price_usd: 24.00}
+      - {model: gpt-5.6-luna, calls: 10000, price_usd: 109.99}
+      - {model: gpt-5.5, calls: 100, price_usd: 1.60, in_openapi: true}
+      - {model: gpt-5.5, calls: 500, price_usd: 7.00}
+      - {model: gpt-5.5, calls: 2000, price_usd: 24.00}
+      - {model: gpt-5.5, calls: 10000, price_usd: 109.99}
+      - {model: gpt-5.3-codex, calls: 100, price_usd: 0.598, in_openapi: true}
+      - {model: gpt-5.3-codex, calls: 500, price_usd: 2.62}
+      - {model: gpt-5.3-codex, calls: 2000, price_usd: 8.97}
+      - {model: gpt-5.3-codex, calls: 10000, price_usd: 41.10}
+      - {model: gpt-5.6-terra, calls: 100, price_usd: 4.00, in_openapi: true}
+      - {model: gpt-5.6-terra, calls: 500, price_usd: 17.50}
+      - {model: gpt-5.6-terra, calls: 2000, price_usd: 60.00}
+      - {model: gpt-5.6-terra, calls: 10000, price_usd: 274.99}
+      - {model: gpt-5.6-sol, calls: 100, price_usd: 8.00, in_openapi: true}
+      - {model: gpt-5.6-sol, calls: 500, price_usd: 35.00}
+      - {model: gpt-5.6-sol, calls: 2000, price_usd: 119.99}
+      - {model: gpt-5.6-sol, calls: 10000, price_usd: 549.97}
+    refund_policy: not-published (see conventions/ reversibility)
+    source: https://gpt55.558686.xyz/x402/live-prices.json
+  - name: GPT55 text-tool tiers (Standard / Plus / Professional)
+    id: text_tool_tiers
+    billing_period: per request
+    currency: USDC
+    tiers:
+      - {tier: Standard, model: gpt-5.6-luna, price_usd: 0.00293, tools: [translate, summarize, code-review, rewrite, answer, extract-json]}
+      - {tier: Plus, model: gpt-5.5, prices_usd: {translate: 0.145, rewrite: 0.145, answer: 0.145, summarize: 0.17, extract-json: 0.17, code-review: 0.211}}
+      - {tier: Professional, model: gpt-5.5, prices_usd: {translate: 0.145, rewrite: 0.145, answer: 0.145, summarize: 0.17, extract-json: 0.17, code-review: 0.211}, note: 'same published price as Plus on the project page'}
+    source: https://gpt55.558686.xyz/projects/558686/
+  - name: GPT55 premium x402 packs and playbooks
+    id: premium_packs
+    billing_period: per request
+    currency: USDC
+    price_range_usd: [2.90, 36.90]
+    examples:
+      - {route: 'GET /v1/paid/wallet-payment-activation-agent', price_usd: 2.90}
+      - {route: 'POST /v1/paid/x402-buyer-payment-execution-runbook, /x402-mcp-production-launch-audit, /x402-agent-spend-simulator, /x402-seller-price-ladder-optimizer', price_usd: 4.90}
+      - {route: 'POST /v1/paid/x402-revenue-recovery-agent', price_usd: 4.90}
+      - {route: 'POST /v1/paid/x402-private-gateway-deployment-plan', price_usd: 24.90}
+      - {route: 'POST /v1/paid/x402-refund-dispute-resolution-playbook', price_usd: 25.90}
+      - {route: 'POST /v1/paid/x402-customer-support-refund-triage-agent', price_usd: 36.90}
+    note: 'Deterministic ("does not call an upstream model") deliverables for other x402 sellers and agent operators; 108 such tools appear in the MCP list. Not in the OpenAPI.'
+    source: https://gpt55.558686.xyz/llms-full.txt
+  - name: Sub2API platform quota (prepaid, API key)
+    id: sub2api_platform_quota
+    billing_period: prepaid balance, debited per token
+    currency: USD-denominated platform quota
+    key_required: true
+    account_required: true
+    sign_up: 'closed - registration_enabled=false, google_oauth_enabled=false; "contact the administrator for a test key or wait for self-service registration to open" (https://sub2api.558686.xyz/verify-models). The 2026-07-02 llms.txt described registration as open; the pages say closed.'
+    recharge: {shop: 'https://shop.400860.xyz/', ratio_verbatim: '1 USD paid = 10 USD platform quota'}
+    price_basis_verbatim: 'sub2api currently has no public channel_model_pricing table records. The prices below come from the running project billing code, model base prices, current group multipliers, and recharge conversion.'
+    models_per_1m_tokens:
+      - {model: gpt-5.5, quota_usd_in_out: [2.50, 15.00], effective_paid_usd_in_out: [0.25, 1.50], official_usd_in_out: [5.00, 30.00]}
+      - {model: gpt-5.4, quota_usd_in_out: [2.50, 15.00], effective_paid_usd_in_out: [0.25, 1.50], official_usd_in_out: [2.50, 15.00], note: 'requests above the 272K context threshold priced by project rules'}
+      - {model: gpt-5.4-mini, quota_usd_in_out: [0.75, 4.50], effective_paid_usd_in_out: [0.075, 0.45], source: llms-full.txt}
+      - {model: gpt-5.3-codex, quota_usd_in_out: [2.50, 15.00], effective_paid_usd_in_out: [0.25, 1.50]}
+      - {model: claude-opus-4-6, quota_usd_in_out: [7.50, 37.50], effective_paid_usd_in_out: [0.75, 3.75], note: 'special-rate group at 1.5x balance multiplier (llms-full.txt); the pricing page says "See dashboard"'}
+      - {model: claude-sonnet-4-6, quota_usd_in_out: [7.50, 37.50], effective_paid_usd_in_out: [0.75, 3.75], source: 'pricing page', discrepancy: 'llms-full.txt lists $4.50 / $22.50 quota ($0.45 / $2.25 paid) for the same model'}
+      - {model: claude-haiku-4-5-20251001, quota_usd_in_out: [1.50, 7.50], effective_paid_usd_in_out: [0.15, 0.75], source: llms-full.txt}
+      - {model: 'gemini / antigravity', quota_usd_in_out: null, note: '待开放 (pending) - not yet priced or publicly testable'}
+    visible_model_count: 30 (backend group checks, per the pricing page)
+    caveat_verbatim: 'Dashboard usage and billing records remain the final source of truth.'
+    captured: '2026-06-28 (the provider''s own capture date on the page)'
+    source: https://sub2api.558686.xyz/pricing
+other_offers:
+  - {name: 'API Codex GPT-5.5 Key + URL Pack', price_usd: 11.1112, quota_usd: 100, smaller_packs_usd: [10, 50], route: 'GET/POST https://gpt55.558686.xyz/x402/service (per buyer-guide); the agent card and README point at https://x402-key.558686.xyz which answers 410', note: 'delivers a usable Sub2API-style API key + base URL after payment; the retired-host pointer means this offer could not be quoted from the URLs the card gives'}
+free_surface:
+  - GET https://gpt55.558686.xyz/v1/models (anonymous 200)
+  - 'GET https://gpt55.558686.xyz/api-market/v1/tools/* (44 utility operations, anonymous 200 on the provider host)'
+  - 'every discovery document (openapi.json, pricing.json, live-prices.json, llms.txt, agent card, server.json, MCP tools/list)'
+market_benchmark_verbatim: 'the latest local x402.direct sample found AI-like listing prices with p25 around $0.01 and median around $0.03 per call; this gateway publishes GPT-5.6 Luna Standard at $0.00293'

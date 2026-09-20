@@ -1,0 +1,91 @@
+generated: '2026-09-19'
+method: searched
+source: >-
+  https://gpt55.558686.xyz/projects/split.json (saved as 558686-xyz-split-hosts.json),
+  /x402/compatibility.json, the x-gpt55-relatedProjects and x-x402-compatibility blocks in the
+  GPT55 OpenAPI info, /x402/status (saved as 558686-xyz-x402-status.json), /server.json,
+  /mcp/config, /sitemap.xml lastmod values, live 410/308 responses from the four retired hosts,
+  api.github.com/repos/wangletiand/gpt55-x402-gateway (created/pushed timestamps, no releases),
+  https://sub2api.558686.xyz/sitemap.xml, /docs/ ("内容整理于 2026-08-31"), /apis.json (created
+  2026-06-28, modified 2026-07-02) and /pricing ("Captured on 2026-06-28").
+checked: '2026-09-19'
+summary: >-
+  GPT55 is a live, actively regenerated service (every JSON manifest carries a generatedAt within
+  the probe minute) that has been through one documented restructuring: in July 2026 four
+  standalone x402 sub-projects on their own hosts (x402-utils, x402-wallet, x402-seller, x402-key
+  .558686.xyz) were "retired_consolidated" into the single GPT55 host. The provider publishes the
+  retirement as data - /projects/split.json states a 30-day legacy notice starting 2026-07-01,
+  names each retired project's historical and canonical origin, and says paid routes are no
+  longer available on the historical hosts - and enforces it at the edge: every path on a retired
+  host answers HTTP 410 Gone with a JSON notice carrying canonicalUrl and paymentRequiredHere
+  false, and the discovery paths 308 to the canonical host. No Sunset or Deprecation header is
+  sent. The OpenAPI describes itself as the "Reduced GPT55 public surface after x402 project
+  split" and lists the retired projects in info.x-gpt55-relatedProjects. Versioning is a /v1
+  path prefix plus date-stamped manifest versions; there is no changelog, no SLA, no
+  human-readable status page - /x402/status is a JSON settlement/facilitator health document that
+  shows most of the provider's payment facilitators frozen and one (xpay) active. The agent card
+  still points its key-pack trial at the retired x402-key host. Sub2API's public copy is frozen
+  at a 2026-06-28 capture with docs edited 2026-08-31; its registration is closed.
+service_status:
+  state: active
+  observed:
+    - {surface: 'https://gpt55.558686.xyz (REST, /mcp, /a2a, manifests)', status: 'all 200 / live 402 quotes, manifests generatedAt 2026-09-20T01:3x', checked: '2026-09-20'}
+    - {surface: 'https://gpt55.558686.xyz/x402/status', status: 'ok true, service gpt55-token-gateway, facilitatorPool: xpay enabled/active; dexter + fluxa frozen_settlement (2026-07-19); mogami, primer, kobaru, cdp frozen_unreachable; payai frozen_quota; solvador disabled', checked: '2026-09-20'}
+    - {surface: 'https://sub2api.558686.xyz (console + /v1/*)', status: '200 SPA; /v1/models 401 API_KEY_REQUIRED (backend alive); registration_enabled=false, google_oauth_enabled=false per /verify-models', checked: '2026-09-20'}
+    - {surface: 'x402-utils / x402-wallet / x402-seller / x402-key .558686.xyz', status: 'retired - 410 Gone with JSON retirement notice on every path; /.well-known/x402, /openapi.json, /llms.txt 308 to gpt55.558686.xyz', checked: '2026-09-20'}
+    - {surface: 'https://download.558686.xyz (documented mirror)', status: 'TLS connection reset on every request', checked: '2026-09-20'}
+status_page:
+  url: https://gpt55.558686.xyz/x402/status
+  format: application/json only (no HTML page, no history, no incidents)
+  fields: [ok, ts, service, publicBaseUrl, model, 'payment.facilitatorPool[].status/active/observedAt']
+  note: 'A machine status document for the payment leg; it does not report API error rates or uptime. Wired as StatusPage with that caveat in the pointer name.'
+deprecation:
+  policy_published: true
+  policy_url: https://gpt55.558686.xyz/projects/split.json
+  policy_verbatim: '{"legacyNoticeDays": 30, "legacyNoticeStartedAt": "2026-07-01T00:00:00.000Z"}'
+  mechanism_observed: 'HTTP 410 Gone + JSON {ok false, retired true, retiredProject, route, canonicalUrl, paymentRequiredHere false, reason}, with headers Location: <canonicalUrl>, Link: <https://gpt55.558686.xyz/x402/service>; rel="canonical", x-gpt55-split-project-status: retired-consolidated and Cache-Control: no-store; 308 Permanent Redirect (Location + Link rel=canonical) for discovery documents; NO Sunset, Deprecation or Link rel=sunset header (observed 2026-09-20 on x402-key and x402-utils)'
+  payment_policy_verbatim: 'Do not pay a retired split-host URL. Follow the retirement notice to the canonical GPT55 service hub and fetch a fresh live quote there.'
+  retired_projects:
+    - {id: x402-utility-tools, historical_origin: 'https://x402-utils.558686.xyz', canonical_origin: 'https://gpt55.558686.xyz', status: retired_consolidated, observed: '410 on every probed path'}
+    - {id: x402-agent-wallet-tools, historical_origin: 'https://x402-wallet.558686.xyz', canonical_origin: 'https://gpt55.558686.xyz', status: retired_consolidated, observed: '410'}
+    - {id: x402-seller-growth-tools, historical_origin: 'https://x402-seller.558686.xyz', canonical_origin: 'https://gpt55.558686.xyz', status: retired_consolidated, observed: '410'}
+    - {id: x402-key-url-tools, historical_origin: 'https://x402-key.558686.xyz', canonical_origin: 'https://gpt55.558686.xyz', status: retired_consolidated, observed: '410; the agent card keyPackDeliveryTrial and the README "Key Pack upgrade" link still point here'}
+  deprecated_operations_in_spec: []
+  deprecated_operations_note: 'No operation carries deprecated: true. The spec instead lists retired PROJECTS in info.x-gpt55-relatedProjects and x-x402-compatibility.contracts[], each with status, historicalOrigin, canonicalOrigin, retirementNotice and paymentPolicy.'
+  stale_pointers_observed:
+    - 'agent card keyPackDeliveryTrial.paidUrl -> https://x402-key.558686.xyz/v1/paid/api-codex-key-pack-1 (410)'
+    - 'README "Key Pack upgrade: https://x402-key.558686.xyz/x402/checkout"'
+    - 'sub2api llms.txt describes registration as OPEN (2026-07-02 status) while /pricing, /models and /verify-models say it is CLOSED (2026-06-28 capture)'
+versioning:
+  scheme: path prefix + dated manifests
+  api_path: /v1/... (no other version has existed)
+  current:
+    openapi_gpt55: '1.0.0'
+    openapi_api_market: '1.0.0'
+    openapi_sub2api: '2026-06-28'
+    server_json: '2026.07.01-split'
+    mcp_server: '2026.06.21'
+    mcp_config: '2026.06.22'
+    agent_card: '1.0.0'
+    local_repo_package: '1.0.0'
+  header: none
+  breaking_change_policy: 'not-published (observed practice: host retirement with 30-day notice + 410)'
+sla: not-published
+changelog: not-published (no /changelog on either host; GitHub repository has no releases or CHANGELOG file)
+timeline:
+  - {date: '2026-06-12', event: 'schemaVersion of live-prices.json, integrations.json, seller-tools.json'}
+  - {date: '2026-06-21', event: 'MCP serverInfo version 2026.06.21'}
+  - {date: '2026-06-22', event: '/mcp/config version 2026.06.22; translate-first-purchase schemaVersion'}
+  - {date: '2026-06-28', event: 'Sub2API apis.json created; sub2api pricing/models/postman pages captured; sub2api OpenAPI info.version 2026-06-28; ai-catalog / tools.json schemaVersion 2026-06-28'}
+  - {date: '2026-07-01', event: 'legacyNoticeStartedAt for the split-host retirement (30 days); server.json version 2026.07.01-split'}
+  - {date: '2026-07-02', event: 'Sub2API apis.json modified; sub2api llms.txt onboarding status dated (registration reachable, Google OAuth enabled)'}
+  - {date: '2026-07-03', event: 'Sub2API use-case pages lastmod'}
+  - {date: '2026-07-19', event: 'facilitators dexter and fluxa observed frozen_settlement (per /x402/status observedAt)'}
+  - {date: '2026-07-26', event: 'pricingPolicy historical_external_conversion_restore_20260726 on the Standard chat route'}
+  - {date: '2026-07-29', event: 'dual-server-mcp-launch-gate schemaVersion'}
+  - {date: '2026-07-31', event: 'GitHub repository wangletiand/gpt55-x402-gateway created'}
+  - {date: '2026-08-24', event: 'last push to the repository (0 releases)'}
+  - {date: '2026-08-31', event: 'Sub2API docs index states content organised 2026-08-31'}
+  - {date: '2026-09-06', event: 'first-external-revenue-offer schemaVersion (Luna 100-call pack as primary repeat offer)'}
+  - {date: '2026-09-18', event: 'facilitators mogami/primer/kobaru observed frozen_unreachable, payai frozen_quota, xpay enabled (observedAt)'}
+  - {date: '2026-09-19', event: 'this pass: every GPT55 surface live; retired hosts 410; download mirror unreachable'}

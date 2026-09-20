@@ -1,0 +1,72 @@
+generated: '2026-09-19'
+method: searched
+source: >-
+  Artifacts harvested this run (well-known/, security/, lifecycle/, conformance/), the pages
+  https://gpt55.558686.xyz/privacy, /x402/service, /buyer-guide, /llms-full.txt, /robots.txt,
+  the repository SECURITY.md and README, the Sub2API docs (https://sub2api.558686.xyz/docs/,
+  /docs/register-guide.html) and live probes of the conventional regulatory and legal paths on
+  gpt55.558686.xyz and sub2api.558686.xyz on 2026-09-20.
+checked: '2026-09-19'
+probe: true
+harvest_only: true
+harvest_only_note: >-
+  This file records WHAT the provider publishes. It does not decide which regimes reach the
+  operator - that is the Kin Score regime map's job, not this artifact's.
+summary: >-
+  Nothing that meets the bar. GPT55 publishes one real legal page, a short privacy policy at
+  /privacy that describes the HTTP metadata public endpoints receive and states what it does not
+  collect ("private keys, wallet seed phrases, bearer tokens, session cookies, or generated
+  payment proofs") - but it names no controller, no jurisdiction, no retention period, no
+  data-subject-request channel, no subprocessors and no residency, so it is a PrivacyPolicy
+  pointer and not a regulatory signal. There is no terms of service on any host. Every
+  conventional path (/accessibility, /legal/*, /privacy/requests, /transparency, /trust,
+  /security/sbom, /docs/data-residency, /ai, /ai/transparency, /legal/report-content) is a JSON
+  404 on gpt55.558686.xyz, and the Sub2API hosts answer every such path with the same 62,944-byte
+  SPA shell they return for any unknown URL (/terms, /privacy, /about, /contact included), so no
+  legal page there is verifiable as served. The nearest thing to an AI-transparency statement is
+  the robots.txt Content-Signal "search=yes,ai-train=no,use=reference" with GPTBot/ClaudeBot/
+  Google-Extended disallowed - a machine-readable usage preference the operator asserts over ITS
+  content, which is recorded as ContentSignal, not as ai_transparency (which is about disclosure
+  of the provider's own AI outputs to users). The Sub2API docs carry a compliance sentence
+  ("confirm your region and use case comply with service terms; do not provide region-restriction
+  evasion guidance") without a terms document to point at. The GPT55 README states "This is a
+  compatible gateway, not an OpenAI-operated product", and the Sub2API pages state no upstream
+  partnership or authorization is claimed. Empty signals is the measurement.
+signals: {}
+probes:
+  - {host: gpt55.558686.xyz, path: /privacy, status: 200, note: 'real page, 2,453 B - wired as PrivacyPolicy; no DSR channel, retention, controller or subprocessor content'}
+  - {host: gpt55.558686.xyz, path: /terms, status: 404}
+  - {host: gpt55.558686.xyz, path: /legal, status: 404}
+  - {host: gpt55.558686.xyz, path: /accessibility, status: 404}
+  - {host: gpt55.558686.xyz, path: /accessibility/vpat, status: 404}
+  - {host: gpt55.558686.xyz, path: /legal/subprocessors, status: 404}
+  - {host: gpt55.558686.xyz, path: /legal/dpa, status: 404}
+  - {host: gpt55.558686.xyz, path: /privacy/requests, status: 404}
+  - {host: gpt55.558686.xyz, path: /transparency, status: 404}
+  - {host: gpt55.558686.xyz, path: /trust, status: 404}
+  - {host: gpt55.558686.xyz, path: /security, status: 404}
+  - {host: gpt55.558686.xyz, path: /security/sbom, status: 404}
+  - {host: gpt55.558686.xyz, path: /docs/data-residency, status: 404}
+  - {host: gpt55.558686.xyz, path: /ai, status: 404}
+  - {host: gpt55.558686.xyz, path: /ai/transparency, status: 404}
+  - {host: gpt55.558686.xyz, path: /legal/report-content, status: 404}
+  - {host: gpt55.558686.xyz, path: /contact, status: 404}
+  - {host: gpt55.558686.xyz, path: /support, status: 404}
+  - {host: gpt55.558686.xyz, path: /about, status: 404}
+  - {host: gpt55.558686.xyz, path: /.well-known/security.txt, status: 404}
+  - {host: gpt55.558686.xyz, path: /robots.txt, status: 200, note: 'Content-Signal: search=yes,ai-train=no,use=reference'}
+  - {host: sub2api.558686.xyz, path: /terms, status: 200, soft_404: true, note: 'SPA shell, 62,944 B, identical to the negative control'}
+  - {host: sub2api.558686.xyz, path: /privacy, status: 200, soft_404: true}
+  - {host: sub2api.558686.xyz, path: /terms-of-service, status: 200, soft_404: true}
+  - {host: sub2api.558686.xyz, path: /privacy-policy, status: 200, soft_404: true}
+  - {host: sub2api.558686.xyz, path: /about, status: 200, soft_404: true}
+  - {host: sub2api.558686.xyz, path: /contact, status: 200, soft_404: true}
+  - {host: 'github.com/wangletiand/gpt55-x402-gateway', path: /SECURITY.md, status: 200, note: 'vulnerability disclosure policy, not a regulatory signal; see security/'}
+prose_statements_not_recorded_as_signals:
+  - {page: https://gpt55.558686.xyz/privacy, verbatim: 'Public discovery endpoints may receive normal HTTP metadata such as IP address, user agent, request path, timestamp, and referrer.'}
+  - {page: https://gpt55.558686.xyz/privacy, verbatim: 'GPT55 public review pages do not ask reviewers to provide private keys, wallet seed phrases, bearer tokens, session cookies, or generated payment proofs.'}
+  - {page: https://gpt55.558686.xyz/privacy, verbatim: 'Paid x402 requests are buyer-controlled. Users should inspect amount, network, asset, payTo, route, and facilitator metadata before signing.'}
+  - {page: https://gpt55.558686.xyz/robots.txt, verbatim: '# Search indexing is allowed; AI training is not granted.', note: 'recorded as ContentSignal (consent surface), not as an AI-transparency disclosure'}
+  - {page: https://github.com/wangletiand/gpt55-x402-gateway (README), verbatim: 'This is a compatible gateway, not an OpenAI-operated product.'}
+  - {page: https://sub2api.558686.xyz/postman, verbatim: 'This service does not claim official partnership, authorization, or endorsement from OpenAI, Anthropic, Google, or any upstream provider.'}
+  - {page: https://sub2api.558686.xyz/docs/register-guide.html, verbatim: '请确认所在地区和用途符合服务条款；本服务不声明获得任何上游模型提供方的官方合作、授权或背书。', translation: 'Please confirm your region and use case comply with the terms of service; this service does not claim official cooperation, authorization or endorsement from any upstream model provider.', note: 'no terms-of-service document is served to confirm against'}

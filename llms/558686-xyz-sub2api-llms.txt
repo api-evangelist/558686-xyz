@@ -1,0 +1,17 @@
+# Sub2API 558686
+
+Sub2API 558686 is a low-cost OpenAI-compatible API gateway at https://sub2api.558686.xyz.
+
+Core routes: GET /v1/models, POST /v1/chat/completions, POST /v1/responses.
+
+Current onboarding status on 2026-07-02: public registration status should be verified on the live /register page and dashboard configuration; recent ops check found /register reachable, email verification enabled, and Google OAuth sign-in/sign-up enabled. /v1/models returns 401 without a key; recharge entry is https://shop.400860.xyz/ with 1 USD paid = 10 USD platform quota; backend group config exposes 30 model IDs including gpt-5.5, gpt-5.4, gpt-5.3-codex, claude-opus-4-6 and claude-sonnet-4-6.
+
+Important URLs:
+- Pricing: https://sub2api.558686.xyz/pricing
+- Models: https://sub2api.558686.xyz/models
+- Verification: https://sub2api.558686.xyz/verify-models
+- Docs: https://sub2api.558686.xyz/docs
+- Registration guide: https://sub2api.558686.xyz/docs/register-guide.html
+- OpenAPI: https://sub2api.558686.xyz/openapi.json
+
+Claims must be read with the page caveats: model availability and pricing depend on the live console, key group, upstream status and billing records.

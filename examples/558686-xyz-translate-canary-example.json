@@ -1,0 +1,237 @@
+{
+  "generated": "2026-09-19",
+  "method": "derived",
+  "source": "https://gpt55.558686.xyz/v1/tools/translate - the provider's own HTTP 402 quote body, extensions.bazaar.info (probed unpaid 2026-09-20). The request and response examples are the provider's, copied verbatim; the 402 quote around them is what an unpaid caller actually receives.",
+  "operationId": "v1ToolsTranslate",
+  "note": "The provider-recommended first-payment canary: $0.00293 (2930 atomic USDC); its paid result fields per the discovery document are text, model, usage, x402NextPurchase plus receipt headers.",
+  "quote_request": {
+    "method": "POST",
+    "url": "https://gpt55.558686.xyz/v1/tools/translate",
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": {
+      "text": "Hello, world.",
+      "target_language": "Chinese"
+    }
+  },
+  "quote_response": {
+    "status": 402,
+    "headers": {
+      "PAYMENT-REQUIRED": "<base64 of the JSON body>",
+      "ratelimit-limit": "120",
+      "ratelimit-policy": "120;w=60"
+    },
+    "body": {
+      "x402Version": 2,
+      "error": "Payment required",
+      "resource": {
+        "url": "https://gpt55.558686.xyz/v1/tools/translate",
+        "description": "Translate short text, messages, notes, and snippets to a requested target language for agent workflows, localization, bilingual support replies, and quick multilingual output. Standard quality tier uses gpt-5.6-luna; price is derived from official OpenAI relative token costs with a local margin and floor. Pay up to $0.00293 per request with x402 USDC on Base. Public paid calls are limited to 700000 input characters and 4096 output tokens.",
+        "mimeType": "application/json",
+        "serviceName": "gpt55-token-gateway",
+        "tags": [
+          "translate",
+          "translation",
+          "language",
+          "localization",
+          "bilingual"
+        ],
+        "iconUrl": "https://gpt55.558686.xyz/favicon.ico",
+        "category": "ai-text-tools"
+      },
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "2930",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0x1f0130669ca6fd02e025a984cc038f139df19a2f",
+          "maxTimeoutSeconds": 300,
+          "extra": {
+            "name": "USD Coin",
+            "version": "2",
+            "x402Provider": "xpay"
+          }
+        }
+      ]
+    }
+  },
+  "paid_request": {
+    "method": "POST",
+    "url": "https://gpt55.558686.xyz/v1/tools/translate",
+    "headers": {
+      "content-type": "application/json",
+      "X-PAYMENT": "<x402 exact payment payload signed by the buyer wallet for accepts[0]>"
+    },
+    "body": {
+      "text": "Hello, world.",
+      "target_language": "Chinese"
+    },
+    "note": "Same request as the quote; only the X-PAYMENT header is added (sameRequestRetryRequired: true)."
+  },
+  "paid_response_example": {
+    "status": 200,
+    "headers": {
+      "PAYMENT-RESPONSE": "<settlement receipt>",
+      "x-x402-receipt-id": "<receipt id>",
+      "x-x402-receipt-url": "<receipt url>"
+    },
+    "body": {
+      "text": "Translated text."
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string"
+      },
+      "example": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "usage": {
+            "type": "object"
+          },
+          "x402NextPurchase": {
+            "type": "object",
+            "description": "Present only after a settled x402 paid tool response. Helps buyer agents choose the next higher-value paid route without exposing secrets.",
+            "properties": {
+              "reason": {
+                "type": "string"
+              },
+              "primary": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "string"
+                  },
+                  "method": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "quoteOnlyUrl": {
+                    "type": "string"
+                  },
+                  "quoteOnlyCurl": {
+                    "type": "string"
+                  },
+                  "quoteOnlyCommand": {
+                    "type": "string"
+                  },
+                  "publicGuide": {
+                    "type": "string"
+                  },
+                  "useWhen": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              },
+              "secondary": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "string"
+                  },
+                  "method": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "quoteOnlyCurl": {
+                    "type": "string"
+                  },
+                  "quoteOnlyCommand": {
+                    "type": "string"
+                  },
+                  "publicGuide": {
+                    "type": "string"
+                  },
+                  "useWhen": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              },
+              "buyerPolicy": {
+                "type": "object",
+                "properties": {
+                  "network": {
+                    "type": "string"
+                  },
+                  "payTo": {
+                    "type": "string"
+                  },
+                  "completedPurchaseMaxUsd": {
+                    "type": "number"
+                  },
+                  "nextPurchaseMaxUsd": {
+                    "type": "number"
+                  },
+                  "checkQuoteBeforePayment": {
+                    "type": "boolean"
+                  },
+                  "verifyAmountPayToAndNetwork": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": true
+              },
+              "receipt": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "header": {
+                    "type": "string"
+                  },
+                  "note": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "required": [
+      "type"
+    ]
+  }
+}
