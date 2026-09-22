@@ -34,6 +34,19 @@ tags:
 - MCP
 - A2A
 - AI Gateway
+- OpenAI-Compatible
+- LLM
+- AI Agents
+- USDC
+- Base
+- API Relay
+- Developer Tools
+tags_raw:
+- x402
+- Agent Payments
+- MCP
+- A2A
+- AI Gateway
 - OpenAI-compatible
 - LLM
 - AI Agents
@@ -61,6 +74,12 @@ apis:
   humanURL: https://gpt55.558686.xyz/x402/service
   baseURL: https://gpt55.558686.xyz
   tags:
+  - x402
+  - AI Gateway
+  - OpenAI-Compatible
+  - LLM
+  - USDC
+  tags_raw:
   - x402
   - AI Gateway
   - OpenAI-compatible
@@ -205,6 +224,11 @@ apis:
   humanURL: https://sub2api.558686.xyz/docs/
   baseURL: https://sub2api.558686.xyz
   tags:
+  - API Relay
+  - OpenAI-Compatible
+  - LLM
+  - AI Gateway
+  tags_raw:
   - API Relay
   - OpenAI-compatible
   - LLM
