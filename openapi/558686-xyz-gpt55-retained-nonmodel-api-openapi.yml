@@ -1,0 +1,1640 @@
+openapi: 3.2.0
+info:
+  title: GPT55 Model Gateway Gpt55 Retained Nonmodel API
+  version: 1.0.0
+  description: Reduced GPT55 public surface after x402 project split, with GPT-5.6 Luna Standard as the default upstream gpt-5.6-luna model path, explicit Soul and Terra routes for higher-cost requests, the unified service hub, prepaid Luna call packs, and per-request x402 calls.
+  x-gpt55-relatedProjects:
+  - id: x402-utility-tools
+    title: Utility tools
+    status: retired_consolidated
+    historicalOrigin: https://x402-utils.558686.xyz
+    canonicalOrigin: https://gpt55.558686.xyz
+    paidRoutesAvailableOnHistoricalHost: false
+    retirementNotice: https://x402-utils.558686.xyz/.well-known/x402
+    canonicalServiceHub: https://gpt55.558686.xyz/x402/service
+    paymentPolicy: Do not pay a retired split-host URL. Follow the retirement notice to the canonical GPT55 service hub and fetch a fresh live quote there.
+  - id: x402-agent-wallet-tools
+    title: Agent wallet tools
+    status: retired_consolidated
+    historicalOrigin: https://x402-wallet.558686.xyz
+    canonicalOrigin: https://gpt55.558686.xyz
+    paidRoutesAvailableOnHistoricalHost: false
+    retirementNotice: https://x402-wallet.558686.xyz/.well-known/x402
+    canonicalServiceHub: https://gpt55.558686.xyz/x402/service
+    paymentPolicy: Do not pay a retired split-host URL. Follow the retirement notice to the canonical GPT55 service hub and fetch a fresh live quote there.
+  - id: x402-seller-growth-tools
+    title: Seller growth tools
+    status: retired_consolidated
+    historicalOrigin: https://x402-seller.558686.xyz
+    canonicalOrigin: https://gpt55.558686.xyz
+    paidRoutesAvailableOnHistoricalHost: false
+    retirementNotice: https://x402-seller.558686.xyz/.well-known/x402
+    canonicalServiceHub: https://gpt55.558686.xyz/x402/service
+    paymentPolicy: Do not pay a retired split-host URL. Follow the retirement notice to the canonical GPT55 service hub and fetch a fresh live quote there.
+  - id: x402-key-url-tools
+    title: Key and URL tools
+    status: retired_consolidated
+    historicalOrigin: https://x402-key.558686.xyz
+    canonicalOrigin: https://gpt55.558686.xyz
+    paidRoutesAvailableOnHistoricalHost: false
+    retirementNotice: https://x402-key.558686.xyz/.well-known/x402
+    canonicalServiceHub: https://gpt55.558686.xyz/x402/service
+    paymentPolicy: Do not pay a retired split-host URL. Follow the retirement notice to the canonical GPT55 service hub and fetch a fresh live quote there.
+  x-gpt55-payment:
+    protocol: x402
+    network: eip155:8453
+    asset: USDC
+    payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+    facilitator: provider-pool
+    facilitatorPool:
+    - id: dexter
+      url: https://x402.dexter.cash
+      status: frozen_settlement
+      active: false
+      networks:
+      - eip155:8453
+      - solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp
+      observedAt: '2026-07-19T16:04:32.063Z'
+    - id: fluxa
+      url: https://facilitator.fluxapay.xyz
+      status: frozen_settlement
+      active: false
+      networks:
+      - eip155:8453
+      observedAt: '2026-07-19T16:04:32.063Z'
+    - id: mogami
+      url: https://v2.facilitator.mogami.tech
+      status: frozen_unreachable
+      active: false
+      networks:
+      - eip155:8453
+      observedAt: '2026-09-18T08:31:22.080Z'
+    - id: primer
+      url: https://x402.primer.systems
+      status: frozen_unreachable
+      active: false
+      networks:
+      - eip155:8453
+      observedAt: '2026-09-18T08:31:22.080Z'
+    - id: xpay
+      url: https://facilitator.xpay.sh
+      status: enabled
+      active: true
+      networks:
+      - eip155:8453
+      observedAt: '2026-09-18T08:36:32.152Z'
+    - id: payai
+      url: https://facilitator.payai.network
+      status: frozen_quota
+      active: false
+      networks:
+      - eip155:8453
+      - solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp
+      observedAt: '2026-09-18T08:36:32.152Z'
+    - id: kobaru
+      url: https://gateway.kobaru.io
+      status: frozen_unreachable
+      active: false
+      networks:
+      - eip155:8453
+      - solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp
+      observedAt: '2026-09-18T08:31:22.080Z'
+    - id: cdp
+      url: https://api.cdp.coinbase.com/platform/v2/x402
+      status: frozen_unreachable
+      active: false
+      networks:
+      - eip155:8453
+      - solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp
+      observedAt: '2026-08-29T17:17:22.202Z'
+    - id: solvador
+      url: https://api.solvador.com
+      status: disabled
+      active: false
+      networks: []
+    fallbackFacilitators:
+    - https://facilitator.xpay.sh
+  primaryCommercialOffer:
+    id: standard-chat-demand-first
+    routeId: standard-chat
+    title: GPT-5.6 Luna Standard one-request result
+    buyerJob: Get one immediate OpenAI-compatible answer before committing to a quota pack or a larger workflow.
+    method: POST
+    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    previewUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    price: $0.00293
+    priceUsd: 0.00293
+    amountAtomic: '2930'
+    network: eip155:8453
+    asset: USDC
+    assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+    payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+    input:
+      contentType: application/json
+      example:
+        messages:
+        - role: user
+          content: Answer one concrete question in one short paragraph.
+        max_tokens: 128
+    resultFields:
+    - id
+    - model
+    - choices
+    - usage
+    - x-x402-receipt-id
+    - x-x402-receipt-url
+    browserCheckout:
+      available: true
+      provider: EIP-1193 injected wallet
+      type: eip3009-transfer-with-authorization
+      url: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      bundleUrl: https://gpt55.558686.xyz/x402/browser-wallet-payment.js
+      method: POST
+      network: eip155:8453
+      asset: USDC
+      assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+      payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+      amountAtomic: '2930'
+      paymentHeader: PAYMENT-SIGNATURE
+      responseHeaders:
+      - PAYMENT-RESPONSE
+      - X-PAYMENT-RESPONSE
+      - x-x402-receipt-id
+      - x-x402-receipt-url
+      privateKeySentToService: false
+      buttonLabel: Pay with browser wallet
+    agentFallback:
+      routeId: standard
+      firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+      quoteOnlyCommand: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
+      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+      installCommand: npm install @x402/fetch @x402/core @x402/evm viem
+      requiredRuntime: optional-desktop-or-server-terminal-fallback
+      sameRequestRetry: true
+      paymentHeaders:
+      - PAYMENT-SIGNATURE
+      - X-PAYMENT
+      privateKeySentToService: false
+    model: gpt-5.6-luna
+    nextPurchase:
+      id: gpt-5.6-luna-100-call-pack
+      routeId: gpt-5.6-luna-100-call-pack
+      title: GPT-5.6 Luna 100 Prepaid Call Credits
+      model: gpt-5.6-luna
+      method: GET
+      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      price: $1.60
+      amountAtomic: '1600000'
+      callCount: 100
+      network: eip155:8453
+      asset: USDC
+      assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+      payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+      privateKeySentToService: false
+      reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
+    label: GPT-5.6 Luna Standard one-request result
+    page: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    json: https://gpt55.558686.xyz/x402/service.json
+    checkoutUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    quoteUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteEndpoint: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteEndpointMode: live-402
+    firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+    paymentClientUrl: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+    paymentActivation: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    installCommand: npm install @x402/fetch @x402/core @x402/evm viem
+    quoteOnlyDedicated: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
+    realPaymentDedicated: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    paymentHeaderOnlyDedicated: X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    installThenCreatePaymentHeaderDedicated: npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenCreatePaymentHeaderDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    payCommand: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenPayDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    expectedResult:
+    - id
+    - model
+    - choices
+    - usage
+    - x-x402-receipt-id
+    - x-x402-receipt-url
+  marketDemandOffer:
+    id: standard-chat-demand-first
+    routeId: standard-chat
+    title: GPT-5.6 Luna Standard one-request result
+    buyerJob: Get one immediate OpenAI-compatible answer before committing to a quota pack or a larger workflow.
+    method: POST
+    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    previewUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    price: $0.00293
+    priceUsd: 0.00293
+    amountAtomic: '2930'
+    network: eip155:8453
+    asset: USDC
+    assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+    payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+    input:
+      contentType: application/json
+      example:
+        messages:
+        - role: user
+          content: Answer one concrete question in one short paragraph.
+        max_tokens: 128
+    resultFields:
+    - id
+    - model
+    - choices
+    - usage
+    - x-x402-receipt-id
+    - x-x402-receipt-url
+    browserCheckout:
+      available: true
+      provider: EIP-1193 injected wallet
+      type: eip3009-transfer-with-authorization
+      url: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      bundleUrl: https://gpt55.558686.xyz/x402/browser-wallet-payment.js
+      method: POST
+      network: eip155:8453
+      asset: USDC
+      assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+      payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+      amountAtomic: '2930'
+      paymentHeader: PAYMENT-SIGNATURE
+      responseHeaders:
+      - PAYMENT-RESPONSE
+      - X-PAYMENT-RESPONSE
+      - x-x402-receipt-id
+      - x-x402-receipt-url
+      privateKeySentToService: false
+      buttonLabel: Pay with browser wallet
+    agentFallback:
+      routeId: standard
+      firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+      quoteOnlyCommand: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
+      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+      installCommand: npm install @x402/fetch @x402/core @x402/evm viem
+      requiredRuntime: optional-desktop-or-server-terminal-fallback
+      sameRequestRetry: true
+      paymentHeaders:
+      - PAYMENT-SIGNATURE
+      - X-PAYMENT
+      privateKeySentToService: false
+    model: gpt-5.6-luna
+    nextPurchase:
+      id: gpt-5.6-luna-100-call-pack
+      routeId: gpt-5.6-luna-100-call-pack
+      title: GPT-5.6 Luna 100 Prepaid Call Credits
+      model: gpt-5.6-luna
+      method: GET
+      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      price: $1.60
+      amountAtomic: '1600000'
+      callCount: 100
+      network: eip155:8453
+      asset: USDC
+      assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+      payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+      privateKeySentToService: false
+      reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
+    label: GPT-5.6 Luna Standard one-request result
+    page: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    json: https://gpt55.558686.xyz/x402/service.json
+    checkoutUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    quoteUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteEndpoint: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteEndpointMode: live-402
+    firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+    paymentClientUrl: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+    paymentActivation: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    installCommand: npm install @x402/fetch @x402/core @x402/evm viem
+    quoteOnlyDedicated: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
+    realPaymentDedicated: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    paymentHeaderOnlyDedicated: X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    installThenCreatePaymentHeaderDedicated: npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenCreatePaymentHeaderDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    payCommand: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenPayDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    expectedResult:
+    - id
+    - model
+    - choices
+    - usage
+    - x-x402-receipt-id
+    - x-x402-receipt-url
+  recommendedFirstPurchase:
+    id: standard-chat-demand-first
+    routeId: standard-chat
+    title: GPT-5.6 Luna Standard one-request result
+    buyerJob: Get one immediate OpenAI-compatible answer before committing to a quota pack or a larger workflow.
+    method: POST
+    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    previewUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    price: $0.00293
+    priceUsd: 0.00293
+    amountAtomic: '2930'
+    network: eip155:8453
+    asset: USDC
+    assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+    payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+    input:
+      contentType: application/json
+      example:
+        messages:
+        - role: user
+          content: Answer one concrete question in one short paragraph.
+        max_tokens: 128
+    resultFields:
+    - id
+    - model
+    - choices
+    - usage
+    - x-x402-receipt-id
+    - x-x402-receipt-url
+    browserCheckout:
+      available: true
+      provider: EIP-1193 injected wallet
+      type: eip3009-transfer-with-authorization
+      url: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      bundleUrl: https://gpt55.558686.xyz/x402/browser-wallet-payment.js
+      method: POST
+      network: eip155:8453
+      asset: USDC
+      assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+      payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+      amountAtomic: '2930'
+      paymentHeader: PAYMENT-SIGNATURE
+      responseHeaders:
+      - PAYMENT-RESPONSE
+      - X-PAYMENT-RESPONSE
+      - x-x402-receipt-id
+      - x-x402-receipt-url
+      privateKeySentToService: false
+      buttonLabel: Pay with browser wallet
+    agentFallback:
+      routeId: standard
+      firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+      quoteOnlyCommand: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
+      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+      installCommand: npm install @x402/fetch @x402/core @x402/evm viem
+      requiredRuntime: optional-desktop-or-server-terminal-fallback
+      sameRequestRetry: true
+      paymentHeaders:
+      - PAYMENT-SIGNATURE
+      - X-PAYMENT
+      privateKeySentToService: false
+    model: gpt-5.6-luna
+    nextPurchase:
+      id: gpt-5.6-luna-100-call-pack
+      routeId: gpt-5.6-luna-100-call-pack
+      title: GPT-5.6 Luna 100 Prepaid Call Credits
+      model: gpt-5.6-luna
+      method: GET
+      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      price: $1.60
+      amountAtomic: '1600000'
+      callCount: 100
+      network: eip155:8453
+      asset: USDC
+      assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+      payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+      privateKeySentToService: false
+      reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
+    label: GPT-5.6 Luna Standard one-request result
+    page: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    json: https://gpt55.558686.xyz/x402/service.json
+    checkoutUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    quoteUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteEndpoint: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteEndpointMode: live-402
+    firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+    paymentClientUrl: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+    paymentActivation: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    installCommand: npm install @x402/fetch @x402/core @x402/evm viem
+    quoteOnlyDedicated: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
+    realPaymentDedicated: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    paymentHeaderOnlyDedicated: X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    installThenCreatePaymentHeaderDedicated: npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenCreatePaymentHeaderDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    payCommand: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenPayDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    expectedResult:
+    - id
+    - model
+    - choices
+    - usage
+    - x-x402-receipt-id
+    - x-x402-receipt-url
+  x-demand-first-offer:
+    id: standard-chat-demand-first
+    routeId: standard-chat
+    title: GPT-5.6 Luna Standard one-request result
+    buyerJob: Get one immediate OpenAI-compatible answer before committing to a quota pack or a larger workflow.
+    method: POST
+    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    previewUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    price: $0.00293
+    priceUsd: 0.00293
+    amountAtomic: '2930'
+    network: eip155:8453
+    asset: USDC
+    assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+    payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+    input:
+      contentType: application/json
+      example:
+        messages:
+        - role: user
+          content: Answer one concrete question in one short paragraph.
+        max_tokens: 128
+    resultFields:
+    - id
+    - model
+    - choices
+    - usage
+    - x-x402-receipt-id
+    - x-x402-receipt-url
+    browserCheckout:
+      available: true
+      provider: EIP-1193 injected wallet
+      type: eip3009-transfer-with-authorization
+      url: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      bundleUrl: https://gpt55.558686.xyz/x402/browser-wallet-payment.js
+      method: POST
+      network: eip155:8453
+      asset: USDC
+      assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+      payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+      amountAtomic: '2930'
+      paymentHeader: PAYMENT-SIGNATURE
+      responseHeaders:
+      - PAYMENT-RESPONSE
+      - X-PAYMENT-RESPONSE
+      - x-x402-receipt-id
+      - x-x402-receipt-url
+      privateKeySentToService: false
+      buttonLabel: Pay with browser wallet
+    agentFallback:
+      routeId: standard
+      firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+      quoteOnlyCommand: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
+      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+      installCommand: npm install @x402/fetch @x402/core @x402/evm viem
+      requiredRuntime: optional-desktop-or-server-terminal-fallback
+      sameRequestRetry: true
+      paymentHeaders:
+      - PAYMENT-SIGNATURE
+      - X-PAYMENT
+      privateKeySentToService: false
+    model: gpt-5.6-luna
+    nextPurchase:
+      id: gpt-5.6-luna-100-call-pack
+      routeId: gpt-5.6-luna-100-call-pack
+      title: GPT-5.6 Luna 100 Prepaid Call Credits
+      model: gpt-5.6-luna
+      method: GET
+      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      price: $1.60
+      amountAtomic: '1600000'
+      callCount: 100
+      network: eip155:8453
+      asset: USDC
+      assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+      payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+      privateKeySentToService: false
+      reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
+    label: GPT-5.6 Luna Standard one-request result
+    page: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    json: https://gpt55.558686.xyz/x402/service.json
+    checkoutUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    quoteUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteEndpoint: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteEndpointMode: live-402
+    firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+    paymentClientUrl: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+    paymentActivation: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    installCommand: npm install @x402/fetch @x402/core @x402/evm viem
+    quoteOnlyDedicated: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
+    realPaymentDedicated: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    paymentHeaderOnlyDedicated: X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    installThenCreatePaymentHeaderDedicated: npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenCreatePaymentHeaderDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    payCommand: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenPayDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    expectedResult:
+    - id
+    - model
+    - choices
+    - usage
+    - x-x402-receipt-id
+    - x-x402-receipt-url
+  walletBalanceOffer:
+    id: evm-wallet-balance-demand-first
+    routeId: evm-wallet-balance
+    title: EVM Wallet Balance Snapshot
+    buyerJob: Check live ETH and canonical USDC balances, then decide whether a public wallet has enough Base USDC for the next $0.001 x402 payment.
+    method: GET or POST
+    paidUrl: https://gpt55.558686.xyz/v1/tools/evm-wallet-balance
+    quoteOnlyUrl: https://gpt55.558686.xyz/v1/tools/evm-wallet-balance?address=0x1111111111111111111111111111111111111111&network=base
+    previewUrl: https://gpt55.558686.xyz/x402/service?checkout=evm-wallet-balance
+    price: $0.001
+    priceUsd: 0.001
+    amountAtomic: '1000'
+    network: eip155:8453
+    asset: USDC
+    assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+    payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+    input:
+      contentType: application/json
+      required:
+      - address
+      optional:
+      - network
+      example:
+        address: '0x1111111111111111111111111111111111111111'
+        network: base
+    resultFields:
+    - network
+    - chainId
+    - address
+    - blockNumber
+    - nativeBalance
+    - usdcBalance
+    - x402Readiness
+    - observedAt
+    - rpcProviderHost
+    readinessScope:
+      balanceOnly: true
+      suggestedPaymentAtomic: '1000'
+      suggestedPaymentUsd: '0.001'
+      fullDoctorUrl: https://gpt55.558686.xyz/v1/tools/x402-wallet-funding-readiness-doctor
+      limitation: Does not prove payment-client, typed-data signing, spend-cap, or same-request retry readiness.
+    browserCheckout:
+      available: true
+      provider: EIP-1193 injected wallet
+      type: eip3009-transfer-with-authorization
+      url: https://gpt55.558686.xyz/x402/service?checkout=evm-wallet-balance
+      paidUrl: https://gpt55.558686.xyz/v1/tools/evm-wallet-balance
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/tools/evm-wallet-balance?address=0x1111111111111111111111111111111111111111&network=base
+      bundleUrl: https://gpt55.558686.xyz/x402/browser-wallet-payment.js
+      method: POST
+      body:
+        address: '0x1111111111111111111111111111111111111111'
+        network: base
+      inputFields:
+      - name: address
+        type: text
+        required: true
+        source: connected wallet or public EVM address
+      - name: network
+        type: select
+        required: false
+        default: base
+        options:
+        - base
+        - ethereum
+      network: eip155:8453
+      asset: USDC
+      assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+      payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+      amountAtomic: '1000'
+      paymentHeader: PAYMENT-SIGNATURE
+      responseHeaders:
+      - PAYMENT-RESPONSE
+      - X-PAYMENT-RESPONSE
+      - x-x402-receipt-id
+      - x-x402-receipt-url
+      privateKeySentToService: false
+      buttonLabel: Pay with browser wallet
+    agentFallback:
+      routeId: evm-wallet-balance
+      firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+      targetUrl: https://gpt55.558686.xyz/v1/tools/evm-wallet-balance?address=0x1111111111111111111111111111111111111111&network=base
+      quoteOnlyCommand: TARGET_URL="https://gpt55.558686.xyz/v1/tools/evm-wallet-balance?address=0x1111111111111111111111111111111111111111&network=base" MAX_USDC=0.001 node first-payment-client.mjs
+      realPaymentCommand: PAY_REAL_X402=1 TARGET_URL="https://gpt55.558686.xyz/v1/tools/evm-wallet-balance?address=0x1111111111111111111111111111111111111111&network=base" MAX_USDC=0.001 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+      installCommand: npm install @x402/fetch @x402/core @x402/evm viem
+      requiredRuntime: optional-desktop-or-server-terminal-fallback
+      sameRequestRetry: true
+      paymentHeaders:
+      - PAYMENT-SIGNATURE
+      - X-PAYMENT
+      privateKeySentToService: false
+    nextPurchase:
+      id: gpt-5.6-luna-100-call-pack
+      routeId: gpt-5.6-luna-100-call-pack
+      title: GPT-5.6 Luna 100 Prepaid Call Credits
+      model: gpt-5.6-luna
+      method: GET
+      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      price: $1.60
+      amountAtomic: '1600000'
+      callCount: 100
+      network: eip155:8453
+      asset: USDC
+      assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+      payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+      privateKeySentToService: false
+      reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
+    compatibility:
+      legacyRoutesPreserved: true
+      standardChatUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      standardChatPrice: $0.00293
+      legacyPayTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+    label: EVM Wallet Balance Snapshot
+    page: https://gpt55.558686.xyz/x402/service?checkout=evm-wallet-balance
+    json: https://gpt55.558686.xyz/x402/service.json
+    checkoutUrl: https://gpt55.558686.xyz/x402/service?checkout=evm-wallet-balance
+    quoteUrl: https://gpt55.558686.xyz/v1/tools/evm-wallet-balance
+    quoteEndpoint: https://gpt55.558686.xyz/v1/tools/evm-wallet-balance
+    quoteEndpointMode: live-402
+    firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+    paymentClientUrl: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+    paymentActivation: https://gpt55.558686.xyz/x402/service?checkout=evm-wallet-balance
+    installCommand: npm install @x402/fetch @x402/core @x402/evm viem
+    quoteOnlyDedicated: TARGET_URL="https://gpt55.558686.xyz/v1/tools/evm-wallet-balance?address=0x1111111111111111111111111111111111111111&network=base" MAX_USDC=0.001 node first-payment-client.mjs
+    realPaymentDedicated: PAY_REAL_X402=1 TARGET_URL="https://gpt55.558686.xyz/v1/tools/evm-wallet-balance?address=0x1111111111111111111111111111111111111111&network=base" MAX_USDC=0.001 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    paymentHeaderOnlyDedicated: X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt TARGET_URL="https://gpt55.558686.xyz/v1/tools/evm-wallet-balance?address=0x1111111111111111111111111111111111111111&network=base" MAX_USDC=0.001 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    installThenCreatePaymentHeaderDedicated: npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt TARGET_URL="https://gpt55.558686.xyz/v1/tools/evm-wallet-balance?address=0x1111111111111111111111111111111111111111&network=base" MAX_USDC=0.001 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenCreatePaymentHeaderDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt TARGET_URL="https://gpt55.558686.xyz/v1/tools/evm-wallet-balance?address=0x1111111111111111111111111111111111111111&network=base" MAX_USDC=0.001 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    payCommand: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 TARGET_URL="https://gpt55.558686.xyz/v1/tools/evm-wallet-balance?address=0x1111111111111111111111111111111111111111&network=base" MAX_USDC=0.001 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenPayDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 TARGET_URL="https://gpt55.558686.xyz/v1/tools/evm-wallet-balance?address=0x1111111111111111111111111111111111111111&network=base" MAX_USDC=0.001 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    expectedResult:
+    - network
+    - chainId
+    - address
+    - blockNumber
+    - nativeBalance
+    - usdcBalance
+    - x402Readiness
+    - observedAt
+    - rpcProviderHost
+  standardChatOffer:
+    id: standard-chat-demand-first
+    routeId: standard-chat
+    title: GPT-5.6 Luna Standard one-request result
+    buyerJob: Get one immediate OpenAI-compatible answer before committing to a quota pack or a larger workflow.
+    method: POST
+    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    previewUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+    price: $0.00293
+    priceUsd: 0.00293
+    amountAtomic: '2930'
+    network: eip155:8453
+    asset: USDC
+    assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+    payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+    input:
+      contentType: application/json
+      example:
+        messages:
+        - role: user
+          content: Answer one concrete question in one short paragraph.
+        max_tokens: 128
+    resultFields:
+    - id
+    - model
+    - choices
+    - usage
+    - x-x402-receipt-id
+    - x-x402-receipt-url
+    browserCheckout:
+      available: true
+      provider: EIP-1193 injected wallet
+      type: eip3009-transfer-with-authorization
+      url: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
+      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      bundleUrl: https://gpt55.558686.xyz/x402/browser-wallet-payment.js
+      method: POST
+      network: eip155:8453
+      asset: USDC
+      assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+      payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+      amountAtomic: '2930'
+      paymentHeader: PAYMENT-SIGNATURE
+      responseHeaders:
+      - PAYMENT-RESPONSE
+      - X-PAYMENT-RESPONSE
+      - x-x402-receipt-id
+      - x-x402-receipt-url
+      privateKeySentToService: false
+      buttonLabel: Pay with browser wallet
+    agentFallback:
+      routeId: standard
+      firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+      quoteOnlyCommand: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
+      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+      installCommand: npm install @x402/fetch @x402/core @x402/evm viem
+      requiredRuntime: optional-desktop-or-server-terminal-fallback
+      sameRequestRetry: true
+      paymentHeaders:
+      - PAYMENT-SIGNATURE
+      - X-PAYMENT
+      privateKeySentToService: false
+    model: gpt-5.6-luna
+    nextPurchase:
+      id: gpt-5.6-luna-100-call-pack
+      routeId: gpt-5.6-luna-100-call-pack
+      title: GPT-5.6 Luna 100 Prepaid Call Credits
+      model: gpt-5.6-luna
+      method: GET
+      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      price: $1.60
+      amountAtomic: '1600000'
+      callCount: 100
+      network: eip155:8453
+      asset: USDC
+      assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+      payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+      privateKeySentToService: false
+      reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
+  x-gpt55-repeat-call-pack:
+    id: gpt-5.6-luna-100-call-pack
+    routeId: gpt-5.6-luna-100-call-pack
+    title: GPT-5.6 Luna 100 Prepaid Call Credits
+    model: gpt-5.6-luna
+    method: GET
+    paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+    checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+    quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+    price: $1.60
+    amountAtomic: '1600000'
+    callCount: 100
+    network: eip155:8453
+    asset: USDC
+    assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+    payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+    privateKeySentToService: false
+    reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
+  x-gpt55-canonical-links:
+    repository: https://github.com/wangletiand/gpt55-x402-gateway
+    githubPages: https://wangletiand.github.io/gpt55-x402-gateway/
+    startApplyBuyUrl: https://gpt55.558686.xyz/x402/service
+    unifiedServiceHub: https://gpt55.558686.xyz/x402/service
+    unifiedServiceHubJson: https://gpt55.558686.xyz/x402/service.json
+servers:
+- url: https://gpt55.558686.xyz
+tags:
+- name: gpt55-retained-nonmodel
+paths:
+  /v1/tools/timestamp:
+    get:
+      operationId: v1ToolsTimestamp
+      summary: timestamp
+      tags:
+      - gpt55-retained-nonmodel
+      parameters:
+      - name: quote_only
+        in: query
+        required: false
+        description: Optional directory probe hint. An unpaid request still returns the normal x402 payment challenge.
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: Successful GPT55 route response
+        '402':
+          description: x402 payment required
+      x-x402-price: $0.002
+  /v1/tools/query-parse:
+    get:
+      operationId: v1ToolsQueryParse
+      summary: query parse
+      tags:
+      - gpt55-retained-nonmodel
+      parameters:
+      - name: quote_only
+        in: query
+        required: false
+        description: Optional directory probe hint. An unpaid request still returns the normal x402 payment challenge.
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: Successful GPT55 route response
+        '402':
+          description: x402 payment required
+      x-x402-price: $0.002
+  /v1/tools/evm-wallet-balance:
+    get:
+      operationId: v1ToolsEvmWalletBalanceGet
+      summary: EVM Wallet Balance Snapshot
+      tags:
+      - gpt55-retained-nonmodel
+      parameters:
+      - name: address
+        in: query
+        required: true
+        description: Public EVM wallet address to inspect.
+        schema:
+          type: string
+          pattern: ^0x[0-9a-fA-F]{40}$
+      - name: network
+        in: query
+        required: false
+        description: Balance network. Defaults to Base.
+        schema:
+          type: string
+          enum:
+          - base
+          - ethereum
+          - eip155:8453
+          - eip155:1
+          default: base
+      - name: quote_only
+        in: query
+        required: false
+        description: Optional directory probe hint. An unpaid request still returns the normal x402 payment challenge.
+        schema:
+          type: boolean
+          default: true
+      description: Read native ETH and canonical USDC balances, plus balance-only readiness for the next $0.001 Base x402 payment.
+      x-output-fields:
+      - network
+      - chainId
+      - address
+      - blockNumber
+      - nativeBalance
+      - usdcBalance
+      - x402Readiness
+      - observedAt
+      - rpcProviderHost
+      x-gpt55-product:
+        id: evm-wallet-balance-demand-first
+        price: $0.001
+        amountAtomic: '1000'
+        deterministic: true
+        upstreamModelCall: false
+        readinessScope: balance-only
+        suggestedPaymentAtomic: '1000'
+        fundingReadinessDoctor: https://gpt55.558686.xyz/v1/tools/x402-wallet-funding-readiness-doctor
+      responses:
+        '200':
+          description: Successful GPT55 route response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  tool:
+                    type: string
+                    const: evmWalletBalance
+                  network:
+                    type: string
+                    enum:
+                    - base
+                    - ethereum
+                  chainId:
+                    type: string
+                    enum:
+                    - eip155:8453
+                    - eip155:1
+                  address:
+                    type: string
+                    pattern: ^0x[0-9a-f]{40}$
+                  blockNumber:
+                    type: string
+                    pattern: ^[0-9]+$
+                  nativeBalance:
+                    type: object
+                  usdcBalance:
+                    type: object
+                  x402Readiness:
+                    type: object
+                    properties:
+                      assessment:
+                        type: string
+                        enum:
+                        - balance_ready
+                        - funding_required
+                        - switch_to_base
+                      balanceOnly:
+                        type: boolean
+                        const: true
+                      suggestedPayment:
+                        type: object
+                        properties:
+                          network:
+                            type: string
+                            const: eip155:8453
+                          asset:
+                            type: string
+                            const: USDC
+                          amountAtomic:
+                            type: string
+                            const: '1000'
+                          amountUsd:
+                            type: string
+                            const: '0.001'
+                        required:
+                        - network
+                        - asset
+                        - amountAtomic
+                        - amountUsd
+                        additionalProperties: false
+                      walletNetworkMatches:
+                        type: boolean
+                      canCoverSuggestedX402Amount:
+                        type: boolean
+                      usdcRunwayAtSuggestedAmount:
+                        type: string
+                        pattern: ^[0-9]+$
+                      shortfall:
+                        type: object
+                      nativeGasPresent:
+                        type: boolean
+                      limitations:
+                        type: array
+                        items:
+                          type: string
+                        minItems: 1
+                      fundingReadinessDoctor:
+                        type: object
+                        properties:
+                          paidUrl:
+                            type: string
+                            const: https://gpt55.558686.xyz/v1/tools/x402-wallet-funding-readiness-doctor
+                          guideUrl:
+                            type: string
+                            const: https://gpt55.558686.xyz/x402/wallet-funding-readiness-doctor
+                        required:
+                        - paidUrl
+                        - guideUrl
+                        additionalProperties: false
+                    required:
+                    - assessment
+                    - balanceOnly
+                    - suggestedPayment
+                    - walletNetworkMatches
+                    - canCoverSuggestedX402Amount
+                    - usdcRunwayAtSuggestedAmount
+                    - shortfall
+                    - nativeGasPresent
+                    - limitations
+                    - fundingReadinessDoctor
+                    additionalProperties: false
+                  observedAt:
+                    type: string
+                    format: date-time
+                  rpcProviderHost:
+                    type: string
+                required:
+                - ok
+                - tool
+                - network
+                - chainId
+                - address
+                - blockNumber
+                - nativeBalance
+                - usdcBalance
+                - x402Readiness
+                - observedAt
+                additionalProperties: true
+        '402':
+          description: x402 payment required
+      x-x402-price: $0.001
+    post:
+      operationId: v1ToolsEvmWalletBalancePost
+      summary: EVM Wallet Balance Snapshot
+      tags:
+      - gpt55-retained-nonmodel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  type: string
+                  pattern: ^0x[0-9a-fA-F]{40}$
+                network:
+                  type: string
+                  enum:
+                  - base
+                  - ethereum
+                  - eip155:8453
+                  - eip155:1
+                  default: base
+              required:
+              - address
+              additionalProperties: false
+      description: Read native ETH and canonical USDC balances, plus balance-only readiness for the next $0.001 Base x402 payment.
+      x-output-fields:
+      - network
+      - chainId
+      - address
+      - blockNumber
+      - nativeBalance
+      - usdcBalance
+      - x402Readiness
+      - observedAt
+      - rpcProviderHost
+      x-gpt55-product:
+        id: evm-wallet-balance-demand-first
+        price: $0.001
+        amountAtomic: '1000'
+        deterministic: true
+        upstreamModelCall: false
+        readinessScope: balance-only
+        suggestedPaymentAtomic: '1000'
+        fundingReadinessDoctor: https://gpt55.558686.xyz/v1/tools/x402-wallet-funding-readiness-doctor
+      responses:
+        '200':
+          description: Successful GPT55 route response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  tool:
+                    type: string
+                    const: evmWalletBalance
+                  network:
+                    type: string
+                    enum:
+                    - base
+                    - ethereum
+                  chainId:
+                    type: string
+                    enum:
+                    - eip155:8453
+                    - eip155:1
+                  address:
+                    type: string
+                    pattern: ^0x[0-9a-f]{40}$
+                  blockNumber:
+                    type: string
+                    pattern: ^[0-9]+$
+                  nativeBalance:
+                    type: object
+                  usdcBalance:
+                    type: object
+                  x402Readiness:
+                    type: object
+                    properties:
+                      assessment:
+                        type: string
+                        enum:
+                        - balance_ready
+                        - funding_required
+                        - switch_to_base
+                      balanceOnly:
+                        type: boolean
+                        const: true
+                      suggestedPayment:
+                        type: object
+                        properties:
+                          network:
+                            type: string
+                            const: eip155:8453
+                          asset:
+                            type: string
+                            const: USDC
+                          amountAtomic:
+                            type: string
+                            const: '1000'
+                          amountUsd:
+                            type: string
+                            const: '0.001'
+                        required:
+                        - network
+                        - asset
+                        - amountAtomic
+                        - amountUsd
+                        additionalProperties: false
+                      walletNetworkMatches:
+                        type: boolean
+                      canCoverSuggestedX402Amount:
+                        type: boolean
+                      usdcRunwayAtSuggestedAmount:
+                        type: string
+                        pattern: ^[0-9]+$
+                      shortfall:
+                        type: object
+                      nativeGasPresent:
+                        type: boolean
+                      limitations:
+                        type: array
+                        items:
+                          type: string
+                        minItems: 1
+                      fundingReadinessDoctor:
+                        type: object
+                        properties:
+                          paidUrl:
+                            type: string
+                            const: https://gpt55.558686.xyz/v1/tools/x402-wallet-funding-readiness-doctor
+                          guideUrl:
+                            type: string
+                            const: https://gpt55.558686.xyz/x402/wallet-funding-readiness-doctor
+                        required:
+                        - paidUrl
+                        - guideUrl
+                        additionalProperties: false
+                    required:
+                    - assessment
+                    - balanceOnly
+                    - suggestedPayment
+                    - walletNetworkMatches
+                    - canCoverSuggestedX402Amount
+                    - usdcRunwayAtSuggestedAmount
+                    - shortfall
+                    - nativeGasPresent
+                    - limitations
+                    - fundingReadinessDoctor
+                    additionalProperties: false
+                  observedAt:
+                    type: string
+                    format: date-time
+                  rpcProviderHost:
+                    type: string
+                required:
+                - ok
+                - tool
+                - network
+                - chainId
+                - address
+                - blockNumber
+                - nativeBalance
+                - usdcBalance
+                - x402Readiness
+                - observedAt
+                additionalProperties: true
+        '402':
+          description: x402 payment required
+      x-x402-price: $0.001
+    head:
+      operationId: v1ToolsEvmWalletBalanceHead
+      summary: EVM Wallet Balance Snapshot
+      tags:
+      - gpt55-retained-nonmodel
+      parameters:
+      - name: address
+        in: query
+        required: true
+        description: Public EVM wallet address to inspect.
+        schema:
+          type: string
+          pattern: ^0x[0-9a-fA-F]{40}$
+      - name: network
+        in: query
+        required: false
+        description: Balance network. Defaults to Base.
+        schema:
+          type: string
+          enum:
+          - base
+          - ethereum
+          - eip155:8453
+          - eip155:1
+          default: base
+      - name: quote_only
+        in: query
+        required: false
+        description: Optional directory probe hint. An unpaid request still returns the normal x402 payment challenge.
+        schema:
+          type: boolean
+          default: true
+      description: Read native ETH and canonical USDC balances, plus balance-only readiness for the next $0.001 Base x402 payment.
+      x-output-fields:
+      - network
+      - chainId
+      - address
+      - blockNumber
+      - nativeBalance
+      - usdcBalance
+      - x402Readiness
+      - observedAt
+      - rpcProviderHost
+      x-gpt55-product:
+        id: evm-wallet-balance-demand-first
+        price: $0.001
+        amountAtomic: '1000'
+        deterministic: true
+        upstreamModelCall: false
+        readinessScope: balance-only
+        suggestedPaymentAtomic: '1000'
+        fundingReadinessDoctor: https://gpt55.558686.xyz/v1/tools/x402-wallet-funding-readiness-doctor
+      responses:
+        '200':
+          description: Successful GPT55 route response
+        '402':
+          description: x402 payment required
+      x-x402-price: $0.001
+  /v1/tools/x402-mcp-integration-kit:
+    post:
+      operationId: v1ToolsX402McpIntegrationKit
+      summary: x402 mcp integration kit
+      tags:
+      - gpt55-retained-nonmodel
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                base_url:
+                  type: string
+                  format: uri
+                  default: https://gpt55.558686.xyz
+                service_name:
+                  type: string
+                  default: GPT55 Model Gateway
+                max_usdc_per_call:
+                  type: number
+                  minimum: 0
+                  default: 0.02
+                preferred_endpoint:
+                  type: string
+                  format: uri
+                  default: https://gpt55.558686.xyz/v1/chat/completions
+              additionalProperties: true
+            example:
+              base_url: https://gpt55.558686.xyz
+              service_name: GPT55 Model Gateway
+              max_usdc_per_call: 0.02
+              preferred_endpoint: https://gpt55.558686.xyz/v1/chat/completions
+      description: Deterministic MCP and x402 buyer onboarding package with Claude, curl, spend-cap, payment-client, and receipt-gate configuration. No upstream model call is made.
+      x-output-example:
+        ok: true
+        tool: x402McpIntegrationKit
+        paidResult: true
+        mcpRuntimeInstallPlan:
+          remoteMcpServer: https://gpt55.558686.xyz/mcp
+          configUrl: https://gpt55.558686.xyz/mcp/config
+          claudeDesktopConfigJson: '{"mcpServers":{"gpt-5-6-x402-gateway":{"type":"streamable-http","url":"https://gpt55.558686.xyz/mcp"}}}'
+        buyerMcpExecutionContract:
+          quoteBeforeToolCall: true
+          sameRequestRetry: true
+          expectedNetwork: eip155:8453
+          expectedAsset: USDC
+          expectedPayTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+          authType: x402 payment header, not API key
+        receiptGate:
+          requiredAfterPayment: true
+          requiredHeaders:
+          - x-x402-receipt-id
+          - x-x402-receipt-url
+          receiptUrlTemplate: https://gpt55.558686.xyz/x402/receipts/{receiptId}
+        mcpPaidToolOnboardingPackage:
+          version: 2026-07-13.mcp-paid-tool-onboarding.v1
+          buyerOwnedRuntime: true
+          paymentSentByThisService: false
+          includes:
+          - claudeDesktopConfigJson
+          - x402PaymentClientHandoff
+          - spendPolicy
+          - receiptGateConfig
+          - firstPaidCallRunbook
+          - firstPurchaseSuccessCriteria
+          - officialClientCompatibility
+        claudeDesktopConfigJson: '{"mcpServers":{"gpt-5-6-x402-gateway":{"type":"streamable-http","url":"https://gpt55.558686.xyz/mcp"}}}'
+        x402PaymentClientHandoff:
+          quoteFirst: true
+          paidEndpoint: https://gpt55.558686.xyz/v1/tools/x402-mcp-integration-kit
+          paymentHeader: X-PAYMENT
+          privateKeySentToService: false
+          paymentSentByThisService: false
+        spendPolicy:
+          maxUsdcPerCall: 0.02
+          network: eip155:8453
+          asset: USDC
+          payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+          stopOnMismatch: true
+        receiptGateConfig:
+          requiredHeaders:
+          - x-x402-receipt-id
+          - x-x402-receipt-url
+          storeReceiptWithPaidResult: true
+          receiptUrlTemplate: https://gpt55.558686.xyz/x402/receipts/{receiptId}
+        firstPaidCallRunbook:
+        - Fetch the paid endpoint without X-PAYMENT and read the HTTP 402 quote.
+        - Verify amount, payTo, network, asset, and the buyer spend cap.
+        - Retry the exact same method, URL, body, and content-type with a buyer-owned X-PAYMENT header.
+        - Store x-x402-receipt-id and x-x402-receipt-url with the paid result before installing the MCP config.
+        firstPurchaseSuccessCriteria:
+          quoteStep: HTTP 402 includes amount, payTo, network, asset, and accepted scheme.
+          paymentStep: Retry the exact same request with X-PAYMENT created by the buyer wallet.
+          paidStep: HTTP 200 JSON includes the MCP install plan and receipt gate fields.
+          receiptHeaders:
+          - x-x402-receipt-id
+          - x-x402-receipt-url
+        officialClientCompatibility:
+          header: X-PAYMENT
+          quoteFirst: true
+          sameRequestRetry: true
+          privateKeySentToService: false
+          retryInvariant:
+          - method
+          - url
+          - body
+          - content-type
+        sameRequestRetry:
+          method: POST
+          url: https://gpt55.558686.xyz/v1/tools/x402-mcp-integration-kit
+          keepUnchanged:
+          - method
+          - url
+          - body
+          - content-type
+          addHeader: X-PAYMENT
+        receiptEvidence:
+          required: true
+          headers:
+          - x-x402-receipt-id
+          - x-x402-receipt-url
+          example:
+            x-x402-receipt-id: '{receiptId}'
+      x-gpt55-product:
+        id: mcp-integration-kit
+        price: $0.006
+        amountAtomic: '6000'
+        deterministic: true
+        upstreamModelCall: false
+        guide: https://gpt55.558686.xyz/x402/mcp-first-purchase-kit
+        firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
+        privateKeySentToService: false
+      responses:
+        '200':
+          description: Successful GPT55 route response
+        '402':
+          description: x402 payment required
+      x-x402-price: $0.006
+  /v1/tools/x402-bazaar-search:
+    post:
+      operationId: v1ToolsX402BazaarSearch
+      summary: x402 bazaar search
+      tags:
+      - gpt55-retained-nonmodel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  minLength: 1
+                  maxLength: 120
+                pay_to:
+                  type: string
+                  minLength: 1
+                  maxLength: 80
+                payTo:
+                  type: string
+                  minLength: 1
+                  maxLength: 80
+                include_all:
+                  type: boolean
+                include_live_prices:
+                  type: boolean
+                sort:
+                  type: string
+                  enum:
+                  - relevance
+                  - price
+                  - activity
+                limit:
+                  type: integer
+                  minimum: 1
+                  maximum: 20
+                timeout_ms:
+                  type: integer
+                  minimum: 1000
+                  maximum: 12000
+              required:
+              - query
+              additionalProperties: false
+            examples:
+              simple:
+                value:
+                  query: real-time web search
+                  sort: relevance
+                  include_live_prices: true
+                  limit: 10
+      description: Deterministic buyer-facing search over CDP x402 Bazaar resources. Returns relevance-preserving results with live price checks, 30-day calls, unique payers, calls-per-payer, freshness, schemes, networks, and payTo signals. No upstream model call is made.
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.004'
+        protocols:
+        - x402:
+            network: eip155:8453
+            asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+            payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+            amount: '4000'
+            schemes:
+            - exact
+            facilitator: provider-pool
+            facilitatorPool:
+            - id: dexter
+              url: https://x402.dexter.cash
+              status: frozen_settlement
+              active: false
+              networks:
+              - eip155:8453
+              - solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp
+              observedAt: '2026-07-19T16:04:32.063Z'
+            - id: fluxa
+              url: https://facilitator.fluxapay.xyz
+              status: frozen_settlement
+              active: false
+              networks:
+              - eip155:8453
+              observedAt: '2026-07-19T16:04:32.063Z'
+            - id: mogami
+              url: https://v2.facilitator.mogami.tech
+              status: frozen_unreachable
+              active: false
+              networks:
+              - eip155:8453
+              observedAt: '2026-09-18T08:31:22.080Z'
+            - id: primer
+              url: https://x402.primer.systems
+              status: frozen_unreachable
+              active: false
+              networks:
+              - eip155:8453
+              observedAt: '2026-09-18T08:31:22.080Z'
+            - id: xpay
+              url: https://facilitator.xpay.sh
+              status: enabled
+              active: true
+              networks:
+              - eip155:8453
+              observedAt: '2026-09-18T08:36:32.152Z'
+            - id: payai
+              url: https://facilitator.payai.network
+              status: frozen_quota
+              active: false
+              networks:
+              - eip155:8453
+              - solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp
+              observedAt: '2026-09-18T08:36:32.152Z'
+            - id: kobaru
+              url: https://gateway.kobaru.io
+              status: frozen_unreachable
+              active: false
+              networks:
+              - eip155:8453
+              - solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp
+              observedAt: '2026-09-18T08:31:22.080Z'
+            - id: cdp
+              url: https://api.cdp.coinbase.com/platform/v2/x402
+              status: frozen_unreachable
+              active: false
+              networks:
+              - eip155:8453
+              - solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp
+              observedAt: '2026-08-29T17:17:22.202Z'
+            - id: solvador
+              url: https://api.solvador.com
+              status: disabled
+              active: false
+              networks: []
+            fallbackFacilitators:
+            - https://facilitator.xpay.sh
+      x-discovery:
+        payment:
+          protocol: x402
+          price: $0.004
+          amountAtomic: '4000'
+          network: eip155:8453
+          asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+          payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+        ownershipProofs:
+        - https://gpt55.558686.xyz/.well-known/x402-service
+        - https://gpt55.558686.xyz/.well-known/x402
+        buyerSignals:
+        - relevance-preserving market search
+        - live price freshness checks
+        - 30-day calls and unique payers
+        - calls-per-payer repeat-use signal
+      x-model-tier:
+        tier: standard
+        model: no-upstream-deterministic
+      x-gpt55-product:
+        id: x402-bazaar-search
+        routeId: x402-bazaar-search
+        price: $0.004
+        amountAtomic: '4000'
+        deterministic: true
+        upstreamModelCall: false
+        method: POST
+        network: eip155:8453
+        asset: USDC
+        assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
+        buyerJob: Find and compare live x402 services before spending on a downstream API or agent workflow.
+        outputSignals:
+        - resources
+        - quality
+        - livePricing
+        - warnings
+        - partialResults
+        guide: https://gpt55.558686.xyz/x402/service
+      x-output-fields:
+      - resources
+      - quality.l30DaysTotalCalls
+      - quality.l30DaysUniquePayers
+      - quality.callsPerPayer
+      - quality.freshnessDays
+      - livePricing
+      - warnings
+      - partialResults
+      responses:
+        '200':
+          description: Successful GPT55 route response
+        '402':
+          description: x402 payment required
+      x-x402-price: $0.004
+  /v1/paid/wallet-payment-activation-agent:
+    get:
+      operationId: v1PaidWalletPaymentActivationAgent
+      summary: Wallet Payment Activation Agent
+      tags:
+      - gpt55-retained-nonmodel
+      parameters:
+      - name: quote_only
+        in: query
+        required: false
+        description: Optional directory probe hint. An unpaid request still returns the normal x402 payment challenge.
+        schema:
+          type: boolean
+          default: true
+      description: Quote-only wallet payment activation agent that returns buyer-owned X-PAYMENT activation clients, MCP config, Flowise node config, and receipt gate policy.
+      x-gpt55-product:
+        id: wallet-payment-activation-agent
+        price: $2.90
+        amountAtomic: '2900000'
+        deterministic: true
+        upstreamModelCall: false
+      responses:
+        '200':
+          description: Successful GPT55 route response
+        '402':
+          description: x402 payment required
+      x-x402-price: $2.90
+externalDocs:
+  description: GPT55 unified buyer service hub
+  url: https://gpt55.558686.xyz/x402/service
+x-x402-compatibility:
+  index: https://gpt55.558686.xyz/x402/compatibility.json
+  contracts:
+  - projectId: x402-utility-tools
+    status: retired_consolidated
+    historicalOrigin: https://x402-utils.558686.xyz
+    canonicalOrigin: https://gpt55.558686.xyz
+    retirementNotice: https://x402-utils.558686.xyz/.well-known/x402
+    paidRoutesAvailableOnHistoricalHost: false
+  - projectId: x402-agent-wallet-tools
+    status: retired_consolidated
+    historicalOrigin: https://x402-wallet.558686.xyz
+    canonicalOrigin: https://gpt55.558686.xyz
+    retirementNotice: https://x402-wallet.558686.xyz/.well-known/x402
+    paidRoutesAvailableOnHistoricalHost: false
+  - projectId: x402-seller-growth-tools
+    status: retired_consolidated
+    historicalOrigin: https://x402-seller.558686.xyz
+    canonicalOrigin: https://gpt55.558686.xyz
+    retirementNotice: https://x402-seller.558686.xyz/.well-known/x402
+    paidRoutesAvailableOnHistoricalHost: false
+  - projectId: x402-key-url-tools
+    status: retired_consolidated
+    historicalOrigin: https://x402-key.558686.xyz
+    canonicalOrigin: https://gpt55.558686.xyz
+    retirementNotice: https://x402-key.558686.xyz/.well-known/x402
+    paidRoutesAvailableOnHistoricalHost: false

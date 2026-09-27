@@ -20,6 +20,22 @@ description: >-
   github.com/wangletiand/gpt55-x402-gateway (MIT); the security contact ops@400860.xyz and the
   Sub2API recharge shop shop.400860.xyz tie the operator to the sibling 400860.xyz record.
 url: https://raw.githubusercontent.com/api-evangelist/558686-xyz/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  license_evidence:
+    not_product:
+    - wangletiand/gpt55-x402-gateway
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
+  method: derived
 image: https://gpt55.558686.xyz/favicon.ico
 x-type: company
 x-source: harvest:a2a-registry
@@ -30,7 +46,7 @@ created: '2026-09-19'
 modified: '2026-09-19'
 tags:
 - x402
-- Agent Payments
+- Agentic Payments
 - MCP
 - A2A
 - AI Gateway
@@ -55,44 +71,72 @@ tags_raw:
 - API Relay
 - Developer Tools
 apis:
-- aid: 558686-xyz:gpt55-model-gateway-api
-  name: GPT55 Model Gateway API
+- aid: 558686-xyz:gpt55-mcp-server
+  name: GPT55 x402 Gateway MCP Server
   description: >-
-    OpenAI-compatible, x402-paid model gateway at https://gpt55.558686.xyz. The provider's own
-    OpenAPI 3.1.0 document declares 37 operations on servers[] https://gpt55.558686.xyz, every one
-    with a unique operationId and a summary: GET /v1/models (answers 200 anonymously with seven
-    model ids and per-model pricing), POST /v1/chat/completions plus model-specific routes
-    (/standard, /gpt-5.6-sol, /gpt-5.6-luna, /gpt-5.6-terra, /gpt-5.6, /gpt-5.5, /gpt-5.3-codex,
-    /metered), GET quote routes for 100-call prepaid packs, POST text tools (translate in three
-    tiers, summarize, rewrite, answer, code-review, extract-json), three Sub2API billing helpers,
-    and retained deterministic tools (timestamp, query-parse, EVM wallet balance, x402 MCP
-    integration kit, x402 Bazaar search, wallet signing safety pack). Every paid operation
-    documents a 200 and a 402; an unpaid request returns the x402 v2 quote (PAYMENT-REQUIRED
-    header + JSON accepts[]) and the same request is retried with X-PAYMENT. Prices are carried
-    in x-x402-price / x-gpt55-product on each operation; the spec declares no securitySchemes
-    and no components.schemas.
+    Remote Model Context Protocol server at https://gpt55.558686.xyz/mcp (Streamable HTTP; a GET returns
+    the server.json-shaped manifest and /mcp/sse streams the discovery config). Probed anonymously on
+    2026-09-20: initialize answered protocolVersion 2025-06-18, serverInfo {gpt55-x402-gateway, "GPT-5.5
+    x402 Agent Payment Control Plane", 2026.06.21}, capabilities tools + resources; tools/list returned
+    218 tools, each with a JSON Schema inputSchema and MCP annotations; resources/list returned 14 JSON
+    resources (x402 discovery, live prices, pricing, buyer guide, agent card, openapi). The server's own
+    instructions state that it is a facade: a tool call returns the direct HTTP endpoint, the x402 payment
+    requirements and an example payload, and the caller must execute that HTTP endpoint with x402 Base
+    USDC payment or a private Bearer key - "this MCP facade does not bypass payment". Registered-shape
+    server.json at /server.json and /.well-known/mcp.json (name gpt55-model-gateway, version 2026.07.01-split)
+    and a SEP-1649 server card at /.well-known/mcp/server-card.json (xyz.558686.gpt55/token-gateway);
+    no entry was found in the official MCP registry and the install guide says no marketplace submission
+    has been made.
+  humanURL: https://gpt55.558686.xyz/projects/558686/install
+  baseURL: https://gpt55.558686.xyz/mcp
+  tags:
+  - MCP
+  - x402
+  - AI Agents
+  properties:
+  - type: MCPServer
+    url: mcp/558686-xyz-mcp.yml
+  - type: MCPServer
+    name: GPT55 remote MCP endpoint (Streamable HTTP)
+    url: https://gpt55.558686.xyz/mcp
+  - type: ToolCrosswalk
+    url: mcp/558686-xyz-tool-crosswalk.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/llms-install.md
+- aid: 558686-xyz:gpt55-a2a-agent
+  name: GPT55 Model Gateway A2A Agent
+  description: >-
+    Agent2Agent surface: an agent card served at https://gpt55.558686.xyz/.well-known/agent-card.json
+    (and identically at the legacy /.well-known/agent.json) - name "GPT55 Model Gateway", version 1.0.0,
+    protocolVersion "1.0", preferredTransport JSONRPC, url https://gpt55.558686.xyz/a2a, provider {gpt55-token-gateway,
+    https://gpt55.558686.xyz}, capabilities {streaming false, tools true, paid true}, five skills (chat
+    completions, translate, x402 buyer shortlist, wallet signing safety pack, x402 MCP integration kit),
+    each priced in USDC, authentication [{schemes: [x402]}]. POST https://gpt55.558686.xyz/a2a answers
+    JSON-RPC 2.0 (-32601 for an unknown method); message/send was not exercised because every skill is
+    paid. Listed on a2aregistry.org under author gpt55-token-gateway, which is where this record was harvested
+    from.
+  humanURL: https://gpt55.558686.xyz/llms.txt
+  baseURL: https://gpt55.558686.xyz/a2a
+  tags:
+  - A2A
+  - x402
+  - AI Agents
+  properties:
+  - type: AgentCard
+    url: a2a/558686-xyz-a2a.yml
+  - type: AgentCard
+    name: A2A Agent Card (provider-hosted)
+    url: https://gpt55.558686.xyz/.well-known/agent-card.json
+- aid: 558686-xyz:558686-xyz-base-usdc-api
+  name: gpt55-token-gateway Base Usdc API
+  description: The base-usdc API from gpt55-token-gateway — 1 operation(s) for base-usdc.
   humanURL: https://gpt55.558686.xyz/x402/service
   baseURL: https://gpt55.558686.xyz
   tags:
-  - x402
-  - AI Gateway
-  - OpenAI-Compatible
-  - LLM
-  - USDC
-  tags_raw:
-  - x402
-  - AI Gateway
-  - OpenAI-compatible
-  - LLM
-  - USDC
+  - base-usdc
   properties:
   - type: OpenAPI
-    url: openapi/558686-xyz-gpt55-model-gateway-openapi.json
-  - type: OpenAPI
-    name: OpenAPI 3.1 (provider-hosted)
-    url: https://gpt55.558686.xyz/openapi.json
-  - type: Overlay
-    url: overlays/558686-xyz-gpt55-model-gateway-overlay.yaml
+    url: openapi/558686-xyz-base-usdc-api-openapi.yml
   - type: Documentation
     url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
   - type: APIReference
@@ -117,130 +161,552 @@ apis:
     url: errors/558686-xyz-problem-types.yml
   - type: Conventions
     url: conventions/558686-xyz-conventions.yml
-- aid: 558686-xyz:gpt55-utility-tools-api-market
-  name: GPT-5.5 Utility Tools for API.market
-  description: >-
-    A second, ordinary REST contract the same host serves for API.market source import: OpenAPI
-    3.1.0 at https://gpt55.558686.xyz/api-market/openapi.json with servers[]
-    https://gpt55.558686.xyz/api-market and 44 operations (GET and POST pairs) over 22
-    deterministic developer utilities - text-stats, hash-text, base64-codec, url-parse,
-    timestamp, jwt-decode, slugify, case-convert, regex-match, html-strip, query-parse,
-    unique/sort/diff lines, json-minify, uri-codec, html-entity-codec, email-normalize,
-    domain-extract, color-convert, uuid, json-keys. The spec says these call no LLM and fetch no
-    remote URL and that commercial access, subscriber authentication, quotas and billing are
-    configured in API.market; on the provider's own host they answered HTTP 200 anonymously with
-    no payment (GET /api-market/v1/tools/timestamp?value=1700000000 and
-    /api-market/v1/tools/text-stats?text=... on 2026-09-20), each response carrying an x402Lead
-    block pointing at the paid GPT55 chat tiers. No securitySchemes are declared.
-  humanURL: https://gpt55.558686.xyz/api-market
-  baseURL: https://gpt55.558686.xyz/api-market
-  tags:
-  - Developer Tools
-  - Utilities
-  - Text Processing
-  properties:
-  - type: OpenAPI
-    url: openapi/558686-xyz-api-market-utility-tools-openapi.json
-  - type: OpenAPI
-    name: OpenAPI 3.1 (provider-hosted)
-    url: https://gpt55.558686.xyz/api-market/openapi.json
-  - type: Overlay
-    url: overlays/558686-xyz-api-market-utility-tools-overlay.yaml
   - type: Documentation
     url: https://gpt55.558686.xyz/api-market
-- aid: 558686-xyz:gpt55-mcp-server
-  name: GPT55 x402 Gateway MCP Server
-  description: >-
-    Remote Model Context Protocol server at https://gpt55.558686.xyz/mcp (Streamable HTTP; a
-    GET returns the server.json-shaped manifest and /mcp/sse streams the discovery config).
-    Probed anonymously on 2026-09-20: initialize answered protocolVersion 2025-06-18, serverInfo
-    {gpt55-x402-gateway, "GPT-5.5 x402 Agent Payment Control Plane", 2026.06.21}, capabilities
-    tools + resources; tools/list returned 218 tools, each with a JSON Schema inputSchema and MCP
-    annotations; resources/list returned 14 JSON resources (x402 discovery, live prices,
-    pricing, buyer guide, agent card, openapi). The server's own instructions state that it is a
-    facade: a tool call returns the direct HTTP endpoint, the x402 payment requirements and an
-    example payload, and the caller must execute that HTTP endpoint with x402 Base USDC payment
-    or a private Bearer key - "this MCP facade does not bypass payment". Registered-shape
-    server.json at /server.json and /.well-known/mcp.json (name gpt55-model-gateway, version
-    2026.07.01-split) and a SEP-1649 server card at /.well-known/mcp/server-card.json
-    (xyz.558686.gpt55/token-gateway); no entry was found in the official MCP registry and the
-    install guide says no marketplace submission has been made.
-  humanURL: https://gpt55.558686.xyz/projects/558686/install
-  baseURL: https://gpt55.558686.xyz/mcp
-  tags:
-  - MCP
-  - x402
-  - AI Agents
-  properties:
-  - type: MCPServer
-    url: mcp/558686-xyz-mcp.yml
-  - type: MCPServer
-    name: GPT55 remote MCP endpoint (Streamable HTTP)
-    url: https://gpt55.558686.xyz/mcp
-  - type: ToolCrosswalk
-    url: mcp/558686-xyz-tool-crosswalk.yml
   - type: Documentation
-    url: https://gpt55.558686.xyz/llms-install.md
-- aid: 558686-xyz:gpt55-a2a-agent
-  name: GPT55 Model Gateway A2A Agent
-  description: >-
-    Agent2Agent surface: an agent card served at https://gpt55.558686.xyz/.well-known/agent-card.json
-    (and identically at the legacy /.well-known/agent.json) - name "GPT55 Model Gateway",
-    version 1.0.0, protocolVersion "1.0", preferredTransport JSONRPC, url
-    https://gpt55.558686.xyz/a2a, provider {gpt55-token-gateway, https://gpt55.558686.xyz},
-    capabilities {streaming false, tools true, paid true}, five skills (chat completions,
-    translate, x402 buyer shortlist, wallet signing safety pack, x402 MCP integration kit), each
-    priced in USDC, authentication [{schemes: [x402]}]. POST https://gpt55.558686.xyz/a2a answers
-    JSON-RPC 2.0 (-32601 for an unknown method); message/send was not exercised because every
-    skill is paid. Listed on a2aregistry.org under author gpt55-token-gateway, which is where
-    this record was harvested from.
-  humanURL: https://gpt55.558686.xyz/llms.txt
-  baseURL: https://gpt55.558686.xyz/a2a
+    url: https://sub2api.558686.xyz/docs/
+  - type: GettingStarted
+    url: https://sub2api.558686.xyz/docs/getting-started.html
+  - type: Pricing
+    url: https://sub2api.558686.xyz/pricing
+  - type: Login
+    url: https://sub2api.558686.xyz/login
+  - type: APIsJson
+    url: https://sub2api.558686.xyz/apis.json
+  - type: LLMsTxt
+    url: llms/558686-xyz-sub2api-llms.txt
+  - type: Postman
+    url: https://sub2api.558686.xyz/postman/sub2api.postman_collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-sub2api-postman-collection.json
+  - type: Authentication
+    url: authentication/558686-xyz-authentication.yml
+- aid: 558686-xyz:558686-xyz-chat-api
+  name: gpt55-token-gateway Chat API
+  description: The Chat API from gpt55-token-gateway — 1 operation(s) for chat.
+  humanURL: https://gpt55.558686.xyz/x402/service
+  baseURL: https://gpt55.558686.xyz
   tags:
-  - A2A
+  - Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/558686-xyz-chat-api-openapi.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: APIReference
+    url: https://gpt55.558686.xyz/buyer-guide
+  - type: GettingStarted
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: Pricing
+    url: https://gpt55.558686.xyz/pricing.json
+  - type: Postman
+    url: https://gpt55.558686.xyz/postman/collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-gpt55-postman-collection.json
+  - type: X402
+    url: https://gpt55.558686.xyz/.well-known/x402
+  - type: Examples
+    url: examples/558686-xyz-standard-chat-example.json
+  - type: Examples
+    url: examples/558686-xyz-translate-canary-example.json
+  - type: RateLimits
+    url: rate-limits/558686-xyz-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/558686-xyz-problem-types.yml
+  - type: Conventions
+    url: conventions/558686-xyz-conventions.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/api-market
+  - type: Documentation
+    url: https://sub2api.558686.xyz/docs/
+  - type: GettingStarted
+    url: https://sub2api.558686.xyz/docs/getting-started.html
+  - type: Pricing
+    url: https://sub2api.558686.xyz/pricing
+  - type: Login
+    url: https://sub2api.558686.xyz/login
+  - type: APIsJson
+    url: https://sub2api.558686.xyz/apis.json
+  - type: LLMsTxt
+    url: llms/558686-xyz-sub2api-llms.txt
+  - type: Postman
+    url: https://sub2api.558686.xyz/postman/sub2api.postman_collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-sub2api-postman-collection.json
+  - type: Authentication
+    url: authentication/558686-xyz-authentication.yml
+- aid: 558686-xyz:558686-xyz-gpt55-model-gateway-api
+  name: gpt55-token-gateway Gpt55 Model Gateway API
+  description: >-
+    The gpt55-model-gateway API from gpt55-token-gateway — 27 operation(s) for gpt55-model-gateway.
+  humanURL: https://gpt55.558686.xyz/x402/service
+  baseURL: https://gpt55.558686.xyz
+  tags:
+  - gpt55-model-gateway
+  properties:
+  - type: OpenAPI
+    url: openapi/558686-xyz-gpt55-model-gateway-api-openapi.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: APIReference
+    url: https://gpt55.558686.xyz/buyer-guide
+  - type: GettingStarted
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: Pricing
+    url: https://gpt55.558686.xyz/pricing.json
+  - type: Postman
+    url: https://gpt55.558686.xyz/postman/collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-gpt55-postman-collection.json
+  - type: X402
+    url: https://gpt55.558686.xyz/.well-known/x402
+  - type: Examples
+    url: examples/558686-xyz-standard-chat-example.json
+  - type: Examples
+    url: examples/558686-xyz-translate-canary-example.json
+  - type: RateLimits
+    url: rate-limits/558686-xyz-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/558686-xyz-problem-types.yml
+  - type: Conventions
+    url: conventions/558686-xyz-conventions.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/api-market
+  - type: Documentation
+    url: https://sub2api.558686.xyz/docs/
+  - type: GettingStarted
+    url: https://sub2api.558686.xyz/docs/getting-started.html
+  - type: Pricing
+    url: https://sub2api.558686.xyz/pricing
+  - type: Login
+    url: https://sub2api.558686.xyz/login
+  - type: APIsJson
+    url: https://sub2api.558686.xyz/apis.json
+  - type: LLMsTxt
+    url: llms/558686-xyz-sub2api-llms.txt
+  - type: Postman
+    url: https://sub2api.558686.xyz/postman/sub2api.postman_collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-sub2api-postman-collection.json
+  - type: Authentication
+    url: authentication/558686-xyz-authentication.yml
+- aid: 558686-xyz:558686-xyz-gpt55-retained-high-intent-api
+  name: gpt55-token-gateway Gpt55 Retained High Intent API
+  description: >-
+    The gpt55-retained-high-intent API from gpt55-token-gateway — 1 operation(s) for gpt55-retained-high-intent.
+  humanURL: https://gpt55.558686.xyz/x402/service
+  baseURL: https://gpt55.558686.xyz
+  tags:
+  - gpt55-retained-high-intent
+  properties:
+  - type: OpenAPI
+    url: openapi/558686-xyz-gpt55-retained-high-intent-api-openapi.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: APIReference
+    url: https://gpt55.558686.xyz/buyer-guide
+  - type: GettingStarted
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: Pricing
+    url: https://gpt55.558686.xyz/pricing.json
+  - type: Postman
+    url: https://gpt55.558686.xyz/postman/collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-gpt55-postman-collection.json
+  - type: X402
+    url: https://gpt55.558686.xyz/.well-known/x402
+  - type: Examples
+    url: examples/558686-xyz-standard-chat-example.json
+  - type: Examples
+    url: examples/558686-xyz-translate-canary-example.json
+  - type: RateLimits
+    url: rate-limits/558686-xyz-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/558686-xyz-problem-types.yml
+  - type: Conventions
+    url: conventions/558686-xyz-conventions.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/api-market
+  - type: Documentation
+    url: https://sub2api.558686.xyz/docs/
+  - type: GettingStarted
+    url: https://sub2api.558686.xyz/docs/getting-started.html
+  - type: Pricing
+    url: https://sub2api.558686.xyz/pricing
+  - type: Login
+    url: https://sub2api.558686.xyz/login
+  - type: APIsJson
+    url: https://sub2api.558686.xyz/apis.json
+  - type: LLMsTxt
+    url: llms/558686-xyz-sub2api-llms.txt
+  - type: Postman
+    url: https://sub2api.558686.xyz/postman/sub2api.postman_collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-sub2api-postman-collection.json
+  - type: Authentication
+    url: authentication/558686-xyz-authentication.yml
+- aid: 558686-xyz:558686-xyz-gpt55-retained-nonmodel-api
+  name: gpt55-token-gateway Gpt55 Retained Nonmodel API
+  description: >-
+    The gpt55-retained-nonmodel API from gpt55-token-gateway — 6 operation(s) for gpt55-retained-nonmodel.
+  humanURL: https://gpt55.558686.xyz/x402/service
+  baseURL: https://gpt55.558686.xyz
+  tags:
+  - gpt55-retained-nonmodel
+  properties:
+  - type: OpenAPI
+    url: openapi/558686-xyz-gpt55-retained-nonmodel-api-openapi.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: APIReference
+    url: https://gpt55.558686.xyz/buyer-guide
+  - type: GettingStarted
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: Pricing
+    url: https://gpt55.558686.xyz/pricing.json
+  - type: Postman
+    url: https://gpt55.558686.xyz/postman/collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-gpt55-postman-collection.json
+  - type: X402
+    url: https://gpt55.558686.xyz/.well-known/x402
+  - type: Examples
+    url: examples/558686-xyz-standard-chat-example.json
+  - type: Examples
+    url: examples/558686-xyz-translate-canary-example.json
+  - type: RateLimits
+    url: rate-limits/558686-xyz-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/558686-xyz-problem-types.yml
+  - type: Conventions
+    url: conventions/558686-xyz-conventions.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/api-market
+  - type: Documentation
+    url: https://sub2api.558686.xyz/docs/
+  - type: GettingStarted
+    url: https://sub2api.558686.xyz/docs/getting-started.html
+  - type: Pricing
+    url: https://sub2api.558686.xyz/pricing
+  - type: Login
+    url: https://sub2api.558686.xyz/login
+  - type: APIsJson
+    url: https://sub2api.558686.xyz/apis.json
+  - type: LLMsTxt
+    url: llms/558686-xyz-sub2api-llms.txt
+  - type: Postman
+    url: https://sub2api.558686.xyz/postman/sub2api.postman_collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-sub2api-postman-collection.json
+  - type: Authentication
+    url: authentication/558686-xyz-authentication.yml
+- aid: 558686-xyz:558686-xyz-models-api
+  name: gpt55-token-gateway Models API
+  description: The Models API from gpt55-token-gateway — 1 operation(s) for models.
+  humanURL: https://gpt55.558686.xyz/x402/service
+  baseURL: https://gpt55.558686.xyz
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/558686-xyz-models-api-openapi.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: APIReference
+    url: https://gpt55.558686.xyz/buyer-guide
+  - type: GettingStarted
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: Pricing
+    url: https://gpt55.558686.xyz/pricing.json
+  - type: Postman
+    url: https://gpt55.558686.xyz/postman/collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-gpt55-postman-collection.json
+  - type: X402
+    url: https://gpt55.558686.xyz/.well-known/x402
+  - type: Examples
+    url: examples/558686-xyz-standard-chat-example.json
+  - type: Examples
+    url: examples/558686-xyz-translate-canary-example.json
+  - type: RateLimits
+    url: rate-limits/558686-xyz-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/558686-xyz-problem-types.yml
+  - type: Conventions
+    url: conventions/558686-xyz-conventions.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/api-market
+  - type: Documentation
+    url: https://sub2api.558686.xyz/docs/
+  - type: GettingStarted
+    url: https://sub2api.558686.xyz/docs/getting-started.html
+  - type: Pricing
+    url: https://sub2api.558686.xyz/pricing
+  - type: Login
+    url: https://sub2api.558686.xyz/login
+  - type: APIsJson
+    url: https://sub2api.558686.xyz/apis.json
+  - type: LLMsTxt
+    url: llms/558686-xyz-sub2api-llms.txt
+  - type: Postman
+    url: https://sub2api.558686.xyz/postman/sub2api.postman_collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-sub2api-postman-collection.json
+  - type: Authentication
+    url: authentication/558686-xyz-authentication.yml
+- aid: 558686-xyz:558686-xyz-responses-api
+  name: gpt55-token-gateway Responses API
+  description: The Responses API from gpt55-token-gateway — 1 operation(s) for responses.
+  humanURL: https://gpt55.558686.xyz/x402/service
+  baseURL: https://gpt55.558686.xyz
+  tags:
+  - Responses
+  properties:
+  - type: OpenAPI
+    url: openapi/558686-xyz-responses-api-openapi.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: APIReference
+    url: https://gpt55.558686.xyz/buyer-guide
+  - type: GettingStarted
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: Pricing
+    url: https://gpt55.558686.xyz/pricing.json
+  - type: Postman
+    url: https://gpt55.558686.xyz/postman/collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-gpt55-postman-collection.json
+  - type: X402
+    url: https://gpt55.558686.xyz/.well-known/x402
+  - type: Examples
+    url: examples/558686-xyz-standard-chat-example.json
+  - type: Examples
+    url: examples/558686-xyz-translate-canary-example.json
+  - type: RateLimits
+    url: rate-limits/558686-xyz-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/558686-xyz-problem-types.yml
+  - type: Conventions
+    url: conventions/558686-xyz-conventions.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/api-market
+  - type: Documentation
+    url: https://sub2api.558686.xyz/docs/
+  - type: GettingStarted
+    url: https://sub2api.558686.xyz/docs/getting-started.html
+  - type: Pricing
+    url: https://sub2api.558686.xyz/pricing
+  - type: Login
+    url: https://sub2api.558686.xyz/login
+  - type: APIsJson
+    url: https://sub2api.558686.xyz/apis.json
+  - type: LLMsTxt
+    url: llms/558686-xyz-sub2api-llms.txt
+  - type: Postman
+    url: https://sub2api.558686.xyz/postman/sub2api.postman_collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-sub2api-postman-collection.json
+  - type: Authentication
+    url: authentication/558686-xyz-authentication.yml
+- aid: 558686-xyz:558686-xyz-utility-tools-api
+  name: gpt55-token-gateway Utility Tools API
+  description: Deterministic text, JSON, encoding, hashing, URL parsing, and developer utilities.
+  humanURL: https://gpt55.558686.xyz/x402/service
+  baseURL: https://gpt55.558686.xyz
+  tags:
+  - utility-tools
+  properties:
+  - type: OpenAPI
+    url: openapi/558686-xyz-utility-tools-api-openapi.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: APIReference
+    url: https://gpt55.558686.xyz/buyer-guide
+  - type: GettingStarted
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: Pricing
+    url: https://gpt55.558686.xyz/pricing.json
+  - type: Postman
+    url: https://gpt55.558686.xyz/postman/collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-gpt55-postman-collection.json
+  - type: X402
+    url: https://gpt55.558686.xyz/.well-known/x402
+  - type: Examples
+    url: examples/558686-xyz-standard-chat-example.json
+  - type: Examples
+    url: examples/558686-xyz-translate-canary-example.json
+  - type: RateLimits
+    url: rate-limits/558686-xyz-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/558686-xyz-problem-types.yml
+  - type: Conventions
+    url: conventions/558686-xyz-conventions.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/api-market
+  - type: Documentation
+    url: https://sub2api.558686.xyz/docs/
+  - type: GettingStarted
+    url: https://sub2api.558686.xyz/docs/getting-started.html
+  - type: Pricing
+    url: https://sub2api.558686.xyz/pricing
+  - type: Login
+    url: https://sub2api.558686.xyz/login
+  - type: APIsJson
+    url: https://sub2api.558686.xyz/apis.json
+  - type: LLMsTxt
+    url: llms/558686-xyz-sub2api-llms.txt
+  - type: Postman
+    url: https://sub2api.558686.xyz/postman/sub2api.postman_collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-sub2api-postman-collection.json
+  - type: Authentication
+    url: authentication/558686-xyz-authentication.yml
+- aid: 558686-xyz:558686-xyz-wallet-security-api
+  name: gpt55-token-gateway Wallet Security API
+  description: The wallet-security API from gpt55-token-gateway — 1 operation(s) for wallet-security.
+  humanURL: https://gpt55.558686.xyz/x402/service
+  baseURL: https://gpt55.558686.xyz
+  tags:
+  - wallet-security
+  properties:
+  - type: OpenAPI
+    url: openapi/558686-xyz-wallet-security-api-openapi.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: APIReference
+    url: https://gpt55.558686.xyz/buyer-guide
+  - type: GettingStarted
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: Pricing
+    url: https://gpt55.558686.xyz/pricing.json
+  - type: Postman
+    url: https://gpt55.558686.xyz/postman/collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-gpt55-postman-collection.json
+  - type: X402
+    url: https://gpt55.558686.xyz/.well-known/x402
+  - type: Examples
+    url: examples/558686-xyz-standard-chat-example.json
+  - type: Examples
+    url: examples/558686-xyz-translate-canary-example.json
+  - type: RateLimits
+    url: rate-limits/558686-xyz-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/558686-xyz-problem-types.yml
+  - type: Conventions
+    url: conventions/558686-xyz-conventions.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/api-market
+  - type: Documentation
+    url: https://sub2api.558686.xyz/docs/
+  - type: GettingStarted
+    url: https://sub2api.558686.xyz/docs/getting-started.html
+  - type: Pricing
+    url: https://sub2api.558686.xyz/pricing
+  - type: Login
+    url: https://sub2api.558686.xyz/login
+  - type: APIsJson
+    url: https://sub2api.558686.xyz/apis.json
+  - type: LLMsTxt
+    url: llms/558686-xyz-sub2api-llms.txt
+  - type: Postman
+    url: https://sub2api.558686.xyz/postman/sub2api.postman_collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-sub2api-postman-collection.json
+  - type: Authentication
+    url: authentication/558686-xyz-authentication.yml
+- aid: 558686-xyz:558686-xyz-wallet-signing-safety-pack-api
+  name: gpt55-token-gateway Wallet Signing Safety Pack API
+  description: >-
+    The wallet-signing-safety-pack API from gpt55-token-gateway — 1 operation(s) for wallet-signing-safety-pack.
+  humanURL: https://gpt55.558686.xyz/x402/service
+  baseURL: https://gpt55.558686.xyz
+  tags:
+  - wallet-signing-safety-pack
+  properties:
+  - type: OpenAPI
+    url: openapi/558686-xyz-wallet-signing-safety-pack-api-openapi.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: APIReference
+    url: https://gpt55.558686.xyz/buyer-guide
+  - type: GettingStarted
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: Pricing
+    url: https://gpt55.558686.xyz/pricing.json
+  - type: Postman
+    url: https://gpt55.558686.xyz/postman/collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-gpt55-postman-collection.json
+  - type: X402
+    url: https://gpt55.558686.xyz/.well-known/x402
+  - type: Examples
+    url: examples/558686-xyz-standard-chat-example.json
+  - type: Examples
+    url: examples/558686-xyz-translate-canary-example.json
+  - type: RateLimits
+    url: rate-limits/558686-xyz-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/558686-xyz-problem-types.yml
+  - type: Conventions
+    url: conventions/558686-xyz-conventions.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/api-market
+  - type: Documentation
+    url: https://sub2api.558686.xyz/docs/
+  - type: GettingStarted
+    url: https://sub2api.558686.xyz/docs/getting-started.html
+  - type: Pricing
+    url: https://sub2api.558686.xyz/pricing
+  - type: Login
+    url: https://sub2api.558686.xyz/login
+  - type: APIsJson
+    url: https://sub2api.558686.xyz/apis.json
+  - type: LLMsTxt
+    url: llms/558686-xyz-sub2api-llms.txt
+  - type: Postman
+    url: https://sub2api.558686.xyz/postman/sub2api.postman_collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-sub2api-postman-collection.json
+  - type: Authentication
+    url: authentication/558686-xyz-authentication.yml
+- aid: 558686-xyz:558686-xyz-x402-api
+  name: gpt55-token-gateway X402 API
+  description: The x402 API from gpt55-token-gateway — 1 operation(s) for x402.
+  humanURL: https://gpt55.558686.xyz/x402/service
+  baseURL: https://gpt55.558686.xyz
+  tags:
   - x402
-  - AI Agents
-  properties:
-  - type: AgentCard
-    url: a2a/558686-xyz-a2a.yml
-  - type: AgentCard
-    name: A2A Agent Card (provider-hosted)
-    url: https://gpt55.558686.xyz/.well-known/agent-card.json
-- aid: 558686-xyz:sub2api-openai-compatible-api
-  name: Sub2API OpenAI-compatible API
-  description: >-
-    The operator's Sub2API deployment at https://sub2api.558686.xyz (the same backend also
-    answers on api.558686.xyz, whose console is Chinese-language): a Bearer-API-key relay that
-    resells GPT-5.5, GPT-5.4, GPT-5.3-codex, Claude Opus 4.6 / Sonnet 4.6 / Haiku 4.5 and Gemini
-    models through GET /v1/models, POST /v1/chat/completions and POST /v1/responses, documented in
-    a provider-published OpenAPI 3.1.0 (3 operations, bearerAuth http scheme, servers[]
-    https://sub2api.558686.xyz). Unauthenticated calls return 401 {code: API_KEY_REQUIRED};
-    accepted credentials are Authorization: Bearer, x-api-key, or a query key. Billing is
-    platform quota bought at 1 USD paid = 10 USD platform quota through shop.400860.xyz; the
-    site's own read-only status says public registration and Google OAuth sign-up are closed and
-    a test key must be requested from the administrator. The software is the open-source
-    Wei-Shaw/sub2api project; the deployment, its spec, apis.json, llms.txt, pricing page,
-    Postman collection and Chinese docs (Codex install + API access guide) are this operator's.
-  humanURL: https://sub2api.558686.xyz/docs/
-  baseURL: https://sub2api.558686.xyz
-  tags:
-  - API Relay
-  - OpenAI-Compatible
-  - LLM
-  - AI Gateway
-  tags_raw:
-  - API Relay
-  - OpenAI-compatible
-  - LLM
-  - AI Gateway
   properties:
   - type: OpenAPI
-    url: openapi/558686-xyz-sub2api-openapi.json
-  - type: OpenAPI
-    name: OpenAPI 3.1 (provider-hosted)
-    url: https://sub2api.558686.xyz/openapi.json
-  - type: Overlay
-    url: overlays/558686-xyz-sub2api-overlay.yaml
+    url: openapi/558686-xyz-x402-api-openapi.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: APIReference
+    url: https://gpt55.558686.xyz/buyer-guide
+  - type: GettingStarted
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: Pricing
+    url: https://gpt55.558686.xyz/pricing.json
+  - type: Postman
+    url: https://gpt55.558686.xyz/postman/collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-gpt55-postman-collection.json
+  - type: X402
+    url: https://gpt55.558686.xyz/.well-known/x402
+  - type: Examples
+    url: examples/558686-xyz-standard-chat-example.json
+  - type: Examples
+    url: examples/558686-xyz-translate-canary-example.json
+  - type: RateLimits
+    url: rate-limits/558686-xyz-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/558686-xyz-problem-types.yml
+  - type: Conventions
+    url: conventions/558686-xyz-conventions.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/api-market
   - type: Documentation
     url: https://sub2api.558686.xyz/docs/
   - type: GettingStarted
@@ -265,6 +731,10 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/558686-xyz-api-market-utility-tools-overlay.yaml
+- type: Overlay
+  url: overlays/558686-xyz-sub2api-overlay.yaml
 - type: Website
   url: https://558686.xyz/
 - type: DeveloperPortal
@@ -347,3 +817,10 @@ x-enrichment:
   status: enriched
   artifacts_added: 50
   pass: local-v3
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://gpt55.558686.xyz/.well-known/agent-card.json"
+  grade: "conformant"
+  protocol_version: "1.0"
+  control: 404
