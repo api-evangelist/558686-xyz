@@ -1,9 +1,9 @@
 {
   "provider": "558686-xyz",
   "sources": [
-    "558686-xyz-api-market-utility-tools-openapi.json",
-    "558686-xyz-gpt55-model-gateway-openapi.json",
-    "558686-xyz-sub2api-openapi.json"
+    "_original/558686-xyz-api-market-utility-tools-openapi.json",
+    "_original/558686-xyz-gpt55-model-gateway-openapi.json",
+    "_original/558686-xyz-sub2api-openapi.json"
   ],
   "outputs": [
     "558686-xyz-utility-tools-api-openapi.yml",
@@ -18,14 +18,11 @@
     "558686-xyz-models-api-openapi.yml",
     "558686-xyz-responses-api-openapi.yml"
   ],
-  "archived": [
-    "archived openapi/558686-xyz-api-market-utility-tools-openapi.json",
-    "archived openapi/558686-xyz-gpt55-model-gateway-openapi.json",
-    "archived openapi/558686-xyz-sub2api-openapi.json"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "558686-xyz-api-market-utility-tools-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "558686-xyz-api-market-utility-tools-openapi.json: declared missing tag: auth",
     "558686-xyz-api-market-utility-tools-openapi.json: declared missing tag: base64",
@@ -117,7 +114,19 @@
     "558686-xyz-sub2api-openapi.json: declared missing tag: Chat",
     "558686-xyz-sub2api-openapi.json: declared missing tag: Models",
     "558686-xyz-sub2api-openapi.json: declared missing tag: Responses",
-    "apis.yml register: written (+11 apis, 13 total)"
+    "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "558686-xyz-base-usdc-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "558686-xyz-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "558686-xyz-gpt55-model-gateway-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "558686-xyz-gpt55-retained-high-intent-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "558686-xyz-gpt55-retained-nonmodel-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "558686-xyz-models-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "558686-xyz-responses-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "558686-xyz-utility-tools-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "558686-xyz-wallet-security-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "558686-xyz-wallet-signing-safety-pack-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "558686-xyz-x402-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
