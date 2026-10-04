@@ -568,6 +568,8 @@ apis:
   humanURL: https://gpt55.558686.xyz/x402/service
   baseURL: https://gpt55.558686.xyz
   tags:
+  - Wallet Security
+  tags_raw:
   - wallet-security
   properties:
   - type: OpenAPI
