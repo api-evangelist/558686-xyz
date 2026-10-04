@@ -3474,18 +3474,6 @@ paths:
                 $ref: '#/components/schemas/ApiMarketError'
 components:
   schemas:
-    ApiMarketError:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-            type:
-              type: string
-          additionalProperties: true
-      additionalProperties: true
     ApiMarketX402Lead:
       type: object
       properties:
@@ -3518,3 +3506,15 @@ components:
       - trackedX402Discovery
       - note
       additionalProperties: false
+    ApiMarketError:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            type:
+              type: string
+          additionalProperties: true
+      additionalProperties: true

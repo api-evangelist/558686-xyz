@@ -181,60 +181,6 @@ apis:
     url: postman/558686-xyz-sub2api-postman-collection.json
   - type: Authentication
     url: authentication/558686-xyz-authentication.yml
-- aid: 558686-xyz:558686-xyz-chat-api
-  name: gpt55-token-gateway Chat API
-  description: The Chat API from gpt55-token-gateway — 1 operation(s) for chat.
-  humanURL: https://gpt55.558686.xyz/x402/service
-  baseURL: https://gpt55.558686.xyz
-  tags:
-  - Chat
-  properties:
-  - type: OpenAPI
-    url: openapi/558686-xyz-chat-api-openapi.yml
-  - type: Documentation
-    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
-  - type: APIReference
-    url: https://gpt55.558686.xyz/buyer-guide
-  - type: GettingStarted
-    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
-  - type: Pricing
-    url: https://gpt55.558686.xyz/pricing.json
-  - type: Postman
-    url: https://gpt55.558686.xyz/postman/collection.json
-  - type: PostmanCollection
-    url: postman/558686-xyz-gpt55-postman-collection.json
-  - type: X402
-    url: https://gpt55.558686.xyz/.well-known/x402
-  - type: Examples
-    url: examples/558686-xyz-standard-chat-example.json
-  - type: Examples
-    url: examples/558686-xyz-translate-canary-example.json
-  - type: RateLimits
-    url: rate-limits/558686-xyz-rate-limits.yml
-  - type: ErrorCatalog
-    url: errors/558686-xyz-problem-types.yml
-  - type: Conventions
-    url: conventions/558686-xyz-conventions.yml
-  - type: Documentation
-    url: https://gpt55.558686.xyz/api-market
-  - type: Documentation
-    url: https://sub2api.558686.xyz/docs/
-  - type: GettingStarted
-    url: https://sub2api.558686.xyz/docs/getting-started.html
-  - type: Pricing
-    url: https://sub2api.558686.xyz/pricing
-  - type: Login
-    url: https://sub2api.558686.xyz/login
-  - type: APIsJson
-    url: https://sub2api.558686.xyz/apis.json
-  - type: LLMsTxt
-    url: llms/558686-xyz-sub2api-llms.txt
-  - type: Postman
-    url: https://sub2api.558686.xyz/postman/sub2api.postman_collection.json
-  - type: PostmanCollection
-    url: postman/558686-xyz-sub2api-postman-collection.json
-  - type: Authentication
-    url: authentication/558686-xyz-authentication.yml
 - aid: 558686-xyz:558686-xyz-gpt55-model-gateway-api
   name: gpt55-token-gateway Gpt55 Model Gateway API
   description: >-
@@ -683,6 +629,60 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/558686-xyz-x402-api-openapi.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: APIReference
+    url: https://gpt55.558686.xyz/buyer-guide
+  - type: GettingStarted
+    url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
+  - type: Pricing
+    url: https://gpt55.558686.xyz/pricing.json
+  - type: Postman
+    url: https://gpt55.558686.xyz/postman/collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-gpt55-postman-collection.json
+  - type: X402
+    url: https://gpt55.558686.xyz/.well-known/x402
+  - type: Examples
+    url: examples/558686-xyz-standard-chat-example.json
+  - type: Examples
+    url: examples/558686-xyz-translate-canary-example.json
+  - type: RateLimits
+    url: rate-limits/558686-xyz-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/558686-xyz-problem-types.yml
+  - type: Conventions
+    url: conventions/558686-xyz-conventions.yml
+  - type: Documentation
+    url: https://gpt55.558686.xyz/api-market
+  - type: Documentation
+    url: https://sub2api.558686.xyz/docs/
+  - type: GettingStarted
+    url: https://sub2api.558686.xyz/docs/getting-started.html
+  - type: Pricing
+    url: https://sub2api.558686.xyz/pricing
+  - type: Login
+    url: https://sub2api.558686.xyz/login
+  - type: APIsJson
+    url: https://sub2api.558686.xyz/apis.json
+  - type: LLMsTxt
+    url: llms/558686-xyz-sub2api-llms.txt
+  - type: Postman
+    url: https://sub2api.558686.xyz/postman/sub2api.postman_collection.json
+  - type: PostmanCollection
+    url: postman/558686-xyz-sub2api-postman-collection.json
+  - type: Authentication
+    url: authentication/558686-xyz-authentication.yml
+- aid: 558686-xyz:558686-xyz-chat-completions-api
+  name: gpt55-token-gateway Chat Completions API
+  description: The Chat Completions API from gpt55-token-gateway — 1 operation(s) for chat completions.
+  humanURL: https://gpt55.558686.xyz/projects/558686/install
+  baseURL: https://gpt55.558686.xyz/mcp
+  tags:
+  - Chat Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/558686-xyz-chat-completions-api-openapi.yml
   - type: Documentation
     url: https://gpt55.558686.xyz/x402/guides/ai-agent-x402-api
   - type: APIReference

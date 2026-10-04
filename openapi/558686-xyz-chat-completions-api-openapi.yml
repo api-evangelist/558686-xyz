@@ -6,7 +6,7 @@ info:
 servers:
 - url: https://sub2api.558686.xyz
 tags:
-- name: Chat
+- name: Chat Completions
 paths:
   /v1/chat/completions:
     post:
@@ -19,7 +19,7 @@ paths:
         '401':
           description: Missing or invalid API key
       tags:
-      - Chat
+      - Chat Completions
       operationId: postV1ChatCompletions
       x-operation-id-source: derived
 components:
