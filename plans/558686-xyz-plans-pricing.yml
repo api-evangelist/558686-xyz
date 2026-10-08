@@ -150,3 +150,40 @@ free_surface:
   - 'GET https://gpt55.558686.xyz/api-market/v1/tools/* (44 utility operations, anonymous 200 on the provider host)'
   - 'every discovery document (openapi.json, pricing.json, live-prices.json, llms.txt, agent card, server.json, MCP tools/list)'
 market_benchmark_verbatim: 'the latest local x402.direct sample found AI-like listing prices with p25 around $0.01 and median around $0.03 per call; this gateway publishes GPT-5.6 Luna Standard at $0.00293'
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - metered
+  units: []
+  plans:
+  - name: GPT55 pay-per-request (x402 exact)
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods: []
+  - name: GPT55 prepaid call packs
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: GPT55 text-tool tiers (Standard / Plus / Professional)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: GPT55 premium x402 packs and playbooks
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Sub2API platform quota (prepaid, API key)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
