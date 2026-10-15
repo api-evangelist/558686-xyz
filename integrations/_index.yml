@@ -19,7 +19,7 @@
     value: OpenAI-compatible
     note: '558686-xyz declares OpenAI compatibility: ''title: Sub2API OpenAI-compatible Chat API'''
     detected_by: sweep-model-routing.py
-    detected: '2026-10-13'
+    detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
 - slug: 558686-xyz-mcp-registry
@@ -38,6 +38,6 @@
     registered_name: xyz.558686.gpt55/token-gateway
     register_id: xyz.558686.gpt55/token-gateway
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-14'
+    detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
