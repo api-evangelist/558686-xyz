@@ -18,7 +18,9 @@
     "558686-xyz-models-api-openapi.yml",
     "558686-xyz-responses-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -114,11 +116,12 @@
     "558686-xyz-sub2api-openapi.json: declared missing tag: Chat",
     "558686-xyz-sub2api-openapi.json: declared missing tag: Models",
     "558686-xyz-sub2api-openapi.json: declared missing tag: Responses",
-    "apis.yml register: already-registered"
+    "superseded outputs removed: 558686-xyz-chat-completions-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 13 total)"
   ],
   "skipped": [
     "558686-xyz-base-usdc-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "558686-xyz-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "558686-xyz-chat-completions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "558686-xyz-gpt55-model-gateway-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "558686-xyz-gpt55-retained-high-intent-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "558686-xyz-gpt55-retained-nonmodel-api-openapi.yml: previously refined output, superseded by openapi/_original/",
