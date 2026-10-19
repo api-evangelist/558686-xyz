@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: GPT55 Model Gateway X402 API
   version: 1.0.0
-  description: Reduced GPT55 public surface after x402 project split, with GPT-5.6 Luna Standard as the default upstream gpt-5.6-luna model path, explicit Soul and Terra routes for higher-cost requests, the unified service hub, prepaid Luna call packs, and per-request x402 calls.
+  description: Reduced GPT55 public surface after x402 project split, with GPT-5.6 Soul as the default upstream gpt-5.6-sol model path, explicit Terra routes for lower-cost requests, the unified service hub, prepaid call packs, and per-request x402 calls.
   x-gpt55-relatedProjects:
   - id: x402-utility-tools
     title: Utility tools
@@ -117,15 +117,15 @@ info:
   primaryCommercialOffer:
     id: standard-chat-demand-first
     routeId: standard-chat
-    title: GPT-5.6 Luna Standard one-request result
+    title: gpt-5.5 one-request result
     buyerJob: Get one immediate OpenAI-compatible answer before committing to a quota pack or a larger workflow.
     method: POST
-    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
     previewUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-    price: $0.00293
-    priceUsd: 0.00293
-    amountAtomic: '2930'
+    price: $0.019999
+    priceUsd: 0.019999
+    amountAtomic: '19999'
     network: eip155:8453
     asset: USDC
     assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
@@ -149,15 +149,15 @@ info:
       provider: EIP-1193 injected wallet
       type: eip3009-transfer-with-authorization
       url: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
       bundleUrl: https://gpt55.558686.xyz/x402/browser-wallet-payment.js
       method: POST
       network: eip155:8453
       asset: USDC
       assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
       payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
-      amountAtomic: '2930'
+      amountAtomic: '19999'
       paymentHeader: PAYMENT-SIGNATURE
       responseHeaders:
       - PAYMENT-RESPONSE
@@ -167,10 +167,10 @@ info:
       privateKeySentToService: false
       buttonLabel: Pay with browser wallet
     agentFallback:
-      routeId: standard
+      routeId: gpt-5.5
       firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
-      quoteOnlyCommand: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
-      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+      quoteOnlyCommand: ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 node first-payment-client.mjs
+      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
       installCommand: npm install @x402/fetch @x402/core @x402/evm viem
       requiredRuntime: optional-desktop-or-server-terminal-fallback
       sameRequestRetry: true
@@ -178,16 +178,16 @@ info:
       - PAYMENT-SIGNATURE
       - X-PAYMENT
       privateKeySentToService: false
-    model: gpt-5.6-luna
+    model: gpt-5.5
     nextPurchase:
-      id: gpt-5.6-luna-100-call-pack
-      routeId: gpt-5.6-luna-100-call-pack
-      title: GPT-5.6 Luna 100 Prepaid Call Credits
-      model: gpt-5.6-luna
+      id: gpt-5.5-100-call-pack
+      routeId: gpt-5.5-100-call-pack
+      title: gpt-5.5 100 Prepaid Call Credits
+      model: gpt-5.5
       method: GET
-      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
       price: $1.60
       amountAtomic: '1600000'
       callCount: 100
@@ -196,25 +196,25 @@ info:
       assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
       payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
       privateKeySentToService: false
-      reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
-    label: GPT-5.6 Luna Standard one-request result
+      reason: Use one prepaid purchase for repeated gpt-5.5 calls with fewer payment steps.
+    label: gpt-5.5 one-request result
     page: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
     json: https://gpt55.558686.xyz/x402/service.json
     checkoutUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-    quoteUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-    quoteEndpoint: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+    quoteEndpoint: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
     quoteEndpointMode: live-402
     firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
     paymentClientUrl: https://gpt55.558686.xyz/x402/first-payment-client.mjs
     paymentActivation: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
     installCommand: npm install @x402/fetch @x402/core @x402/evm viem
-    quoteOnlyDedicated: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
-    realPaymentDedicated: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    paymentHeaderOnlyDedicated: X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    installThenCreatePaymentHeaderDedicated: npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    downloadInstallThenCreatePaymentHeaderDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    payCommand: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    downloadInstallThenPayDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    quoteOnlyDedicated: ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 node first-payment-client.mjs
+    realPaymentDedicated: PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    paymentHeaderOnlyDedicated: X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    installThenCreatePaymentHeaderDedicated: npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenCreatePaymentHeaderDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    payCommand: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenPayDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
     expectedResult:
     - id
     - model
@@ -225,15 +225,15 @@ info:
   marketDemandOffer:
     id: standard-chat-demand-first
     routeId: standard-chat
-    title: GPT-5.6 Luna Standard one-request result
+    title: gpt-5.5 one-request result
     buyerJob: Get one immediate OpenAI-compatible answer before committing to a quota pack or a larger workflow.
     method: POST
-    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
     previewUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-    price: $0.00293
-    priceUsd: 0.00293
-    amountAtomic: '2930'
+    price: $0.019999
+    priceUsd: 0.019999
+    amountAtomic: '19999'
     network: eip155:8453
     asset: USDC
     assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
@@ -257,15 +257,15 @@ info:
       provider: EIP-1193 injected wallet
       type: eip3009-transfer-with-authorization
       url: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
       bundleUrl: https://gpt55.558686.xyz/x402/browser-wallet-payment.js
       method: POST
       network: eip155:8453
       asset: USDC
       assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
       payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
-      amountAtomic: '2930'
+      amountAtomic: '19999'
       paymentHeader: PAYMENT-SIGNATURE
       responseHeaders:
       - PAYMENT-RESPONSE
@@ -275,10 +275,10 @@ info:
       privateKeySentToService: false
       buttonLabel: Pay with browser wallet
     agentFallback:
-      routeId: standard
+      routeId: gpt-5.5
       firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
-      quoteOnlyCommand: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
-      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+      quoteOnlyCommand: ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 node first-payment-client.mjs
+      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
       installCommand: npm install @x402/fetch @x402/core @x402/evm viem
       requiredRuntime: optional-desktop-or-server-terminal-fallback
       sameRequestRetry: true
@@ -286,16 +286,16 @@ info:
       - PAYMENT-SIGNATURE
       - X-PAYMENT
       privateKeySentToService: false
-    model: gpt-5.6-luna
+    model: gpt-5.5
     nextPurchase:
-      id: gpt-5.6-luna-100-call-pack
-      routeId: gpt-5.6-luna-100-call-pack
-      title: GPT-5.6 Luna 100 Prepaid Call Credits
-      model: gpt-5.6-luna
+      id: gpt-5.5-100-call-pack
+      routeId: gpt-5.5-100-call-pack
+      title: gpt-5.5 100 Prepaid Call Credits
+      model: gpt-5.5
       method: GET
-      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
       price: $1.60
       amountAtomic: '1600000'
       callCount: 100
@@ -304,25 +304,25 @@ info:
       assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
       payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
       privateKeySentToService: false
-      reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
-    label: GPT-5.6 Luna Standard one-request result
+      reason: Use one prepaid purchase for repeated gpt-5.5 calls with fewer payment steps.
+    label: gpt-5.5 one-request result
     page: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
     json: https://gpt55.558686.xyz/x402/service.json
     checkoutUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-    quoteUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-    quoteEndpoint: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+    quoteEndpoint: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
     quoteEndpointMode: live-402
     firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
     paymentClientUrl: https://gpt55.558686.xyz/x402/first-payment-client.mjs
     paymentActivation: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
     installCommand: npm install @x402/fetch @x402/core @x402/evm viem
-    quoteOnlyDedicated: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
-    realPaymentDedicated: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    paymentHeaderOnlyDedicated: X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    installThenCreatePaymentHeaderDedicated: npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    downloadInstallThenCreatePaymentHeaderDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    payCommand: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    downloadInstallThenPayDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    quoteOnlyDedicated: ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 node first-payment-client.mjs
+    realPaymentDedicated: PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    paymentHeaderOnlyDedicated: X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    installThenCreatePaymentHeaderDedicated: npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenCreatePaymentHeaderDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    payCommand: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenPayDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
     expectedResult:
     - id
     - model
@@ -333,15 +333,15 @@ info:
   recommendedFirstPurchase:
     id: standard-chat-demand-first
     routeId: standard-chat
-    title: GPT-5.6 Luna Standard one-request result
+    title: gpt-5.5 one-request result
     buyerJob: Get one immediate OpenAI-compatible answer before committing to a quota pack or a larger workflow.
     method: POST
-    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
     previewUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-    price: $0.00293
-    priceUsd: 0.00293
-    amountAtomic: '2930'
+    price: $0.019999
+    priceUsd: 0.019999
+    amountAtomic: '19999'
     network: eip155:8453
     asset: USDC
     assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
@@ -365,15 +365,15 @@ info:
       provider: EIP-1193 injected wallet
       type: eip3009-transfer-with-authorization
       url: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
       bundleUrl: https://gpt55.558686.xyz/x402/browser-wallet-payment.js
       method: POST
       network: eip155:8453
       asset: USDC
       assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
       payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
-      amountAtomic: '2930'
+      amountAtomic: '19999'
       paymentHeader: PAYMENT-SIGNATURE
       responseHeaders:
       - PAYMENT-RESPONSE
@@ -383,10 +383,10 @@ info:
       privateKeySentToService: false
       buttonLabel: Pay with browser wallet
     agentFallback:
-      routeId: standard
+      routeId: gpt-5.5
       firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
-      quoteOnlyCommand: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
-      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+      quoteOnlyCommand: ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 node first-payment-client.mjs
+      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
       installCommand: npm install @x402/fetch @x402/core @x402/evm viem
       requiredRuntime: optional-desktop-or-server-terminal-fallback
       sameRequestRetry: true
@@ -394,16 +394,16 @@ info:
       - PAYMENT-SIGNATURE
       - X-PAYMENT
       privateKeySentToService: false
-    model: gpt-5.6-luna
+    model: gpt-5.5
     nextPurchase:
-      id: gpt-5.6-luna-100-call-pack
-      routeId: gpt-5.6-luna-100-call-pack
-      title: GPT-5.6 Luna 100 Prepaid Call Credits
-      model: gpt-5.6-luna
+      id: gpt-5.5-100-call-pack
+      routeId: gpt-5.5-100-call-pack
+      title: gpt-5.5 100 Prepaid Call Credits
+      model: gpt-5.5
       method: GET
-      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
       price: $1.60
       amountAtomic: '1600000'
       callCount: 100
@@ -412,25 +412,25 @@ info:
       assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
       payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
       privateKeySentToService: false
-      reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
-    label: GPT-5.6 Luna Standard one-request result
+      reason: Use one prepaid purchase for repeated gpt-5.5 calls with fewer payment steps.
+    label: gpt-5.5 one-request result
     page: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
     json: https://gpt55.558686.xyz/x402/service.json
     checkoutUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-    quoteUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-    quoteEndpoint: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+    quoteEndpoint: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
     quoteEndpointMode: live-402
     firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
     paymentClientUrl: https://gpt55.558686.xyz/x402/first-payment-client.mjs
     paymentActivation: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
     installCommand: npm install @x402/fetch @x402/core @x402/evm viem
-    quoteOnlyDedicated: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
-    realPaymentDedicated: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    paymentHeaderOnlyDedicated: X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    installThenCreatePaymentHeaderDedicated: npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    downloadInstallThenCreatePaymentHeaderDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    payCommand: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    downloadInstallThenPayDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    quoteOnlyDedicated: ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 node first-payment-client.mjs
+    realPaymentDedicated: PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    paymentHeaderOnlyDedicated: X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    installThenCreatePaymentHeaderDedicated: npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenCreatePaymentHeaderDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    payCommand: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenPayDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
     expectedResult:
     - id
     - model
@@ -441,15 +441,15 @@ info:
   x-demand-first-offer:
     id: standard-chat-demand-first
     routeId: standard-chat
-    title: GPT-5.6 Luna Standard one-request result
+    title: gpt-5.5 one-request result
     buyerJob: Get one immediate OpenAI-compatible answer before committing to a quota pack or a larger workflow.
     method: POST
-    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
     previewUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-    price: $0.00293
-    priceUsd: 0.00293
-    amountAtomic: '2930'
+    price: $0.019999
+    priceUsd: 0.019999
+    amountAtomic: '19999'
     network: eip155:8453
     asset: USDC
     assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
@@ -473,15 +473,15 @@ info:
       provider: EIP-1193 injected wallet
       type: eip3009-transfer-with-authorization
       url: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
       bundleUrl: https://gpt55.558686.xyz/x402/browser-wallet-payment.js
       method: POST
       network: eip155:8453
       asset: USDC
       assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
       payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
-      amountAtomic: '2930'
+      amountAtomic: '19999'
       paymentHeader: PAYMENT-SIGNATURE
       responseHeaders:
       - PAYMENT-RESPONSE
@@ -491,10 +491,10 @@ info:
       privateKeySentToService: false
       buttonLabel: Pay with browser wallet
     agentFallback:
-      routeId: standard
+      routeId: gpt-5.5
       firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
-      quoteOnlyCommand: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
-      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+      quoteOnlyCommand: ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 node first-payment-client.mjs
+      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
       installCommand: npm install @x402/fetch @x402/core @x402/evm viem
       requiredRuntime: optional-desktop-or-server-terminal-fallback
       sameRequestRetry: true
@@ -502,16 +502,16 @@ info:
       - PAYMENT-SIGNATURE
       - X-PAYMENT
       privateKeySentToService: false
-    model: gpt-5.6-luna
+    model: gpt-5.5
     nextPurchase:
-      id: gpt-5.6-luna-100-call-pack
-      routeId: gpt-5.6-luna-100-call-pack
-      title: GPT-5.6 Luna 100 Prepaid Call Credits
-      model: gpt-5.6-luna
+      id: gpt-5.5-100-call-pack
+      routeId: gpt-5.5-100-call-pack
+      title: gpt-5.5 100 Prepaid Call Credits
+      model: gpt-5.5
       method: GET
-      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
       price: $1.60
       amountAtomic: '1600000'
       callCount: 100
@@ -520,25 +520,25 @@ info:
       assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
       payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
       privateKeySentToService: false
-      reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
-    label: GPT-5.6 Luna Standard one-request result
+      reason: Use one prepaid purchase for repeated gpt-5.5 calls with fewer payment steps.
+    label: gpt-5.5 one-request result
     page: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
     json: https://gpt55.558686.xyz/x402/service.json
     checkoutUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-    quoteUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-    quoteEndpoint: https://gpt55.558686.xyz/v1/chat/completions/standard
+    quoteUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+    quoteEndpoint: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
     quoteEndpointMode: live-402
     firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
     paymentClientUrl: https://gpt55.558686.xyz/x402/first-payment-client.mjs
     paymentActivation: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
     installCommand: npm install @x402/fetch @x402/core @x402/evm viem
-    quoteOnlyDedicated: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
-    realPaymentDedicated: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    paymentHeaderOnlyDedicated: X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    installThenCreatePaymentHeaderDedicated: npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    downloadInstallThenCreatePaymentHeaderDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    payCommand: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
-    downloadInstallThenPayDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    quoteOnlyDedicated: ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 node first-payment-client.mjs
+    realPaymentDedicated: PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    paymentHeaderOnlyDedicated: X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    installThenCreatePaymentHeaderDedicated: npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenCreatePaymentHeaderDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && X402_PAYMENT_HEADER_ONLY=1 X402_PAYMENT_HEADER_FILE=x402-payment-header.txt ROUTE_ID=standard MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    payCommand: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+    downloadInstallThenPayDedicated: curl -fsSL https://gpt55.558686.xyz/x402/first-payment-client.mjs -o first-payment-client.mjs && npm install @x402/fetch @x402/core @x402/evm viem && PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
     expectedResult:
     - id
     - model
@@ -638,14 +638,14 @@ info:
       - X-PAYMENT
       privateKeySentToService: false
     nextPurchase:
-      id: gpt-5.6-luna-100-call-pack
-      routeId: gpt-5.6-luna-100-call-pack
-      title: GPT-5.6 Luna 100 Prepaid Call Credits
-      model: gpt-5.6-luna
+      id: gpt-5.5-100-call-pack
+      routeId: gpt-5.5-100-call-pack
+      title: gpt-5.5 100 Prepaid Call Credits
+      model: gpt-5.5
       method: GET
-      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
       price: $1.60
       amountAtomic: '1600000'
       callCount: 100
@@ -654,7 +654,7 @@ info:
       assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
       payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
       privateKeySentToService: false
-      reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
+      reason: Use one prepaid purchase for repeated gpt-5.5 calls with fewer payment steps.
     compatibility:
       legacyRoutesPreserved: true
       standardChatUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
@@ -691,15 +691,15 @@ info:
   standardChatOffer:
     id: standard-chat-demand-first
     routeId: standard-chat
-    title: GPT-5.6 Luna Standard one-request result
+    title: gpt-5.5 one-request result
     buyerJob: Get one immediate OpenAI-compatible answer before committing to a quota pack or a larger workflow.
     method: POST
-    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+    paidUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+    quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
     previewUrl: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-    price: $0.00293
-    priceUsd: 0.00293
-    amountAtomic: '2930'
+    price: $0.019999
+    priceUsd: 0.019999
+    amountAtomic: '19999'
     network: eip155:8453
     asset: USDC
     assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
@@ -723,15 +723,15 @@ info:
       provider: EIP-1193 injected wallet
       type: eip3009-transfer-with-authorization
       url: https://gpt55.558686.xyz/x402/service?checkout=standard-chat
-      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
-      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/standard
+      paidUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/chat/completions/gpt-5.5
       bundleUrl: https://gpt55.558686.xyz/x402/browser-wallet-payment.js
       method: POST
       network: eip155:8453
       asset: USDC
       assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
       payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
-      amountAtomic: '2930'
+      amountAtomic: '19999'
       paymentHeader: PAYMENT-SIGNATURE
       responseHeaders:
       - PAYMENT-RESPONSE
@@ -741,10 +741,10 @@ info:
       privateKeySentToService: false
       buttonLabel: Pay with browser wallet
     agentFallback:
-      routeId: standard
+      routeId: gpt-5.5
       firstPaymentClient: https://gpt55.558686.xyz/x402/first-payment-client.mjs
-      quoteOnlyCommand: ROUTE_ID=standard MAX_USDC=0.00293 node first-payment-client.mjs
-      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=standard MAX_USDC=0.00293 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
+      quoteOnlyCommand: ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 node first-payment-client.mjs
+      realPaymentCommand: PAY_REAL_X402=1 ROUTE_ID=gpt-5.5 MAX_USDC=0.019999 EVM_PRIVATE_KEY=$EVM_PRIVATE_KEY node first-payment-client.mjs
       installCommand: npm install @x402/fetch @x402/core @x402/evm viem
       requiredRuntime: optional-desktop-or-server-terminal-fallback
       sameRequestRetry: true
@@ -752,16 +752,16 @@ info:
       - PAYMENT-SIGNATURE
       - X-PAYMENT
       privateKeySentToService: false
-    model: gpt-5.6-luna
+    model: gpt-5.5
     nextPurchase:
-      id: gpt-5.6-luna-100-call-pack
-      routeId: gpt-5.6-luna-100-call-pack
-      title: GPT-5.6 Luna 100 Prepaid Call Credits
-      model: gpt-5.6-luna
+      id: gpt-5.5-100-call-pack
+      routeId: gpt-5.5-100-call-pack
+      title: gpt-5.5 100 Prepaid Call Credits
+      model: gpt-5.5
       method: GET
-      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+      paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+      checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+      quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
       price: $1.60
       amountAtomic: '1600000'
       callCount: 100
@@ -770,16 +770,16 @@ info:
       assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
       payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
       privateKeySentToService: false
-      reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
+      reason: Use one prepaid purchase for repeated gpt-5.5 calls with fewer payment steps.
   x-gpt55-repeat-call-pack:
-    id: gpt-5.6-luna-100-call-pack
-    routeId: gpt-5.6-luna-100-call-pack
-    title: GPT-5.6 Luna 100 Prepaid Call Credits
-    model: gpt-5.6-luna
+    id: gpt-5.5-100-call-pack
+    routeId: gpt-5.5-100-call-pack
+    title: gpt-5.5 100 Prepaid Call Credits
+    model: gpt-5.5
     method: GET
-    paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-    checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
-    quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.6-luna-100
+    paidUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+    checkoutUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
+    quoteOnlyUrl: https://gpt55.558686.xyz/v1/paid/call-packs/gpt-5.5-100
     price: $1.60
     amountAtomic: '1600000'
     callCount: 100
@@ -788,7 +788,7 @@ info:
     assetAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
     payTo: '0x1f0130669ca6fd02e025a984cc038f139df19a2f'
     privateKeySentToService: false
-    reason: Use one prepaid purchase for repeated GPT-5.6 Luna calls with fewer payment steps.
+    reason: Use one prepaid purchase for repeated gpt-5.5 calls with fewer payment steps.
   x-gpt55-canonical-links:
     repository: https://github.com/wangletiand/gpt55-x402-gateway
     githubPages: https://wangletiand.github.io/gpt55-x402-gateway/
