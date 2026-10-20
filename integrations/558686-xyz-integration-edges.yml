@@ -1,22 +1,4 @@
 edges:
-- partner_name: OpenAI
-  partner: openai
-  partner_match: domain
-  type: contract
-  channel: provider-built
-  relationship: compatible
-  direction: provider-built
-  evidence: https://github.com/api-evangelist/558686-xyz/blob/main/openapi/558686-xyz-chat-completions-api-openapi.yml#L3
-  contract_reference:
-    repo: 558686-xyz
-    spec_file: 558686-xyz-chat-completions-api-openapi.yml
-    property: description
-    value: OpenAI-compatible
-    note: '558686-xyz declares OpenAI compatibility: ''title: Sub2API OpenAI-compatible Chat API'''
-    detected_by: sweep-model-routing.py
-    detected: '2026-10-15'
-  detected_by: sweep-model-routing.py
-  first_seen: '2026-10-13'
 - partner_name: MCP Registry
   partner: mcp
   partner_match: register
@@ -32,7 +14,7 @@ edges:
     registered_name: xyz.558686.gpt55/token-gateway
     register_id: xyz.558686.gpt55/token-gateway
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   mcp_registry:
     servers:
     - xyz.558686.gpt55/token-gateway
@@ -49,6 +31,24 @@ edges:
   - namespace-domain
   detected_by: sweep-agent-tools.py
   first_seen: '2026-10-14'
+- partner_name: OpenAI
+  partner: openai
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  evidence: https://github.com/api-evangelist/558686-xyz/blob/main/openapi/_superseded/2026-10-19-stale/558686-xyz-chat-completions-api-openapi.yml#L3
+  contract_reference:
+    repo: 558686-xyz
+    spec_file: 558686-xyz-chat-completions-api-openapi.yml
+    property: description
+    value: OpenAI-compatible
+    note: '558686-xyz declares OpenAI compatibility: ''title: Sub2API OpenAI-compatible Chat API'''
+    detected_by: sweep-model-routing.py
+    detected: '2026-10-19'
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
 - partner_name: A2A protocol (own Agent Card)
   partner: null
   partner_match: register
@@ -74,12 +74,12 @@ edges:
     spec_file: null
     standard: A2A
     role: a2a-agent-card
-    registered_name: AI Hub
+    registered_name: GPT55 Model Gateway
     organization: gpt55-token-gateway
     matched_domain: 558686.xyz
     matched_by: own-domain
     detected_by: sweep-ai-agents.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   detected_by: sweep-ai-agents.py
   first_seen: '2026-10-15'
 - partner_name: a2aregistry.org
@@ -115,7 +115,7 @@ edges:
     sample_agents:
     - AI Hub
     detected_by: sweep-ai-agents.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   detected_by: sweep-ai-agents.py
   first_seen: '2026-10-15'
 generated: '2026-10-13'
