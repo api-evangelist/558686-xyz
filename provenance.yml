@@ -30,7 +30,13 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  integrations/558686-xyz-integration-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
+  integrations/_index.yml:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-19T193153.yml:
@@ -61,6 +67,21 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-24T161608.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   lifecycle/558686-xyz-lifecycle.yml:
@@ -96,24 +117,39 @@ artifacts:
   mcp/558686-xyz-tool-crosswalk.yml:
     method: derived
     evidence: declared in the artifact
-  openapi/558686-xyz-api-market-utility-tools-openapi.json:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/558686-xyz-gpt55-model-gateway-openapi.json:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/558686-xyz-sub2api-openapi.json:
-    method: unknown
-    evidence: no authorship recorded
+  openapi/558686-xyz-base-usdc-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/558686-xyz-gpt55-model-gateway-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/558686-xyz-gpt55-retained-high-intent-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/558686-xyz-gpt55-retained-nonmodel-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/558686-xyz-wallet-security-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/558686-xyz-wallet-signing-safety-pack-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/558686-xyz-x402-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/_original/558686-xyz-openapi.json:
+    method: harvested
+    evidence: byte-identical to https://gpt55.558686.xyz/openapi.json (sha256 89d554a31ccd, fetched 2026-10-19)
   overlays/558686-xyz-api-market-utility-tools-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/558686-xyz-gpt55-model-gateway-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/558686-xyz-sub2api-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   packages/558686-xyz-packages.yml:
     method: searched
     evidence: declared in the artifact
